@@ -3,19 +3,36 @@ import com.SecondHandSystem.dao.IBookDAO;
 import com.SecondHandSystem.factory.DAOFactory;
 import com.SecondHandSystem.vo.Book;
 
+import java.util.Date;
+
 public class TestBookDAO {
     public static void main(String[] args) {
-        System.out.println("start test insert...");
         IBookDAO bookDAOProxy;
         Book book=new Book();
+        System.out.println("start test insert...");
         try{
             bookDAOProxy=DAOFactory.getIBookDAOInstance();
             book.setBookID("123456");
+            book.setBookName("gaoentong");
+            book.setBookPrice(12);
+            book.setBookNum(1);
+            book.setDiscount(0);
+            book.setAuthor("hd");
+            book.setBookISBN("2323");
+            book.setDegree("new");
+            book.setBookSurfacePic("hdwidhwidh");
+            book.setBookPublisher("hwudh");
+            book.setBookRealPics(new String[]{"dwjd","gdggd"});
+            book.setBookLabels(new String[]{"english","meth"});
+            book.setShelfTime(new Date());
+            book.setPublicationTime(new Date());
             boolean insert=bookDAOProxy.insert(book);
             System.out.println("insert success");
         }
         catch (Exception ex){
             System.out.println("insert error");
+            System.out.println(ex.toString());
+            ex.printStackTrace();
         }
         System.out.println("start test select...");
         try{
@@ -29,7 +46,7 @@ public class TestBookDAO {
         System.out.println("start test update...");
         try{
             bookDAOProxy=DAOFactory.getIBookDAOInstance();
-            book.setBookName("java");
+            book.setBookPrice(1);
             boolean update=bookDAOProxy.update(book);
             System.out.println("update success");
         }

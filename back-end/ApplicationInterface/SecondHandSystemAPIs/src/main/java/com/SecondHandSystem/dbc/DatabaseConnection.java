@@ -10,7 +10,7 @@ public class DatabaseConnection {
         //2.获取连接
         String url="jdbc:sqlserver://localhost:1433;DatabaseName=secondhandsalesysytem;encrypt=true;trustServerCertificate=true";
         String user="sa";
-        String pass="2003216-Rita";
+        String pass="get5589";
         Connection connection = DriverManager.getConnection(url, user, pass);
         //3.返回连接
         return connection;
