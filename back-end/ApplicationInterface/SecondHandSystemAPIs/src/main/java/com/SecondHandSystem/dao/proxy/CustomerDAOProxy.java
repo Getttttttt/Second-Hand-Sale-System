@@ -49,7 +49,7 @@ public class CustomerDAOProxy implements ICustomerDAO {
     public List<Customer> deleteCustomer(String customerId) throws Exception {
         List<Customer> all = null;
         try{
-            all = this.dao.deleteCustomer(customerId);
+             this.dao.deleteCustomer(customerId);
         }
         catch (Exception e){
             throw e;

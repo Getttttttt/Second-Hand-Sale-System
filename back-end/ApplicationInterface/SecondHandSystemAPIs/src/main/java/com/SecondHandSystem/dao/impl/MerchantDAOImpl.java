@@ -32,7 +32,7 @@ public class MerchantDAOImpl implements IMerchantDAO {
     @Override
     public List<Merchant> searchMerchant(String merchantId,String password) throws Exception {
         List<Merchant> all = new ArrayList<>(); //创建Customer对象列表用于保存从数据库中查询到的信息
-        String sql = "SELECT * FROM 商家 WHERE 商家id="+merchantId+" and 密码="+password;  //定义要实现的SQL语句
+        String sql = "SELECT * FROM 商家 WHERE 商家id='"+merchantId+"' and 密码='"+password+"'";  //定义要实现的SQL语句
         this.prestmt = this.conn.prepareStatement(sql);  //prestmt用于执行sql语句
         ResultSet rs = this.prestmt.executeQuery();  //执行sql语句，将结果赋给ResultSet对象rs
         Merchant merchant = null;
@@ -58,23 +58,23 @@ public class MerchantDAOImpl implements IMerchantDAO {
         prestmt.setString(2,nickname);
         prestmt.setString(3,password);
         prestmt.setString(4,picUrl);
-        ResultSet rs = this.prestmt.executeQuery();  //执行sql语句，将结果赋给ResultSet对象rs
+        this.prestmt.execute();  //执行sql语句，将结果赋给ResultSet对象rs
         return all;
     }
 
     @Override
     public List<Merchant> deleteMerchant(String merchantId) throws Exception {
         List<Merchant> all = new ArrayList<>(); //创建Customer对象列表用于保存从数据库中查询到的信息
-        String sql = "DELETE FROM 商家 WHERE 商家id="+merchantId;  //定义要实现的SQL语句
+        String sql = "DELETE FROM 商家 WHERE 商家id='"+merchantId+"'";  //定义要实现的SQL语句
         this.prestmt = this.conn.prepareStatement(sql);  //prestmt用于执行sql语句
-        ResultSet rs = this.prestmt.executeQuery();  //执行sql语句，将结果赋给ResultSet对象rs
+        this.prestmt.execute();  //执行sql语句，将结果赋给ResultSet对象rs
         return null;
     }
 
     @Override
     public List<Merchant> updateMerchant(String merchantId, String nickname, String password, String truthLevel,int numbOfBookOnsale,int length,String picUrl) throws Exception {
         List<Merchant> all = new ArrayList<>(); //创建Customer对象列表用于保存从数据库中查询到的信息
-        String sql = "UPDATE 商家 SET 昵称=?,登录密码=?,信用等级=?,在售书籍数量=?,开店时长=?,头像=? WHERE 商家id="+merchantId;  //定义要实现的SQL语句
+        String sql = "UPDATE 商家 SET 昵称=?,登录密码=?,信用等级=?,在售书籍数量=?,开店时长=?,头像=? WHERE 商家id='"+merchantId+"'";  //定义要实现的SQL语句
         this.prestmt = this.conn.prepareStatement(sql);  //prestmt用于执行sql语句
         prestmt.setString(1,nickname);
         prestmt.setString(2,password);
@@ -82,13 +82,13 @@ public class MerchantDAOImpl implements IMerchantDAO {
         prestmt.setInt(4,numbOfBookOnsale);
         prestmt.setInt(5,length);
         prestmt.setString(6,picUrl);
-        ResultSet rs = this.prestmt.executeQuery();  //执行sql语句，将结果赋给ResultSet对象rs
+        this.prestmt.execute();  //执行sql语句，将结果赋给ResultSet对象rs
         return null;
     }
 
     @Override
     public String[][] searchBookOnsale(String merchantId) throws Exception {
-        String sql = "SELECT * FROM 售卖书籍 WHERE 商家id="+merchantId;
+        String sql = "SELECT * FROM 售卖书籍 WHERE 商家id='"+merchantId+"'";
         this.prestmt = this.conn.prepareStatement(sql);  //prestmt用于执行sql语句
         ResultSet rs = this.prestmt.executeQuery();
         String[][] bookOnsale = new String[300][2];
@@ -112,23 +112,23 @@ public class MerchantDAOImpl implements IMerchantDAO {
         prestmt.setInt(3,number);
         prestmt.setDate(4, (java.sql.Date) time);
         prestmt.setString(5,newold);
-        ResultSet rs = this.prestmt.executeQuery();
+        this.prestmt.execute();
         return searchBookOnsale(merchantId);
     }
 
     @Override
     public String[][] updateBookOnsale(String merchantId, String bookId, int number, Date time, String newold) throws Exception {
-        String sql = "UPDATE 售卖书籍 SET 库存数量="+number+" and 上架时间="+time+" and 新旧程度="+newold+"WHERE 商品id="+bookId+" and 商家id="+merchantId;
+        String sql = "UPDATE 售卖书籍 SET 库存数量='"+number+"' and 上架时间='"+time+"' and 新旧程度='"+newold+"'WHERE 商品id='"+bookId+"' and 商家id='"+merchantId+"'";
         this.prestmt = this.conn.prepareStatement(sql);  //prestmt用于执行sql语句
-        ResultSet rs = this.prestmt.executeQuery();
+        this.prestmt.execute();
         return searchBookOnsale(merchantId);
     }
 
     @Override
     public String[][] deleteBookOnsale(String merchantId, String bookId) throws Exception {
-        String sql = "DELETE FROM 售卖书籍 WHERE 商家id="+merchantId+" and 商品id="+bookId;
+        String sql = "DELETE FROM 售卖书籍 WHERE 商家id='"+merchantId+"'' and 商品id='"+bookId+"'";
         this.prestmt = this.conn.prepareStatement(sql);  //prestmt用于执行sql语句
-        ResultSet rs = this.prestmt.executeQuery();
+        this.prestmt.execute();
         return new String[0][];
     }
 
