@@ -8,9 +8,9 @@ public class DatabaseConnection {
         //1.注册驱动
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         //2.获取连接
-        String url="jdbc:sqlserver://localhost:1433;DatabaseName=Week15_Product;encrypt=true;trustServerCertificate=true";
+        String url="jdbc:sqlserver://localhost:1433;DatabaseName=secondhandsalesysytem;encrypt=true;trustServerCertificate=true";
         String user="sa";
-        String pass="2003216-Rita";
+        String pass="123321";
         Connection connection = DriverManager.getConnection(url, user, pass);
         //3.返回连接
         return connection;
