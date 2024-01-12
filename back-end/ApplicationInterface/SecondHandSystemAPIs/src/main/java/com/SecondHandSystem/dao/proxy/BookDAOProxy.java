@@ -1,12 +1,13 @@
 package com.SecondHandSystem.dao.proxy;
 
+import com.SecondHandSystem.dao.IBookDAO;
 import com.SecondHandSystem.dao.impl.BookDAOImpl;
 import com.SecondHandSystem.dbc.DatabaseConnection;
 import com.SecondHandSystem.vo.Book;
 
 import java.util.ArrayList;
 
-public class BookDAOProxy {
+public class BookDAOProxy implements IBookDAO {
     private BookDAOImpl dao;
 
     public BookDAOProxy() throws Exception{

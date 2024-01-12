@@ -18,6 +18,14 @@ public class CommunicationDAOImpl implements ICommunicationDAO {
         this.conn = conn;
     }
 
+    //getter
+    public Connection getConn() {
+        return conn;
+    }
+    public PreparedStatement getPrestmt() {
+        return prestmt;
+    }
+
     //实现ICustomerDAO的方法
     @Override
     public String[][] searchCommunication(String merchantId, String customerId) throws Exception {

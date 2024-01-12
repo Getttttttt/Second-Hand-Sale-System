@@ -3,7 +3,6 @@ package com.SecondHandSystem.dbc;
 import java.sql.*;
 
 public class DatabaseConnection {
-
     //数据域：数据库连接相关的信息
     private static final String DBDRIVER="com.microsoft.sqlserver.jdbc.SQLServerDriver";
     private static final String DBURL="jdbc:sqlserver://localhost:1433;DatabaseName=secondhandsalesystem;encrypt=true;trustServerCertificate=true";
