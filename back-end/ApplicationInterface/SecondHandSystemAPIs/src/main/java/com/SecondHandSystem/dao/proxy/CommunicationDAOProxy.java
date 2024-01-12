@@ -7,11 +7,9 @@ import com.SecondHandSystem.dbc.DatabaseConnection;
 import java.util.Date;
 
 public class CommunicationDAOProxy implements ICommunicationDAO {
-    private DatabaseConnection dbc=null;
     private ICommunicationDAO dao=null;  //创建声明类型为ICommunicationDAO对象dao
     public CommunicationDAOProxy() throws Exception{
-        this.dbc = new DatabaseConnection();  //创建DatabaseConnection对象dbc
-        this.dao = new CommunicationDAOImpl(this.dbc.getConnection());  //创建CommunicationDAOImpl的实例dao，与数据库建立连接
+        this.dao = new CommunicationDAOImpl(DatabaseConnection.getConnection());  //创建CommunicationDAOImpl的实例dao，与数据库建立连接
     }
 
     @Override
@@ -24,7 +22,7 @@ public class CommunicationDAOProxy implements ICommunicationDAO {
             throw e;
         }
         finally{
-            this.dbc.close();
+            DatabaseConnection.release(((CommunicationDAOImpl)dao).getStat(),((CommunicationDAOImpl)dao).getConn());
         }
         return communication;
     }
@@ -39,7 +37,7 @@ public class CommunicationDAOProxy implements ICommunicationDAO {
             throw e;
         }
         finally{
-            this.dbc.close();
+            DatabaseConnection.release(((CommunicationDAOImpl)dao).getStat(),((CommunicationDAOImpl)dao).getConn());
         }
         return communication;
     }

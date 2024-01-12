@@ -3,15 +3,14 @@ package com.SecondHandSystem.dbc;
 import java.sql.*;
 
 public class DatabaseConnection {
-
     //获取连接
     public static Connection getConnection() throws ClassNotFoundException, SQLException {
         //1.注册驱动
-        Class.forName("com.mysql.jdbc.Driver");
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         //2.获取连接
-        String url="jdbc:mysql://localhost:3306/jdbc?serverTimezone=GMT%2B8";
-        String user="root";
-        String pass="123456";
+        String url="jdbc:sqlserver://localhost:1433;DatabaseName=Week15_Product;encrypt=true;trustServerCertificate=true";
+        String user="sa";
+        String pass="2003216-Rita";
         Connection connection = DriverManager.getConnection(url, user, pass);
         //3.返回连接
         return connection;

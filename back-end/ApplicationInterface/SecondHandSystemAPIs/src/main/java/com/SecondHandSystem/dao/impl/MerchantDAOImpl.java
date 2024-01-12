@@ -20,6 +20,14 @@ public class MerchantDAOImpl implements IMerchantDAO {
         super();
         this.conn = conn;
     }
+    //getter
+    public Connection getConn() {
+        return conn;
+    }
+    public PreparedStatement getStat() {
+        return prestmt;
+    }
+
     //实现IMerchantDAO的方法
     @Override
     public List<Merchant> searchMerchant(String merchantId,String password) throws Exception {
