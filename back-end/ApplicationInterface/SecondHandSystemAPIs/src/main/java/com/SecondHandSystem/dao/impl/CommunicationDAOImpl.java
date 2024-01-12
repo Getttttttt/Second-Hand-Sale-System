@@ -1,16 +1,13 @@
 package com.SecondHandSystem.dao.impl;
 
-import com.SecondHandSystem.dao.ICommunication;
-import com.SecondHandSystem.vo.Communication;
-import com.SecondHandSystem.vo.Customer;
+import com.SecondHandSystem.dao.ICommunicationDAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Date;
-import java.util.List;
 
-public class CommunicationDAOImpl implements ICommunication {
+public class CommunicationDAOImpl implements ICommunicationDAO {
     //实现数据库查询操作
     private Connection conn = null;  //创建与数据库连接的Connection对象
     private PreparedStatement prestmt = null;  //创建执行sql语句的PreparedStatement对象
