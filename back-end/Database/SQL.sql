@@ -1,15 +1,19 @@
 CREATE DATABASE secondhandsalesysytem ON
 (
 NAME = secondhandsalesystem,
-FILENAME = 'D:\javaweb\SecondhandSaleSystem\back-end\secondhandsalesystem.mdf',
+FILENAME = 'D:\Project\SecondHandSystem\SecondHandDatabase\secondhandsalesystem.mdf',
 SIZE = 100MB, MAXSIZE = UNLIMITED, FILEGROWTH = 10MB
 )
 LOG ON
 (
 NAME = secondhandsalesystemlog,
-FILENAME = 'D:\javaweb\SecondhandSaleSystem\back-end\secondhandsalesystemlog.mdf',
+FILENAME = 'D:\Project\SecondHandSystem\SecondHandDatabase\secondhandsalesystemlog.ldf',
 SIZE = 100MB, MAXSIZE = UNLIMITED, FILEGROWTH = 10MB
 )
+
+use secondhandsalesysytem
+GO
+
 
 CREATE TABLE [订单] (
   [用户ID] char(10) NOT NULL,
