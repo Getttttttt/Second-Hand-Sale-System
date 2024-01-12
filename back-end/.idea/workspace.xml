@@ -30,6 +30,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -49,11 +50,16 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="D:/java/jdk1.8.0_181" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/test" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.updates" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\dell\Second-Hand-Sale-System\back-end\ApplicationInterface\SecondHandSystemAPIs\src\main\java\com\SecondHandSystem\test" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -153,7 +159,7 @@
       <option name="presentableId" value="Default" />
       <updated>1705026438213</updated>
       <workItem from="1705026439460" duration="2239000" />
-      <workItem from="1705036925036" duration="4556000" />
+      <workItem from="1705036925036" duration="24227000" />
     </task>
     <servers />
   </component>
