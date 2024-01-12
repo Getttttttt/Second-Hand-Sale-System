@@ -39,7 +39,7 @@ public class CustomerDAOImpl implements ICustomerDAO {
             customer.setCustomerId(rs.getString(1));
             customer.setNickname(rs.getString(2));
             customer.setPassword(rs.getString(3));
-            customer.setPhoneNumber(rs.getInt(4));
+            customer.setPhoneNumber(rs.getString(4));
             customer.setAddress(rs.getString(5));
             customer.setPicUrl(rs.getString(6));
             customer.setBookBucket(searchBookBucket(rs.getString(1)));
@@ -49,14 +49,14 @@ public class CustomerDAOImpl implements ICustomerDAO {
     }
 
     @Override
-    public List<Customer> insertCustomer(String customerId, String nickname, String password, int phoneNumber, String address, String picUrl) throws Exception {
+    public List<Customer> insertCustomer(String customerId, String nickname, String password, String phoneNumber, String address, String picUrl) throws Exception {
         List<Customer> all = new ArrayList<>(); //创建Customer对象列表用于保存从数据库中查询到的信息
         String sql = "INSERT INTO 用户(用户id,昵称,登录密码,手机号,收货地址,头像) VALUES (?,?,?,?,?,?)";  //定义要实现的SQL语句
         this.prestmt = this.conn.prepareStatement(sql);  //prestmt用于执行sql语句
         prestmt.setString(1,customerId);
         prestmt.setString(2,nickname);
         prestmt.setString(3,password);
-        prestmt.setInt(4,phoneNumber);
+        prestmt.setString(4,phoneNumber);
         prestmt.setString(5,address);
         prestmt.setString(6,picUrl);
         ResultSet rs = this.prestmt.executeQuery();  //执行sql语句，将结果赋给ResultSet对象rs
@@ -73,13 +73,13 @@ public class CustomerDAOImpl implements ICustomerDAO {
     }
 
     @Override
-    public List<Customer> updateCustomer(String customerId, String nickname, String password, int phoneNumber, String address, String picUrl) throws Exception {
+    public List<Customer> updateCustomer(String customerId, String nickname, String password, String phoneNumber, String address, String picUrl) throws Exception {
         List<Customer> all = new ArrayList<>(); //创建Customer对象列表用于保存从数据库中查询到的信息
         String sql = "UPDATE 用户 SET 昵称=?,登录密码=?,手机号=?,收货地址=?,头像=? WHERE 用户id="+customerId;  //定义要实现的SQL语句
         this.prestmt = this.conn.prepareStatement(sql);  //prestmt用于执行sql语句
         prestmt.setString(1,nickname);
         prestmt.setString(2,password);
-        prestmt.setInt(3,phoneNumber);
+        prestmt.setString(3,phoneNumber);
         prestmt.setString(4,address);
         prestmt.setString(5,picUrl);
         ResultSet rs = this.prestmt.executeQuery();  //执行sql语句，将结果赋给ResultSet对象rs

@@ -1,8 +1,6 @@
 package com.SecondHandSystem.dao;
 
-import com.SecondHandSystem.vo.Customer;
 import com.SecondHandSystem.vo.Merchant;
-import jdk.tools.jlink.internal.plugins.ExcludeFilesPlugin;
 
 import java.util.Date;
 import java.util.List;

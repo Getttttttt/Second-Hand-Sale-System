@@ -23,6 +23,11 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>com.microsoft.sqlserver</groupId>
+      <artifactId>mssql-jdbc</artifactId>
+      <version>7.4.1.jre8</version>
+    </dependency>
   </dependencies>
   <build>
     <finalName>SecondHandSystemAPIs</finalName>

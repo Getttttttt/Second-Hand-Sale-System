@@ -15,7 +15,7 @@ public class TestBookDAO {
             System.out.println("insert success");
         }
         catch (Exception ex){
-            System.out.println("delete error");
+            System.out.println("insert error");
         }
         System.out.println("start test select...");
         try{
