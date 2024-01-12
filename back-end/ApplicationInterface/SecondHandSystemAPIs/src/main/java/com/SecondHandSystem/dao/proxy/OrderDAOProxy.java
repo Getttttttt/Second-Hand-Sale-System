@@ -8,7 +8,7 @@ import com.SecondHandSystem.vo.Order;
 import java.util.ArrayList;
 
 public class OrderDAOProxy implements IOrderDAO {
-    private OrderDAOImpl dao;
+    private IOrderDAO dao;
 
     public OrderDAOProxy() throws Exception{
         this.dao=new OrderDAOImpl(DatabaseConnection.getConnection());
@@ -21,7 +21,7 @@ public class OrderDAOProxy implements IOrderDAO {
         }catch (Exception e) {
             throw(e);
         }finally{
-            DatabaseConnection.release(dao.getStat(),dao.getConn());
+            DatabaseConnection.release(((OrderDAOImpl)dao).getStat(),((OrderDAOImpl)dao).getConn());
         }
         return flag;
     }
@@ -33,7 +33,7 @@ public class OrderDAOProxy implements IOrderDAO {
         } catch (Exception e) {
             throw(e);
         }finally{
-            DatabaseConnection.release(dao.getRs(),dao.getStat(),dao.getConn());
+            DatabaseConnection.release(((OrderDAOImpl)dao).getRs(),((OrderDAOImpl)dao).getStat(),((OrderDAOImpl)dao).getConn());
         }
     }
 
@@ -44,7 +44,7 @@ public class OrderDAOProxy implements IOrderDAO {
         } catch (Exception e) {
             throw(e);
         }finally{
-            DatabaseConnection.release(dao.getRs(),dao.getStat(),dao.getConn());
+            DatabaseConnection.release(((OrderDAOImpl)dao).getRs(),((OrderDAOImpl)dao).getStat(),((OrderDAOImpl)dao).getConn());
         }
     }
 
@@ -55,7 +55,7 @@ public class OrderDAOProxy implements IOrderDAO {
         } catch (Exception e) {
             throw(e);
         }finally{
-            DatabaseConnection.release(dao.getRs(),dao.getStat(),dao.getConn());
+            DatabaseConnection.release(((OrderDAOImpl)dao).getRs(),((OrderDAOImpl)dao).getStat(),((OrderDAOImpl)dao).getConn());
         }
     }
 
@@ -68,7 +68,7 @@ public class OrderDAOProxy implements IOrderDAO {
             throw(e);
         }
         finally{
-            DatabaseConnection.release(dao.getStat(),dao.getConn());
+            DatabaseConnection.release(((OrderDAOImpl)dao).getStat(),((OrderDAOImpl)dao).getConn());
         }
         return flag;
     }
@@ -82,7 +82,7 @@ public class OrderDAOProxy implements IOrderDAO {
             throw(e);
         }
         finally{
-            DatabaseConnection.release(dao.getStat(),dao.getConn());
+            DatabaseConnection.release(((OrderDAOImpl)dao).getStat(),((OrderDAOImpl)dao).getConn());
         }
         return flag;
     }
@@ -95,7 +95,7 @@ public class OrderDAOProxy implements IOrderDAO {
         } catch (Exception e) {
             throw(e);
         }finally{
-            DatabaseConnection.release(dao.getStat(),dao.getConn());
+            DatabaseConnection.release(((OrderDAOImpl)dao).getStat(),((OrderDAOImpl)dao).getConn());
         }
         return list;
     }

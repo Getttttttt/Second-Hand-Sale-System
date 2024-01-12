@@ -8,7 +8,7 @@ import com.SecondHandSystem.vo.Book;
 import java.util.ArrayList;
 
 public class BookDAOProxy implements IBookDAO {
-    private BookDAOImpl dao;
+    private IBookDAO dao;
 
     public BookDAOProxy() throws Exception{
         this.dao=new BookDAOImpl(DatabaseConnection.getConnection());
@@ -21,7 +21,7 @@ public class BookDAOProxy implements IBookDAO {
         }catch (Exception e) {
             throw(e);
         }finally{
-            DatabaseConnection.release(dao.getStat(),dao.getConn());
+            DatabaseConnection.release(((BookDAOImpl)dao).getStat(),((BookDAOImpl)dao).getConn());
         }
         return flag;
     }
@@ -32,7 +32,7 @@ public class BookDAOProxy implements IBookDAO {
         } catch (Exception e) {
             throw(e);
         }finally{
-            DatabaseConnection.release(dao.getRs(),dao.getStat(),dao.getConn());
+            DatabaseConnection.release(((BookDAOImpl)dao).getRs(),((BookDAOImpl)dao).getStat(),((BookDAOImpl)dao).getConn());
         }
     }
     //3.修改商品
@@ -44,7 +44,7 @@ public class BookDAOProxy implements IBookDAO {
             throw(e);
         }
         finally{
-            DatabaseConnection.release(dao.getStat(),dao.getConn());
+            DatabaseConnection.release(((BookDAOImpl)dao).getStat(),((BookDAOImpl)dao).getConn());
         }
         return flag;
     }
@@ -57,7 +57,7 @@ public class BookDAOProxy implements IBookDAO {
             throw(e);
         }
         finally{
-            DatabaseConnection.release(dao.getStat(),dao.getConn());
+            DatabaseConnection.release(((BookDAOImpl)dao).getStat(),((BookDAOImpl)dao).getConn());
         }
         return flag;
     }
@@ -69,7 +69,7 @@ public class BookDAOProxy implements IBookDAO {
         } catch (Exception e) {
             throw(e);
         }finally{
-            DatabaseConnection.release(dao.getStat(),dao.getConn());
+            DatabaseConnection.release(((BookDAOImpl)dao).getStat(),((BookDAOImpl)dao).getConn());
         }
         return list;
     }
