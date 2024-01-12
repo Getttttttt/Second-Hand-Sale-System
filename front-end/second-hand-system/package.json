@@ -6,6 +6,7 @@
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@fontsource/roboto": "^5.0.8",
+    "@mui/icons-material": "^5.15.4",
     "@mui/material": "^5.15.4",
     "@mui/styled-engine-sc": "^6.0.0-alpha.12",
     "@testing-library/jest-dom": "^5.17.0",
@@ -15,6 +16,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.21.2",
     "react-scripts": "5.0.1",
+    "redux": "^4.2.1",
     "styled-components": "^6.1.8",
     "web-vitals": "^2.1.4"
   },
