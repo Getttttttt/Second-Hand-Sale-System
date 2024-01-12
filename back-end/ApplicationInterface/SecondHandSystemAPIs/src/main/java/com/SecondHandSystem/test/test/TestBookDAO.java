@@ -31,6 +31,8 @@ public class TestBookDAO {
         }
         catch (Exception ex){
             System.out.println("insert error");
+            System.out.println(ex.toString());
+            ex.printStackTrace();
         }
         System.out.println("start test select...");
         try{
