@@ -77,7 +77,7 @@ public class OrderDAOImpl implements IOrderDAO {
     @Override
     public ArrayList<Order> selectByMerchant(String merchantID) throws Exception {
         ArrayList<Order> list=new ArrayList<>();
-        String sql="select * from 订单 where 商家ID = "+merchantID;
+        String sql="select * from 订单 where 商品ID in (select 商品id from 售卖书籍 where 商家id = '"+merchantID+"');";
         rs= stat.executeQuery(sql);
         while(rs.next()) {
             list.add(selectByOrder(rs.getString("订单ID")));

@@ -12,7 +12,7 @@ public class TestBookDAO {
         System.out.println("start test insert...");
         try{
             bookDAOProxy=DAOFactory.getIBookDAOInstance();
-            book.setBookID("123456");
+            book.setBookID("123456789");
             book.setBookName("gaoentong");
             book.setBookPrice(12);
             book.setBookNum(1);

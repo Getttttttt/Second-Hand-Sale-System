@@ -37,10 +37,10 @@ public class BookDAOImpl implements IBookDAO {
         String sql="insert into 图书(商品ID,商品名称,商品价格,商品折扣,库存数量,作者名称,ISBN,出版社,出版时间,商品封面,新旧程度,上架时间) values('"+
                 book.getBookID()+"','"+ book.getBookName()+"',"+ book.getBookPrice()+","+ book.getDiscount()+","+ book.getBookNum() +",'"+book.getAuthor()+"','"+book.getBookISBN()+"','"+book.getBookPublisher()+"','"+publicationTime+"','"+book.getBookSurfacePic()+"','"+book.getDegree()+"','"+shelfTime+"');";
         for(String pic:book.getBookRealPics()){
-            sql+="insert into 图书示例图片(商品ID,商品图片展示URL) values ('"+book.getBookID()+"',"+pic+");";
+            sql+="insert into 图书示例图片(商品ID,商品图片展示URL) values ('"+book.getBookID()+"','"+pic+"');";
         }
         for(String label:book.getBookLabels() ){
-            sql+="insert into 图书分类(商品ID,分类类型) values ('"+book.getBookID()+"',"+label+");";
+            sql+="insert into 图书分类(商品ID,分类类型) values ('"+book.getBookID()+"','"+label+"');";
         }
         i = stat.executeUpdate(sql);
         //获取结果返回结果
@@ -58,14 +58,14 @@ public class BookDAOImpl implements IBookDAO {
         while(rs.next()){
             labels.add(rs.getString("分类类型"));
         }
-        String[] strLabels= (String[]) labels.toArray();
+        String[] strLabels= labels.toArray(new String[labels.size()]);
         String sqlPictures="select * from 图书示例图片 where 商品ID = "+bookID;
         rs= stat.executeQuery(sqlPictures);
         ArrayList<String> pictures=new ArrayList<>();
         while(rs.next()){
             pictures.add(rs.getString("分类类型"));
         }
-        String[] strPictures= (String[]) pictures.toArray();
+        String[] strPictures= pictures.toArray(new String[pictures.size()]);
         String sql="select * from 图书 where 商品ID = "+bookID;
         rs= stat.executeQuery(sql);
         Book book=new Book();
@@ -90,13 +90,13 @@ public class BookDAOImpl implements IBookDAO {
 
     @Override
     public boolean update(Book book) throws Exception {
-        String sql="delete from 图书分类 where 商品ID = "+book.getBookID()+";";
-        sql+="delete from 图书示例图片 where 商品ID = "+book.getBookID()+";";
+        String sql="delete from 图书分类 where 商品ID = '"+book.getBookID()+"';";
+        sql+="delete from 图书示例图片 where 商品ID = '"+book.getBookID()+"';";
         for(String pic:book.getBookRealPics()){
-            sql+="insert into 图书示例图片(商品ID,商品图片展示URL) values ('"+book.getBookID()+"',"+pic+");";
+            sql+="insert into 图书示例图片(商品ID,商品图片展示URL) values ('"+book.getBookID()+"','"+pic+"');";
         }
         for(String label:book.getBookLabels() ){
-            sql+="insert into 图书分类(商品ID,分类类型) values ('"+book.getBookID()+"',"+label+");";
+            sql+="insert into 图书分类(商品ID,分类类型) values ('"+book.getBookID()+"','"+label+"');";
         }
         stat.executeUpdate(sql);
         int i=0;
