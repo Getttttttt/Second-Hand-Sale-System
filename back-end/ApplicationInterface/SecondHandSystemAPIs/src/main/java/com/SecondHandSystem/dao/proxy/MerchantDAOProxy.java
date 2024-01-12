@@ -1,6 +1,7 @@
 package com.SecondHandSystem.dao.proxy;
 
 import com.SecondHandSystem.dao.IMerchantDAO;
+import com.SecondHandSystem.dao.impl.CustomerDAOImpl;
 import com.SecondHandSystem.dao.impl.MerchantDAOImpl;
 import com.SecondHandSystem.dbc.DatabaseConnection;
 import com.SecondHandSystem.vo.Customer;
@@ -10,11 +11,9 @@ import java.util.Date;
 import java.util.List;
 
 public class MerchantDAOProxy implements IMerchantDAO{
-    private DatabaseConnection dbc=null;
     private IMerchantDAO dao=null;  //创建声明类型为IMerchantDAO对象dao
     public MerchantDAOProxy() throws Exception{
-        this.dbc = new DatabaseConnection();  //创建DatabaseConnection对象dbc
-        this.dao = new MerchantDAOImpl(this.dbc.getConnection());  //创建MerchantDAOImpl的实例dao，与数据库建立连接
+        this.dao = new MerchantDAOImpl(DatabaseConnection.getConnection());  //创建MerchantDAOImpl的实例dao，与数据库建立连接
     }
 
     @Override
@@ -27,7 +26,7 @@ public class MerchantDAOProxy implements IMerchantDAO{
             throw e;
         }
         finally{
-            this.dbc.close();
+            DatabaseConnection.release(((MerchantDAOImpl)dao).getStat(),((MerchantDAOImpl)dao).getConn());
         }
         return all;
     }
@@ -42,7 +41,7 @@ public class MerchantDAOProxy implements IMerchantDAO{
             throw e;
         }
         finally{
-            this.dbc.close();
+            DatabaseConnection.release(((MerchantDAOImpl)dao).getStat(),((MerchantDAOImpl)dao).getConn());
         }
         return all;
     }
@@ -57,7 +56,7 @@ public class MerchantDAOProxy implements IMerchantDAO{
             throw e;
         }
         finally{
-            this.dbc.close();
+            DatabaseConnection.release(((MerchantDAOImpl)dao).getStat(),((MerchantDAOImpl)dao).getConn());
         }
         return all;
     }
@@ -77,7 +76,7 @@ public class MerchantDAOProxy implements IMerchantDAO{
             throw e;
         }
         finally{
-            this.dbc.close();
+            DatabaseConnection.release(((MerchantDAOImpl)dao).getStat(),((MerchantDAOImpl)dao).getConn());
         }
         return bookOnsale;
     }
@@ -92,7 +91,7 @@ public class MerchantDAOProxy implements IMerchantDAO{
             throw e;
         }
         finally{
-            this.dbc.close();
+            DatabaseConnection.release(((MerchantDAOImpl)dao).getStat(),((MerchantDAOImpl)dao).getConn());
         }
         return bookOnsale;
     }
@@ -107,7 +106,7 @@ public class MerchantDAOProxy implements IMerchantDAO{
             throw e;
         }
         finally{
-            this.dbc.close();
+            DatabaseConnection.release(((MerchantDAOImpl)dao).getStat(),((MerchantDAOImpl)dao).getConn());
         }
         return bookOnsale;
     }
@@ -122,7 +121,7 @@ public class MerchantDAOProxy implements IMerchantDAO{
             throw e;
         }
         finally{
-            this.dbc.close();
+            DatabaseConnection.release(((MerchantDAOImpl)dao).getStat(),((MerchantDAOImpl)dao).getConn());
         }
         return bookOnsale;
     }

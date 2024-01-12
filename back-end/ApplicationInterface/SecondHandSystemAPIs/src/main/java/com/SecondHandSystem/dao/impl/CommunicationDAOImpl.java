@@ -22,7 +22,7 @@ public class CommunicationDAOImpl implements ICommunicationDAO {
     public Connection getConn() {
         return conn;
     }
-    public PreparedStatement getPrestmt() {
+    public PreparedStatement getStat() {
         return prestmt;
     }
 

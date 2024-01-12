@@ -1,10 +1,7 @@
 package com.SecondHandSystem.factory;
 
 import com.SecondHandSystem.dao.*;
-import com.SecondHandSystem.dao.proxy.BookDAOProxy;
-import com.SecondHandSystem.dao.proxy.CommunicationDAOProxy;
-import com.SecondHandSystem.dao.proxy.CustomerDAOProxy;
-import com.SecondHandSystem.dao.proxy.MerchantDAOProxy;
+import com.SecondHandSystem.dao.proxy.*;
 
 public class DAOFactory {
     public static ICustomerDAO getICustomerDAOInstance()throws Exception{

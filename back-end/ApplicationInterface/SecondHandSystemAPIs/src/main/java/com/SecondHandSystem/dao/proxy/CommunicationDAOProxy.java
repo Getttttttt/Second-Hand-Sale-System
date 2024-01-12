@@ -22,7 +22,7 @@ public class CommunicationDAOProxy implements ICommunicationDAO {
             throw e;
         }
         finally{
-            DatabaseConnection.release(dao.getStat(),dao.getConn());
+            DatabaseConnection.release(((CommunicationDAOImpl)dao).getStat(),((CommunicationDAOImpl)dao).getConn());
         }
         return communication;
     }
@@ -37,7 +37,7 @@ public class CommunicationDAOProxy implements ICommunicationDAO {
             throw e;
         }
         finally{
-            this.dbc.close();
+            DatabaseConnection.release(((CommunicationDAOImpl)dao).getStat(),((CommunicationDAOImpl)dao).getConn());
         }
         return communication;
     }

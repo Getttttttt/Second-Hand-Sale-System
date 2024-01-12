@@ -18,6 +18,14 @@ public class CustomerDAOImpl implements ICustomerDAO {
         super();
         this.conn = conn;
     }
+    //getter
+    public Connection getConn() {
+        return conn;
+    }
+    public PreparedStatement getStat() {
+        return prestmt;
+    }
+
     //实现ICustomerDAO的方法
     @Override
     public List<Customer> searchCustomer(String customerId,String password)throws Exception{

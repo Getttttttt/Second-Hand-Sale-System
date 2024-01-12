@@ -1,6 +1,7 @@
 package com.SecondHandSystem.dao.proxy;
 
 import com.SecondHandSystem.dao.ICustomerDAO;
+import com.SecondHandSystem.dao.impl.CommunicationDAOImpl;
 import com.SecondHandSystem.dao.impl.CustomerDAOImpl;
 import com.SecondHandSystem.dbc.DatabaseConnection;
 import com.SecondHandSystem.vo.Customer;
@@ -8,11 +9,9 @@ import com.SecondHandSystem.vo.Customer;
 import java.util.List;
 
 public class CustomerDAOProxy implements ICustomerDAO {
-    private DatabaseConnection dbc=null;
     private ICustomerDAO dao=null;  //创建声明类型为ICommunicationDAO对象dao
     public CustomerDAOProxy() throws Exception{
-        this.dbc = new DatabaseConnection();  //创建DatabaseConnection对象dbc
-        this.dao = new CustomerDAOImpl(this.dbc.getConnection());  //创建ProductDAOImpl的实例dao，与数据库建立连接
+        this.dao = new CustomerDAOImpl(DatabaseConnection.getConnection());  //创建ProductDAOImpl的实例dao，与数据库建立连接
     }
 
     //实现ICustomerDAO接口的方法
@@ -26,7 +25,7 @@ public class CustomerDAOProxy implements ICustomerDAO {
             throw e;
         }
         finally{
-            this.dbc.close();
+            DatabaseConnection.release(((CustomerDAOImpl)dao).getStat(),((CustomerDAOImpl)dao).getConn());
         }
         return all;
     }
@@ -41,7 +40,7 @@ public class CustomerDAOProxy implements ICustomerDAO {
             throw e;
         }
         finally{
-            this.dbc.close();
+            DatabaseConnection.release(((CustomerDAOImpl)dao).getStat(),((CustomerDAOImpl)dao).getConn());
         }
         return all;
     }
@@ -56,7 +55,7 @@ public class CustomerDAOProxy implements ICustomerDAO {
             throw e;
         }
         finally{
-            this.dbc.close();
+            DatabaseConnection.release(((CustomerDAOImpl)dao).getStat(),((CustomerDAOImpl)dao).getConn());
         }
         return all;
     }
@@ -71,7 +70,7 @@ public class CustomerDAOProxy implements ICustomerDAO {
             throw e;
         }
         finally{
-            this.dbc.close();
+            DatabaseConnection.release(((CustomerDAOImpl)dao).getStat(),((CustomerDAOImpl)dao).getConn());
         }
         return all;
     }
@@ -86,7 +85,7 @@ public class CustomerDAOProxy implements ICustomerDAO {
             throw e;
         }
         finally{
-            this.dbc.close();
+            DatabaseConnection.release(((CustomerDAOImpl)dao).getStat(),((CustomerDAOImpl)dao).getConn());
         }
         return bookBuckets;
     }
@@ -101,7 +100,7 @@ public class CustomerDAOProxy implements ICustomerDAO {
             throw e;
         }
         finally{
-            this.dbc.close();
+            DatabaseConnection.release(((CustomerDAOImpl)dao).getStat(),((CustomerDAOImpl)dao).getConn());
         }
         return bookBuckets;
     }
@@ -116,7 +115,7 @@ public class CustomerDAOProxy implements ICustomerDAO {
             throw e;
         }
         finally{
-            this.dbc.close();
+            DatabaseConnection.release(((CustomerDAOImpl)dao).getStat(),((CustomerDAOImpl)dao).getConn());
         }
         return bookBuckets;
     }
@@ -131,7 +130,7 @@ public class CustomerDAOProxy implements ICustomerDAO {
             throw e;
         }
         finally{
-            this.dbc.close();
+            DatabaseConnection.release(((CustomerDAOImpl)dao).getStat(),((CustomerDAOImpl)dao).getConn());
         }
         return bookBuckets;
     }
