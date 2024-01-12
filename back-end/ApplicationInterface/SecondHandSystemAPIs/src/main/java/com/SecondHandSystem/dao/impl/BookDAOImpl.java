@@ -128,9 +128,9 @@ public class BookDAOImpl implements IBookDAO {
     public boolean delete(String bookID) throws Exception {
         int i=0;
         //执行sql
-        String sql="delete from 图书 where 商品ID = "+bookID+";";
-        sql+="delete from 图书分类 where 商品ID = "+bookID+";";
-        sql+="delete from 图书示例图片 where 商品ID = "+bookID+";";
+        String sql="delete from 图书 where 商品ID = '"+bookID+"';";
+        sql+="delete from 图书分类 where 商品ID = '"+bookID+"';";
+        sql+="delete from 图书示例图片 where 商品ID = '"+bookID+"';";
         i = stat.executeUpdate(sql);
         if(i>0){
             return true;
