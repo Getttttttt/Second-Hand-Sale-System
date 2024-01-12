@@ -7,7 +7,7 @@ public class Communication {
     private String customerId;
     private String merchantId;
     private Date communicationTime;
-    private String content;
+    private String[][] content = new String[300][3];
     //getter和setter
     public String getCustomerId() {
         return customerId;
@@ -33,11 +33,11 @@ public class Communication {
         this.communicationTime = communicationTime;
     }
 
-    public String getContent() {
+    public String[][] getContent() {
         return content;
     }
 
-    public void setContent(String content) {
+    public void setContent(String[][] content) {
         this.content = content;
     }
 

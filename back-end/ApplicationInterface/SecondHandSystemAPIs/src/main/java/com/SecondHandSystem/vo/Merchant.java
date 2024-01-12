@@ -6,7 +6,7 @@ public class Merchant {
     private String nickname;
     private String password;
     private String trustLevel;
-    private String[] booksOnsale;
+    private int booksOnsale;
     private int length;
     private String picUrl;
     //getter和setter
@@ -18,8 +18,8 @@ public class Merchant {
     public void setPassword(String password){this.password = password;}
     public String getTrustLevel(){return trustLevel;}
     public void setTrustLevel(String trustLevel){this.trustLevel = trustLevel;}
-    public String[] getNumOfBooksOnsale(){return booksOnsale;}
-    public void setBooksOnsale(String[] booksOnsale){this.booksOnsale = booksOnsale;}
+    public int getNumOfBooksOnsale(){return booksOnsale;}
+    public void setBooksOnsale(int booksOnsale){this.booksOnsale = booksOnsale;}
     public int getLength(){return length;}
     public void setLength(int length){this.length = length;}
     public String getPicUrl(){return picUrl;}
