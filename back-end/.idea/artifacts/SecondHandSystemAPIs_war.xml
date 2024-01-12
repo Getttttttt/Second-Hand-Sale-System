@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="SecondHandSystemAPIs:war">
+    <output-path>$PROJECT_DIR$/ApplicationInterface/SecondHandSystemAPIs/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>SecondHandSystemAPIs</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="SecondHandSystemAPIs.war">
+      <element id="artifact" artifact-name="SecondHandSystemAPIs:war exploded" />
+    </root>
+  </artifact>
+</component>
