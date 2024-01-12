@@ -1,13 +1,13 @@
 package com.SecondHandSystem.dao.impl;
-
+import com.SecondHandSystem.dao.IBookDAO;
 import com.SecondHandSystem.vo.Book;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public class BookDAOImpl {
+public class BookDAOImpl implements IBookDAO {
     private Connection conn;
     private Statement stat;
     private ResultSet rs;
@@ -31,12 +31,17 @@ public class BookDAOImpl {
     public boolean insert(Book book) throws Exception{
         int i=0;//i为此次更新影响行数
         //执行sql
-        String sql="insert into (pid,name,note,price,amount,pic) values(null,'"+
-                product.getName()+"','"+
-                product.getNote()+"',"+
-                product.getPrice()+","+
-                product.getAmount()+",'"+
-                product.getPicture() +"')";
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String publicationTime = formatter.format(book.getPublicationTime());
+        String shelfTime = formatter.format(book.getShelfTime());
+        String sql="insert into 图书(商品ID,商品名称,商品价格,商品折扣,库存数量,作者名称,ISBN,出版社,出版时间,商品封面,新旧程度,上架时间) values('"+
+                book.getBookID()+"','"+ book.getBookName()+"',"+ book.getBookPrice()+","+ book.getDiscount()+","+ book.getBookNum() +",'"+book.getAuthor()+"','"+book.getBookISBN()+"','"+book.getBookPublisher()+"','"+publicationTime+"','"+book.getBookSurfacePic()+"','"+book.getDegree()+"','"+shelfTime+"');";
+        for(String pic:book.getBookRealPics()){
+            sql+="insert into 图书示例图片(商品ID,商品图片展示URL) values ('"+book.getBookID()+"',"+pic+");";
+        }
+        for(String label:book.getBookLabels() ){
+            sql+="insert into 图书分类(商品ID,分类类型) values ('"+book.getBookID()+"',"+label+");";
+        }
         i = stat.executeUpdate(sql);
         //获取结果返回结果
         if(i>0){
@@ -44,64 +49,100 @@ public class BookDAOImpl {
         }
         return false;
     }
-    //2.查询单个商品
-    public Product select(int pid) throws Exception{
-        String sql="select * from product where pid = "+pid;
-        rs= stat.executeQuery(sql);
+
+    @Override
+    public Book select(String bookID) throws Exception {
+        String sqlLabel="select * from 图书分类 where 商品ID = "+bookID;
+        rs= stat.executeQuery(sqlLabel);
+        ArrayList<String> labels=new ArrayList<>();
         while(rs.next()){
-            Product product=new Product();
-            product.setPid(rs.getInt("pid"));
-            product.setName(rs.getString("name"));
-            product.setNote(rs.getString("note"));
-            product.setPrice(rs.getDouble("price"));
-            product.setAmount(rs.getInt("amount"));
-            product.setPicture(rs.getString("pic"));
-            return product;//仅仅只有一个对象被查询
+            labels.add(rs.getString("分类类型"));
         }
-        return null;//无对象查询到
+        String[] strLabels= (String[]) labels.toArray();
+        String sqlPictures="select * from 图书示例图片 where 商品ID = "+bookID;
+        rs= stat.executeQuery(sqlPictures);
+        ArrayList<String> pictures=new ArrayList<>();
+        while(rs.next()){
+            pictures.add(rs.getString("分类类型"));
+        }
+        String[] strPictures= (String[]) pictures.toArray();
+        String sql="select * from 图书 where 商品ID = "+bookID;
+        rs= stat.executeQuery(sql);
+        Book book=new Book();
+        while(rs.next()){
+            book.setBookID(rs.getString("商品ID"));
+            book.setBookName(rs.getString("商品名称"));
+            book.setBookPrice(rs.getDouble("商品价格"));
+            book.setDiscount(rs.getDouble("商品折扣"));
+            book.setBookNum(rs.getInt("库存数量"));
+            book.setAuthor(rs.getString("作者名称"));
+            book.setBookISBN(rs.getString("ISBN"));
+            book.setPublicationTime(rs.getDate("出版时间"));
+            book.setBookSurfacePic(rs.getString("商品封面"));
+            book.setDegree(rs.getString("新旧程度"));
+            book.setShelfTime(rs.getDate("上架时间"));
+            book.setBookLabels(strLabels);
+            book.setBookRealPics(strPictures);
+            return book;//仅仅只有一个对象被查询
+        }
+        return null;
     }
-    //3.修改商品
-    public boolean update(Product product) throws Exception{
+
+    @Override
+    public boolean update(Book book) throws Exception {
+        String sql="delete from 图书分类 where 商品ID = "+book.getBookID()+";";
+        sql+="delete from 图书示例图片 where 商品ID = "+book.getBookID()+";";
+        for(String pic:book.getBookRealPics()){
+            sql+="insert into 图书示例图片(商品ID,商品图片展示URL) values ('"+book.getBookID()+"',"+pic+");";
+        }
+        for(String label:book.getBookLabels() ){
+            sql+="insert into 图书分类(商品ID,分类类型) values ('"+book.getBookID()+"',"+label+");";
+        }
+        stat.executeUpdate(sql);
         int i=0;
         //执行sql
-        String sql="update product set "+
-                "name = '" +product.getName()
-                +"',note='" +product.getNote()
-                +"',price=" +product.getPrice()
-                +",amount=" +product.getAmount()
-                +",pic='" +product.getPicture()+"' "
-                +"where pid="+product.getPid();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String publicationTime = formatter.format(book.getPublicationTime());
+        String shelfTime = formatter.format(book.getShelfTime());
+        sql="update 图书 set "+
+                "商品名称 = '" +book.getBookID()
+                +"',商品价格=" +book.getBookPrice()
+                +",商品折扣=" +book.getDiscount()
+                +",库存数量=" +book.getBookNum()
+                +",作者名称='" +book.getAuthor()
+                +"',ISBN='" +book.getBookISBN()
+                +"',出版社='" +book.getBookPublisher()
+                +"',出版时间='" +publicationTime
+                +"',商品封面='" +book.getBookSurfacePic()
+                +"',新旧程度='" +book.getDegree()
+                +"',上架时间='" +shelfTime+"' "
+                +"where 商品ID="+book.getBookID();
         i = stat.executeUpdate(sql);
         if(i>0){
             return true;
         }
         return false;
     }
-    //删除商品
-    public boolean delete(int pid) throws Exception{
+
+    @Override
+    public boolean delete(String bookID) throws Exception {
         int i=0;
         //执行sql
-        String sql="delete from product where pid="+pid;
+        String sql="delete from 图书 where 商品ID = "+bookID+";";
+        sql+="delete from 图书分类 where 商品ID = "+bookID+";";
+        sql+="delete from 图书示例图片 where 商品ID = "+bookID+";";
         i = stat.executeUpdate(sql);
         if(i>0){
             return true;
         }
         return false;
     }
-    //5.查询全部商品
-    public ArrayList<Product> selectAll() throws Exception{
-        ArrayList<Product> list=new ArrayList<>();
-        String sql="select * from product ";
-        rs= stat.executeQuery(sql);
-        while(rs.next()){
-            Product product=new Product();
-            product.setPid(rs.getInt("pid"));
-            product.setName(rs.getString("name"));
-            product.setNote(rs.getString("note"));
-            product.setPrice(rs.getDouble("price"));
-            product.setAmount(rs.getInt("amount"));
-            product.setPicture(rs.getString("pic"));
-            list.add(product);
+
+    @Override
+    public ArrayList<Book> selectAll(String[] bookIDs) throws Exception {
+        ArrayList<Book> list=new ArrayList<>();
+        for(String bookID:bookIDs){
+            list.add(select(bookID));
         }
         return list;
     }

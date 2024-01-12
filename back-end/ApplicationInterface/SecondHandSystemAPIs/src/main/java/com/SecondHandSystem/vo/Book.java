@@ -11,6 +11,12 @@ public class Book {
     private String author;
     private String bookISBN;
     private String bookPublisher;
+    private String bookSurfacePic;
+    private String[] bookRealPics;
+    private String[] bookLabels;
+    private Date publicationTime;
+    private String degree;//degree of new/old
+    private Date shelfTime;
 
     public String getBookID() {
         return bookID;
@@ -124,10 +130,5 @@ public class Book {
         this.shelfTime = shelfTime;
     }
 
-    private String bookSurfacePic;
-    private String[] bookRealPics;
-    private String[] bookLabels;
-    private Date publicationTime;
-    private String degree;//degree of new/old
-    private Date shelfTime;
+
 }

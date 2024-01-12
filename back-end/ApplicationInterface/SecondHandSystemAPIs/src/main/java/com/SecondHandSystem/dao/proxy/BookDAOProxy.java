@@ -13,10 +13,10 @@ public class BookDAOProxy {
         this.dao=new BookDAOImpl(DatabaseConnection.getConnection());
     }
 
-    public boolean insert(Product product) throws Exception{
+    public boolean insert(Book book) throws Exception{
         boolean flag=false;
         try{
-            flag=dao.insert(product);
+            flag=dao.insert(book);
         }catch (Exception e) {
             throw(e);
         }finally{
@@ -25,9 +25,9 @@ public class BookDAOProxy {
         return flag;
     }
     //2.查询单个商品
-    public Product select(int pid) throws Exception{
+    public Book select(String bookID) throws Exception{
         try {
-            return dao.select(pid);//仅仅只有一个对象被查询
+            return dao.select(bookID);//仅仅只有一个对象被查询
         } catch (Exception e) {
             throw(e);
         }finally{
@@ -35,10 +35,10 @@ public class BookDAOProxy {
         }
     }
     //3.修改商品
-    public boolean update(Product product) throws Exception{
+    public boolean update(Book book) throws Exception{
         boolean flag=false;
         try {
-            flag=dao.update(product);
+            flag=dao.update(book);
         } catch (Exception e) {
             throw(e);
         }
@@ -48,10 +48,10 @@ public class BookDAOProxy {
         return flag;
     }
     //删除商品
-    public boolean delete(int pid) throws Exception{
+    public boolean delete(String bookID) throws Exception{
         boolean flag=false;
         try {
-            flag=dao.delete(pid);
+            flag=dao.delete(bookID);
         } catch (Exception e) {
             throw(e);
         }
@@ -60,11 +60,11 @@ public class BookDAOProxy {
         }
         return flag;
     }
-    //5.查询全部商品
-    public ArrayList<Product> selectAll() throws Exception{
-        ArrayList<Product> list=null;
+    //5.查询指定商品
+    public ArrayList<Book> selectAll(String[] bookIDs) throws Exception{
+        ArrayList<Book> list=null;
         try {
-            list=dao.selectAll();
+            list=dao.selectAll(bookIDs);
         } catch (Exception e) {
             throw(e);
         }finally{
