@@ -3,6 +3,7 @@ package com.SecondHandSystem.vo;
 import java.util.Date;
 
 public class Order {
+    private String orderID;
     private String customerID;
     private String bookID;
     private Date tradingTime;
@@ -11,6 +12,14 @@ public class Order {
     private String tradingStatus;
     private int estimationScale;
     private String evaluation;
+
+    public String getOrderID() {
+        return orderID;
+    }
+
+    public void setOrderID(String orderID) {
+        orderID = orderID;
+    }
 
     public String getCustomerID() {
         return customerID;
