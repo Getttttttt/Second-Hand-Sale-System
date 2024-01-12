@@ -8,7 +8,7 @@ public class Customer {
     private int phoneNumber;
     private String address;
     private String picUrl;
-    private String[] bookBucket;
+    private String[][] bookBucket;
     //定义getter和setter
     public String getCustomerId(){return customerId;}
     public void setCustomerId(String customerId){this.customerId = customerId;}
@@ -22,6 +22,6 @@ public class Customer {
     public void setAddress(String address){this.address = address;}
     public String getPicUrl(){return picUrl;}
     public void setPicUrl(String picUrl){this.picUrl = picUrl;}
-    public String[] getBookBucket(){return bookBucket;}
-    public void setBookBucket(String[] bookBucket){this.bookBucket = bookBucket;}
+    public String[][] getBookBucket(){return bookBucket;}
+    public void setBookBucket(String[][] bookBucket){this.bookBucket = bookBucket;}
 }
