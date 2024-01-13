@@ -5,6 +5,7 @@ import com.SecondHandSystem.dao.ICommunicationDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class CommunicationDAOImpl implements ICommunicationDAO {
@@ -49,13 +50,17 @@ public class CommunicationDAOImpl implements ICommunicationDAO {
 
     @Override
     public String[][] addCommunication(String merchantId, String customerId, Date communicationTime, String content, String tag) throws Exception {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String comTime = formatter.format(communicationTime);
+        System.out.println(comTime);
         String sql = "INSERT INTO 沟通记录(商家id,用户id,沟通时间,会话内容,标签) VALUES(?,?,?,?,?)";
         this.prestmt = this.conn.prepareStatement(sql);  //prestmt用于执行sql语句
         prestmt.setString(1, merchantId);
         prestmt.setString(2, customerId);
-        prestmt.setDate(3, (java.sql.Date) communicationTime);
+        prestmt.setString(3, comTime);
         prestmt.setString(4, content);
         prestmt.setString(5, tag);
+        this.prestmt.execute();
         return searchCommunication(merchantId,customerId);
     }
 

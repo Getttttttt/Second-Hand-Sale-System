@@ -10,7 +10,8 @@ import java.util.List;
 public class TestMerchantDAO {
     public static void main(String[] args) {
         IMerchantDAO merchantDAOProxy;
-        /*System.out.println("start test insert...");
+/*
+        System.out.println("start test insert...");
         try {
             merchantDAOProxy = DAOFactory.getIMerchantDAOInstance();
             merchantDAOProxy.insertMerchant("21377223", "GET", "get21377223", "xxx");
@@ -19,7 +20,8 @@ public class TestMerchantDAO {
             ex.printStackTrace();
             System.out.println("insert error");
         }*/
-        /*System.out.println("start test delete...");
+
+/*        System.out.println("start test delete...");
         try {
             merchantDAOProxy = DAOFactory.getIMerchantDAOInstance();
             merchantDAOProxy.deleteMerchant("21377223");
@@ -28,6 +30,7 @@ public class TestMerchantDAO {
             ex.printStackTrace();
             System.out.println("delete error");
         }*/
+
         System.out.println("start test update...");
         try {
             merchantDAOProxy = DAOFactory.getIMerchantDAOInstance();
@@ -47,7 +50,8 @@ public class TestMerchantDAO {
             ex.printStackTrace();
             System.out.println("update error");
         }
-        /*System.out.println("start test select...");
+        /*
+        System.out.println("start test select...");
         try {
             merchantDAOProxy = DAOFactory.getIMerchantDAOInstance();
             List<Merchant> merchant = merchantDAOProxy.searchMerchant("21377223", "get21377223");
