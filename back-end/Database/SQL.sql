@@ -1,4 +1,4 @@
-CREATE DATABASE secondhandsalesysytem ON
+CREATE DATABASE secondhandsalesystem ON
 (
 NAME = secondhandsalesystem,
 FILENAME = 'D:\Project\SecondHandSystem\SecondHandDatabase\secondhandsalesystem.mdf',
@@ -10,8 +10,9 @@ NAME = secondhandsalesystemlog,
 FILENAME = 'D:\Project\SecondHandSystem\SecondHandDatabase\secondhandsalesystemlog.ldf',
 SIZE = 100MB, MAXSIZE = UNLIMITED, FILEGROWTH = 10MB
 )
+GO
 
-use secondhandsalesysytem
+use secondhandsalesystem
 GO
 
 
@@ -132,10 +133,6 @@ GO
 ALTER TABLE [售卖书籍] ADD CONSTRAINT [_copy_7] FOREIGN KEY ([商品id]) REFERENCES [图书] ([商品ID])
 GO
 ALTER TABLE [图书分类] ADD CONSTRAINT [ Copy 2] FOREIGN KEY ([商品ID]) REFERENCES [图书] ([商品ID])
-GO
-ALTER TABLE [图书评价] ADD CONSTRAINT [ Copy 1] FOREIGN KEY ([商品ID]) REFERENCES [图书] ([商品ID])
-GO
-ALTER TABLE [图书评价] ADD CONSTRAINT [_copy_3] FOREIGN KEY ([用户ID]) REFERENCES [用户] ([用户id])
 GO
 ALTER TABLE [图书示例图片] ADD CONSTRAINT [商品ID] FOREIGN KEY ([商品ID]) REFERENCES [图书] ([商品ID])
 GO
