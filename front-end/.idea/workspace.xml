@@ -7,10 +7,9 @@
     <list default="true" id="3636ce4e-6ae5-49e0-a7e2-5ca9ee0a6a3d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/dao/impl/CustomerDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/dao/impl/CustomerDAOImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/dao/impl/MerchantDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/dao/impl/MerchantDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/dao/proxy/CustomerDAOProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/dao/proxy/CustomerDAOProxy.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/dbc/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/dbc/DatabaseConnection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/test/test/TestCustomerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/test/test/TestCustomerDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/test/test/TestMerchantDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/test/test/TestMerchantDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -155,7 +154,7 @@
       <option name="presentableId" value="Default" />
       <updated>1705026461937</updated>
       <workItem from="1705026463138" duration="5545000" />
-      <workItem from="1705071595630" duration="1079000" />
+      <workItem from="1705071595630" duration="1703000" />
     </task>
     <servers />
   </component>

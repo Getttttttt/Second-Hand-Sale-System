@@ -32,7 +32,7 @@ public class MerchantDAOImpl implements IMerchantDAO {
     @Override
     public List<Merchant> searchMerchant(String merchantId,String password) throws Exception {
         List<Merchant> all = new ArrayList<>(); //创建Customer对象列表用于保存从数据库中查询到的信息
-        String sql = "SELECT * FROM 商家 WHERE 商家id='"+merchantId+"' and 密码='"+password+"'";  //定义要实现的SQL语句
+        String sql = "SELECT * FROM 商家 WHERE 商家id='"+merchantId+"' and 登录密码='"+password+"'";  //定义要实现的SQL语句
         this.prestmt = this.conn.prepareStatement(sql);  //prestmt用于执行sql语句
         ResultSet rs = this.prestmt.executeQuery();  //执行sql语句，将结果赋给ResultSet对象rs
         Merchant merchant = null;
@@ -43,7 +43,8 @@ public class MerchantDAOImpl implements IMerchantDAO {
             merchant.setPassword(rs.getString(3));
             merchant.setTrustLevel(rs.getString(4));
             merchant.setBooksOnsale(rs.getInt(5));
-            merchant.setPicUrl(rs.getString(6));
+            merchant.setLength(rs.getInt(6));
+            merchant.setPicUrl(rs.getString(7));
             all.add(merchant);
         }
         return all;
@@ -73,7 +74,6 @@ public class MerchantDAOImpl implements IMerchantDAO {
 
     @Override
     public List<Merchant> updateMerchant(String merchantId, String nickname, String password, String truthLevel,int numbOfBookOnsale,int length,String picUrl) throws Exception {
-        List<Merchant> all = new ArrayList<>(); //创建Customer对象列表用于保存从数据库中查询到的信息
         String sql = "UPDATE 商家 SET 昵称=?,登录密码=?,信用等级=?,在售书籍数量=?,开店时长=?,头像=? WHERE 商家id='"+merchantId+"'";  //定义要实现的SQL语句
         this.prestmt = this.conn.prepareStatement(sql);  //prestmt用于执行sql语句
         prestmt.setString(1,nickname);
@@ -82,8 +82,8 @@ public class MerchantDAOImpl implements IMerchantDAO {
         prestmt.setInt(4,numbOfBookOnsale);
         prestmt.setInt(5,length);
         prestmt.setString(6,picUrl);
-        this.prestmt.execute();  //执行sql语句，将结果赋给ResultSet对象rs
-        return null;
+        this.prestmt.execute();  //执行sql语句
+        return searchMerchant(merchantId,password);
     }
 
     @Override
