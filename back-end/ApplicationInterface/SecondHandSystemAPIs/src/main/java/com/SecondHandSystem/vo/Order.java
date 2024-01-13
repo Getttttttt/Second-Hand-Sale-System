@@ -18,7 +18,7 @@ public class Order {
     }
 
     public void setOrderID(String orderID) {
-        orderID = orderID;
+        this.orderID = orderID;
     }
 
     public String getCustomerID() {

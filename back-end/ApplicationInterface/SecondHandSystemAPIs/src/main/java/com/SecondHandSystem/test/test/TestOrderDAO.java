@@ -12,9 +12,9 @@ public class TestOrderDAO {
         System.out.println("start test insert...");
         try{
             orderDAOProxy= DAOFactory.getIOrderDAOInstance();
-            order.setOrderID("123456");
+            order.setOrderID("fefef");
             order.setBookID("1234567");
-            order.setCustomerID("8e32");
+            order.setCustomerID("123456");
             order.setTradingPrice(12);
             order.setTradingNum(1);
             order.setTradingStatus("dhw");
@@ -67,7 +67,7 @@ public class TestOrderDAO {
         System.out.println("start test delete...");
         try{
             orderDAOProxy= DAOFactory.getIOrderDAOInstance();
-            boolean delete=orderDAOProxy.delete("123456");
+            boolean delete=orderDAOProxy.delete("123456fef");
             System.out.println("delete success");
         }
         catch (Exception ex){

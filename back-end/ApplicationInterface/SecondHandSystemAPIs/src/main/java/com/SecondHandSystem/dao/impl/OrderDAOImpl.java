@@ -31,7 +31,7 @@ public class OrderDAOImpl implements IOrderDAO {
     public boolean insert(Order order) throws Exception {
         int i=0;//i为此次更新影响行数
         //执行sql
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String tradingTime = formatter.format(order.getTradingTime());
         String sql="insert into 订单(订单ID,用户ID,商品ID,交易时间,交易价格,交易数量,交易状态,评价等级,评价言论) values('"+
                 order.getOrderID()+"','"+order.getCustomerID()+"','"+order.getBookID()+"','"+tradingTime+"',"+order.getTradingPrice()+","+order.getTradingNum()+",'"+order.getTradingStatus()+"',"+order.getEstimationScale()+",'"+order.getEvaluation()+"');";
@@ -46,7 +46,7 @@ public class OrderDAOImpl implements IOrderDAO {
     @Override
     public Order selectByOrder(String orderID) throws Exception {
         Order order=new Order();
-        String sql="select * from 订单 where 订单ID = "+orderID;
+        String sql="select * from 订单 where 订单ID = '"+orderID+"';";
         rs= stat.executeQuery(sql);
         while(rs.next()){
             order.setOrderID(rs.getString("订单ID"));
@@ -87,12 +87,14 @@ public class OrderDAOImpl implements IOrderDAO {
 
     @Override
     public boolean update(Order order) throws Exception {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String tradingTime = formatter.format(order.getTradingTime());
         int i=0;
         //执行sql
         String sql="update 订单 set "+
-                "订单ID = '" +order.getOrderID() +"',用户ID='" +order.getCustomerID()+"',商品ID='" +order.getBookID()+"',交易时间='" +order.getBookID()
+                "订单ID = '" +order.getOrderID() +"',用户ID='" +order.getCustomerID()+"',商品ID='" +order.getBookID()+"',交易时间='" +tradingTime
                 +"',交易价格=" +order.getTradingPrice() +",交易数量=" +order.getTradingNum() +",交易状态='"+order.getTradingStatus() +"',评价等级=" +order.getEstimationScale()+",评价言论='"+order.getEvaluation()+"' "
-                +"where 订单ID="+order.getOrderID();
+                +"where 订单ID='"+order.getOrderID()+"';";
         i = stat.executeUpdate(sql);
         if(i>0){
             return true;
