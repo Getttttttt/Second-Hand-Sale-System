@@ -1,6 +1,7 @@
 package com.SecondHandSystem.test.test;
 
 import com.SecondHandSystem.dao.IMerchantDAO;
+import com.SecondHandSystem.dao.impl.MerchantDAOImpl;
 import com.SecondHandSystem.factory.DAOFactory;
 import com.SecondHandSystem.vo.Merchant;
 
@@ -14,14 +15,15 @@ public class TestMerchantDAO {
         System.out.println("start test insert...");
         try {
             merchantDAOProxy = DAOFactory.getIMerchantDAOInstance();
-            merchantDAOProxy.insertMerchant("21377223", "GET", "get21377223", "xxx");
+            merchantDAOProxy.insertMerchant("21377006", "mly", "mly21377006", "xxx");
+
             System.out.println("insert success");
         } catch (Exception ex) {
             ex.printStackTrace();
             System.out.println("insert error");
-        }*/
+        }
 
-/*        System.out.println("start test delete...");
+        System.out.println("start test delete...");
         try {
             merchantDAOProxy = DAOFactory.getIMerchantDAOInstance();
             merchantDAOProxy.deleteMerchant("21377223");
@@ -29,8 +31,8 @@ public class TestMerchantDAO {
         } catch (Exception ex) {
             ex.printStackTrace();
             System.out.println("delete error");
-        }*/
-
+        }
+*/
         System.out.println("start test update...");
         try {
             merchantDAOProxy = DAOFactory.getIMerchantDAOInstance();
@@ -50,7 +52,7 @@ public class TestMerchantDAO {
             ex.printStackTrace();
             System.out.println("update error");
         }
-        /*
+/*
         System.out.println("start test select...");
         try {
             merchantDAOProxy = DAOFactory.getIMerchantDAOInstance();

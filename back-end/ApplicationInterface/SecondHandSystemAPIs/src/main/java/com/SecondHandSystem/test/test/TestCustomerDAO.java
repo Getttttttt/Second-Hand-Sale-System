@@ -12,7 +12,7 @@ import java.util.List;
 public class TestCustomerDAO {
     public static void main(String[] args) {
         ICustomerDAO customerDAOProxy;
-
+/*
         System.out.println("start test insert...");
         try{
             customerDAOProxy=DAOFactory.getICustomerDAOInstance();
