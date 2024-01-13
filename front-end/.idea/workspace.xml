@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3636ce4e-6ae5-49e0-a7e2-5ca9ee0a6a3d" name="Default Changelist" comment="" />
+    <list default="true" id="3636ce4e-6ae5-49e0-a7e2-5ca9ee0a6a3d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../back-end/.idea/artifacts/SecondHandSystemAPIs_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../back-end/.idea/artifacts/SecondHandSystemAPIs_war_exploded.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back-end/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../back-end/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/dao/impl/OrderDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/dao/impl/OrderDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/dao/proxy/OrderDAOProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/dao/proxy/OrderDAOProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/test/test/TestOrderDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/test/test/TestOrderDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/vo/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/vo/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,7 +24,8 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="D:/java/IdeaProjects/productWebDAO" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RunDashboard">
@@ -41,7 +50,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1705026461937</updated>
-      <workItem from="1705026463138" duration="5545000" />
+      <workItem from="1705026463138" duration="5893000" />
+      <workItem from="1705064570239" duration="1699000" />
+      <workItem from="1705108428170" duration="2369000" />
     </task>
     <servers />
   </component>
@@ -53,7 +64,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
