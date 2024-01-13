@@ -60,7 +60,7 @@ public class MerchantDAOImpl implements IMerchantDAO {
         prestmt.setString(3,password);
         prestmt.setString(4,picUrl);
         this.prestmt.execute();  //执行sql语句，将结果赋给ResultSet对象rs
-        return all;
+        return searchMerchant(merchantId,password);
     }
 
     @Override

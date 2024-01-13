@@ -19,6 +19,7 @@ public class OrderDAOProxy implements IOrderDAO {
         try{
             flag=dao.insert(order);
         }catch (Exception e) {
+            e.printStackTrace();
             throw(e);
         }finally{
             DatabaseConnection.release(((OrderDAOImpl)dao).getStat(),((OrderDAOImpl)dao).getConn());
@@ -31,6 +32,7 @@ public class OrderDAOProxy implements IOrderDAO {
         try {
             return dao.selectByOrder(orderID);//仅仅只有一个对象被查询
         } catch (Exception e) {
+            e.printStackTrace();
             throw(e);
         }finally{
             DatabaseConnection.release(((OrderDAOImpl)dao).getRs(),((OrderDAOImpl)dao).getStat(),((OrderDAOImpl)dao).getConn());
@@ -42,6 +44,7 @@ public class OrderDAOProxy implements IOrderDAO {
         try {
             return dao.selectByCustomer(customerID);//仅仅只有一个对象被查询
         } catch (Exception e) {
+            e.printStackTrace();
             throw(e);
         }finally{
             DatabaseConnection.release(((OrderDAOImpl)dao).getRs(),((OrderDAOImpl)dao).getStat(),((OrderDAOImpl)dao).getConn());
@@ -53,6 +56,7 @@ public class OrderDAOProxy implements IOrderDAO {
         try {
             return dao.selectByMerchant(merchantID);//仅仅只有一个对象被查询
         } catch (Exception e) {
+            e.printStackTrace();
             throw(e);
         }finally{
             DatabaseConnection.release(((OrderDAOImpl)dao).getRs(),((OrderDAOImpl)dao).getStat(),((OrderDAOImpl)dao).getConn());
@@ -65,6 +69,7 @@ public class OrderDAOProxy implements IOrderDAO {
         try {
             flag=dao.update(order);
         } catch (Exception e) {
+            e.printStackTrace();
             throw(e);
         }
         finally{
@@ -79,6 +84,7 @@ public class OrderDAOProxy implements IOrderDAO {
         try {
             flag=dao.delete(orderID);
         } catch (Exception e) {
+            e.printStackTrace();
             throw(e);
         }
         finally{
@@ -93,12 +99,11 @@ public class OrderDAOProxy implements IOrderDAO {
         try {
             list=dao.selectAll(orderIDs);
         } catch (Exception e) {
+            e.printStackTrace();
             throw(e);
         }finally{
             DatabaseConnection.release(((OrderDAOImpl)dao).getStat(),((OrderDAOImpl)dao).getConn());
         }
         return list;
     }
-
-
 }

@@ -10,14 +10,17 @@ import java.util.List;
 public class TestBucketDAO {
     public static void main(String[] args) {
         ICustomerDAO customerDAOProxy;
+
         System.out.println("start test insert...");
         try{
             String[][] bucket = new String[300][2];
             customerDAOProxy=DAOFactory.getICustomerDAOInstance();
             bucket = customerDAOProxy.insertBookBucket("21377225","123",2);
             for(String[] book:bucket){
-                System.out.println("book:"+book[0]);
-                System.out.println("num:"+book[1]);
+                if(book[0]!=null){
+                    System.out.println("book:"+book[0]);
+                    System.out.println("num:"+book[1]);
+                }
             }
             System.out.println("insert success");
         }
@@ -25,17 +28,19 @@ public class TestBucketDAO {
             ex.printStackTrace();
             System.out.println("insert error");
         }
-/*
+
         System.out.println("start test select...");
         try{
             String[][] bucket = new String[300][2];
             customerDAOProxy=DAOFactory.getICustomerDAOInstance();
             bucket = customerDAOProxy.searchBookBucket("21377225");
             for(String[] book:bucket){
-                System.out.println("book:"+book[0]);
-                System.out.println("num:"+book[1]);
+                if(book[0]!=null){
+                    System.out.println("book:"+book[0]);
+                    System.out.println("num:"+book[1]);
+                }
             }
-            System.out.println("select success");
+            System.out.println("insert success");
         }
         catch (Exception ex){
             ex.printStackTrace();
@@ -48,10 +53,12 @@ public class TestBucketDAO {
             customerDAOProxy=DAOFactory.getICustomerDAOInstance();
             bucket = customerDAOProxy.deleteBookBucket("21377225","123");
             for(String[] book:bucket){
-                System.out.println("book:"+book[0]);
-                System.out.println("num:"+book[1]);
+                if(book[0]!=null){
+                    System.out.println("book:"+book[0]);
+                    System.out.println("num:"+book[1]);
+                }
             }
-            System.out.println("select success");
+            System.out.println("insert success");
         }
         catch (Exception ex){
             ex.printStackTrace();
@@ -64,14 +71,16 @@ public class TestBucketDAO {
             customerDAOProxy=DAOFactory.getICustomerDAOInstance();
             bucket = customerDAOProxy.updateBookBucket("21377225","123",5);
             for(String[] book:bucket){
-                System.out.println("book:"+book[0]);
-                System.out.println("num:"+book[1]);
+                if(book[0]!=null){
+                    System.out.println("book:"+book[0]);
+                    System.out.println("num:"+book[1]);
+                }
             }
-            System.out.println("select success");
+            System.out.println("update success");
         }
         catch (Exception ex){
             ex.printStackTrace();
             System.out.println("update error");
-        }*/
+        }
     }
 }

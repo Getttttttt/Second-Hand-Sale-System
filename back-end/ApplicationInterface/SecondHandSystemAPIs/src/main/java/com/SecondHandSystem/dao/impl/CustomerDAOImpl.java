@@ -110,7 +110,7 @@ public class CustomerDAOImpl implements ICustomerDAO {
         prestmt.setString(1,customerId);
         prestmt.setString(2,bookId);
         prestmt.setInt(3,number);
-        ResultSet rs = this.prestmt.executeQuery();
+        this.prestmt.execute();
         return searchBookBucket(customerId);
     }
 
@@ -118,7 +118,7 @@ public class CustomerDAOImpl implements ICustomerDAO {
     public String[][] updateBookBucket(String customerId,String bookId, int number)throws Exception{
         String sql = "UPDATE 购物车 SET 加购数量="+number+" WHERE 用户id='"+customerId+"' and 商品id='"+bookId+"'";
         this.prestmt = this.conn.prepareStatement(sql);  //prestmt用于执行sql语句
-        ResultSet rs = this.prestmt.executeQuery();
+        this.prestmt.execute();
         return searchBookBucket(customerId);
     }
 
@@ -126,7 +126,7 @@ public class CustomerDAOImpl implements ICustomerDAO {
     public String[][] deleteBookBucket(String customerId,String bookId)throws Exception{
         String sql = "DELETE FROM 购物车 WHERE 用户id='"+customerId+"' and 商品id='"+bookId+"'";
         this.prestmt = this.conn.prepareStatement(sql);  //prestmt用于执行sql语句
-        ResultSet rs = this.prestmt.executeQuery();
+        this.prestmt.execute();
         return searchBookBucket(customerId);
     }
 }

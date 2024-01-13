@@ -19,6 +19,7 @@ public class BookDAOProxy implements IBookDAO {
         try{
             flag=dao.insert(book);
         }catch (Exception e) {
+            e.printStackTrace();
             throw(e);
         }finally{
             DatabaseConnection.release(((BookDAOImpl)dao).getStat(),((BookDAOImpl)dao).getConn());
@@ -30,6 +31,7 @@ public class BookDAOProxy implements IBookDAO {
         try {
             return dao.select(bookID);//仅仅只有一个对象被查询
         } catch (Exception e) {
+            e.printStackTrace();
             throw(e);
         }finally{
             DatabaseConnection.release(((BookDAOImpl)dao).getRs(),((BookDAOImpl)dao).getStat(),((BookDAOImpl)dao).getConn());
@@ -41,6 +43,7 @@ public class BookDAOProxy implements IBookDAO {
         try {
             flag=dao.update(book);
         } catch (Exception e) {
+            e.printStackTrace();
             throw(e);
         }
         finally{
@@ -54,6 +57,7 @@ public class BookDAOProxy implements IBookDAO {
         try {
             flag=dao.delete(bookID);
         } catch (Exception e) {
+            e.printStackTrace();
             throw(e);
         }
         finally{
@@ -67,6 +71,7 @@ public class BookDAOProxy implements IBookDAO {
         try {
             list=dao.selectAll(bookIDs);
         } catch (Exception e) {
+            e.printStackTrace();
             throw(e);
         }finally{
             DatabaseConnection.release(((BookDAOImpl)dao).getStat(),((BookDAOImpl)dao).getConn());
