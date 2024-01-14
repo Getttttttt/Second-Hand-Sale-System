@@ -57,7 +57,7 @@ export default [
         element: <PurchasedBookStatusPage />
     },
     {
-        path: '/customer/purchased/book',
+        path: '/customer/purchased/:orderID',
         element: <SinglePurchasedBookStatusPage />
     },
     {
