@@ -10,7 +10,7 @@ public class DAOFactory {
     public static IMerchantDAO getIMerchantDAOInstance()throws Exception{
         return new MerchantDAOProxy();
     }
-    public static ICommunicationDAO getICommunicationInstance()throws Exception{
+    public static ICommunicationDAO getICommunicationDAOInstance()throws Exception{
         return new CommunicationDAOProxy();
     }
     public static IBookDAO getIBookDAOInstance()throws Exception{

@@ -5,12 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3636ce4e-6ae5-49e0-a7e2-5ca9ee0a6a3d" name="Default Changelist" comment="">
+<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/dao/impl/CustomerDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/dao/impl/CustomerDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/dao/impl/MerchantDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/dao/impl/MerchantDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/dbc/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/dbc/DatabaseConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/test/test/TestCustomerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/test/test/TestCustomerDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/test/test/TestMerchantDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/test/test/TestMerchantDAO.java" afterDir="false" />
+=======
       <change beforePath="$PROJECT_DIR$/../back-end/.idea/artifacts/SecondHandSystemAPIs_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../back-end/.idea/artifacts/SecondHandSystemAPIs_war_exploded.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../back-end/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../back-end/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/dao/impl/OrderDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/dao/impl/OrderDAOImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/dao/proxy/OrderDAOProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/dao/proxy/OrderDAOProxy.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/test/test/TestOrderDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/test/test/TestOrderDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/vo/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back-end/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/vo/Order.java" afterDir="false" />
+>>>>>>> 362a9a3804fc7df495489fdce16f73f3493dad49
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -170,8 +178,12 @@
       <workItem from="1705108428170" duration="2369000" />
 =======
       <workItem from="1705026463138" duration="5545000" />
+<<<<<<< HEAD
+      <workItem from="1705071595630" duration="1703000" />
+=======
       <workItem from="1705071595630" duration="1079000" />
 >>>>>>> 491f95a0c07b919705ef6489f362b441c0af3bfc
+>>>>>>> 362a9a3804fc7df495489fdce16f73f3493dad49
     </task>
     <servers />
   </component>

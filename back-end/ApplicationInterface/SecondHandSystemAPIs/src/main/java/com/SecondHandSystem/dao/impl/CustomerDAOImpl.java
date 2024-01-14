@@ -83,7 +83,7 @@ public class CustomerDAOImpl implements ICustomerDAO {
         prestmt.setString(4,address);
         prestmt.setString(5,picUrl);
         this.prestmt.execute();  //执行sql语句，将结果赋给ResultSet对象rs
-        return null;
+        return searchCustomer(customerId,password);
     }
 
     @Override
@@ -105,12 +105,12 @@ public class CustomerDAOImpl implements ICustomerDAO {
 
     @Override
     public String[][] insertBookBucket(String customerId,String bookId, int number)throws Exception{
-        String sql = "INSERT INTO 购物车 VALUES(?,?,?) WHERE 用户id='"+customerId+"'";  //定义要实现的SQL语句
+        String sql = "INSERT INTO 购物车 VALUES(?,?,?) ";  //定义要实现的SQL语句
         this.prestmt = this.conn.prepareStatement(sql);  //prestmt用于执行sql语句
         prestmt.setString(1,customerId);
         prestmt.setString(2,bookId);
         prestmt.setInt(3,number);
-        ResultSet rs = this.prestmt.executeQuery();
+        this.prestmt.execute();
         return searchBookBucket(customerId);
     }
 
@@ -118,7 +118,7 @@ public class CustomerDAOImpl implements ICustomerDAO {
     public String[][] updateBookBucket(String customerId,String bookId, int number)throws Exception{
         String sql = "UPDATE 购物车 SET 加购数量="+number+" WHERE 用户id='"+customerId+"' and 商品id='"+bookId+"'";
         this.prestmt = this.conn.prepareStatement(sql);  //prestmt用于执行sql语句
-        ResultSet rs = this.prestmt.executeQuery();
+        this.prestmt.execute();
         return searchBookBucket(customerId);
     }
 
@@ -126,7 +126,7 @@ public class CustomerDAOImpl implements ICustomerDAO {
     public String[][] deleteBookBucket(String customerId,String bookId)throws Exception{
         String sql = "DELETE FROM 购物车 WHERE 用户id='"+customerId+"' and 商品id='"+bookId+"'";
         this.prestmt = this.conn.prepareStatement(sql);  //prestmt用于执行sql语句
-        ResultSet rs = this.prestmt.executeQuery();
+        this.prestmt.execute();
         return searchBookBucket(customerId);
     }
 }
