@@ -50,6 +50,10 @@
   <component name="ProjectId" id="2aprcHS14no8NbDxBzcgkt7yron" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -230,7 +234,7 @@
       <workItem from="1705026439460" duration="2239000" />
       <workItem from="1705036925036" duration="33134000" />
       <workItem from="1705109917026" duration="4132000" />
-      <workItem from="1705188425790" duration="7686000" />
+      <workItem from="1705188425790" duration="10761000" />
     </task>
     <servers />
   </component>
