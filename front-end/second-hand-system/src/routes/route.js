@@ -6,8 +6,8 @@ import SignInForCustomer from "../pages/CustomerPages/SignAndRegisterForCustomer
 import BookBacket from "../pages/CustomerPages/BookBacket/BookBacket";
 import CustomerChatToMerchantList from "../pages/CustomerPages/ChatPages/CustomerChatToMerchantList";
 import ChatToSingleMerchant from "../pages/CustomerPages/ChatPages/ChatToSingleMerchant";
-import PurchasedBookStatusPage from "../pages/CustomerPages/PerchasedBookList/PurchasedBookStatusPage";
-import SinglePurchasedBookStatusPage from "../pages/CustomerPages/PerchasedBookList/SinglePurchasedBookStatusPage";
+import PurchasedBookStatusPage from "../pages/CustomerPages/PurchasedBookList/PurchasedBookStatusPage";
+import SinglePurchasedBookStatusPage from "../pages/CustomerPages/PurchasedBookList/SinglePurchasedBookStatusPage";
 import SearchOutcomeDisplay from "../pages/BookPages/SearchOutcomeDisplay"
 import SingleBookDispley from "../pages/BookPages/SingleBookDispley"
 import MerchantCenter from "../pages/MerchantPages/MerchantCerter";
