@@ -10,6 +10,8 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 
 const Wrapper = styled.div`
   display: flex;
@@ -213,12 +215,20 @@ const SinglePurchasedBookStatusPage = () => {
           <QuantityValue>×{order.orderNum}</QuantityValue>
         </QuantityWrapper>
       </PriceAndQuantity>
-          <ViewDetailsButton onClick={toggleImages}>查看书籍图片详情<ArrowIcon /></ViewDetailsButton>
-          {showImages && order.bookImages.map(image => (
-            <img key={image} src={image} alt="书籍图片" />
-          ))}
+      <ViewDetailsButton onClick={toggleImages} style={{ backgroundColor: showImages ? 'lightblue' : 'lightblue' }}>
+        {showImages ? '收起详情' : '查看书籍图片详情'}
+        {showImages ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
+      </ViewDetailsButton>
         </BookDetails>
       </BookInfo>
+      {showImages && order.bookImages.map(image => (
+        <img
+          key={image}
+          src={image}
+          alt="书籍图片"
+          style={{maxWidth: '100%',height: 'auto',display: 'block',margin: '0 auto',marginTop:'10px' }}
+        />
+      ))}
     </Wrapper>
   );
 };
