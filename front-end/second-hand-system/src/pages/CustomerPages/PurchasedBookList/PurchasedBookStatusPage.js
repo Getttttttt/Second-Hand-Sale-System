@@ -111,11 +111,11 @@ export default function PurchasedBookStatusPage() {
                 </Typography>
                 <Stack direction="row" spacing={2} sx={{ float: 'right' }}>
                   {order.estimationScale === -1 ? (
-                    <Button variant="outlined" href="/评价页面">
+                    <Button variant="outlined" href={`/customer/purchased/evaluation/${order.MainData}`}>
                       立即评价
                     </Button>
                   ):(
-                    <Button variant="outlined" href="/评价页面">
+                    <Button variant="outlined" href={`/customer/purchased/evaluation/${order.MainData}`}>
                       查看评价
                     </Button>
                   )}

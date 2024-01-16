@@ -5,6 +5,7 @@ export const DetailData =[
     {
         MainData:'Od123456',
         bookID:'Bo123456',
+        merchantNumber:'MC123456',
         bookName:'茶业战争：中国与印度的一段资本主义史',
         orderPrice:50,
         orderNum:1,
@@ -17,12 +18,14 @@ export const DetailData =[
         bookPublishTime:'2021-01',
         bookdegree:'九成',
         bookLabels:['历史','政治'],
+        bookImages:["../../../images/image_example1.jpg","../../../images/image_example1.jpg"],
         estimationScale:-1,
         evaluation:null
     },
     {
         MainData:'Od456789',
         bookID:'Bo456789',
+        merchantNumber:'MC456789',
         bookName:'法律的悖论:走出独断思维，接受多元包容',
         orderPrice:30,
         orderNum:1,
@@ -35,7 +38,8 @@ export const DetailData =[
         bookPublishTime:'2021-02',
         bookdegree:'全新',
         bookLabels:['法律'],
-        estimationScale:5,
+        bookImages:["../../../images/image_example1.jpg"],
+        estimationScale:4,
         evaluation:'物流棒，发货快，包装好，品相佳，宝贝良，服务优，信誉高！'
     }
 ]
