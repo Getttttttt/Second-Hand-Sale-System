@@ -1,5 +1,8 @@
-package com.SecondHandSystem.controller;
+package com.SecondHandSystem.controller.Customer;
 
+import com.SecondHandSystem.dao.ICustomerDAO;
+import com.SecondHandSystem.dao.proxy.CustomerDAOProxy;
+import com.SecondHandSystem.factory.DAOFactory;
 import com.SecondHandSystem.vo.Customer;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,9 +17,8 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 
 @WebServlet("/customer/signUpNewUser")
-public class CustomerSignInAngSignUpServlet extends HttpServlet {
+public class CustomerSignUpServlet extends HttpServlet {
 
-    private ObjectMapper objectMapper = new ObjectMapper();
 
     private void setAccessControlHeaders(HttpServletResponse response) {
         response.setHeader("Access-Control-Allow-Origin", "http://localhost:9000"); // 允许的来源，根据需要更改
@@ -43,13 +45,40 @@ public class CustomerSignInAngSignUpServlet extends HttpServlet {
         // 打印接收到的数据
         System.out.println("Received data: " + requestBody.toString());
 
+        String jsonData = requestBody.toString();
+        System.out.println("Received data: " + jsonData);
+
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject(jsonData);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+        // analysis variable
+        String telephone = jsonObject.optString("telephone"); // 使用 optString 避免 JSONException
+        String password = jsonObject.optString("password");
+        String nickname = jsonObject.optString("nickname");
+        String address = jsonObject.optString("address");
+
+        String returnMessage;
+
+        try {
+            ICustomerDAO cuatomerDAO = DAOFactory.getICustomerDAOInstance();
+            cuatomerDAO.insertCustomer(telephone,nickname,password,telephone,address,"");
+            returnMessage = "Insert Successful";
+        } catch (Exception e) {
+            returnMessage = "Insert failure: "+e.toString();
+        }
+
         // 设置响应类型和状态
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         response.setStatus(HttpServletResponse.SC_OK);
         JSONObject json = new JSONObject();
+
         try {
-            json.put("message", "Data received successfully!");
+            json.put("message", returnMessage);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }

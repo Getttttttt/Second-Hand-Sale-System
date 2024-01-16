@@ -43,12 +43,12 @@ export default function RegisterForCustomer() {
     const data = new FormData(event.currentTarget);
   
     // 将表单数据转换为JSON
-    const jsonData = {
+    const jsonData = JSON.stringify({
       telephone: data.get('telephone'),
       password: data.get('password'),
       nickname: data.get('nickname'),
       address: data.get('address'),
-    };
+    });
   
     try {
       let myHeaders = new Headers({
