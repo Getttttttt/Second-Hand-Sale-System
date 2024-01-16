@@ -14,7 +14,7 @@ public class CommunicationDAOProxy implements ICommunicationDAO {
 
     @Override
     public String[][] searchCommunication(String merchantId, String customerId) throws Exception {
-        String[][] communication = new String[300][2];
+        String[][] communication = new String[300][5];
         try{
             communication = this.dao.searchCommunication(merchantId,customerId);
         }
@@ -25,6 +25,21 @@ public class CommunicationDAOProxy implements ICommunicationDAO {
             DatabaseConnection.release(((CommunicationDAOImpl)dao).getStat(),((CommunicationDAOImpl)dao).getConn());
         }
         return communication;
+    }
+
+    @Override
+    public String searchLastMessage(String merchantId, String customerId) throws Exception {
+        String lastMessage;
+        try{
+            lastMessage = this.dao.searchLastMessage(merchantId,customerId);
+        }
+        catch (Exception e){
+            throw e;
+        }
+        finally{
+            DatabaseConnection.release(((CommunicationDAOImpl)dao).getStat(),((CommunicationDAOImpl)dao).getConn());
+        }
+        return lastMessage;
     }
 
     @Override
@@ -41,4 +56,5 @@ public class CommunicationDAOProxy implements ICommunicationDAO {
         }
         return communication;
     }
+
 }

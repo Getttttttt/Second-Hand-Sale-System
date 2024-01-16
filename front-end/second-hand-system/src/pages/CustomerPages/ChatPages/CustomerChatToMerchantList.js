@@ -9,7 +9,10 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Typography from '@mui/material/Typography';
 import { UserOutlined } from '@ant-design/icons';
 import { Avatar, Badge, Space } from 'antd';
-import ChatToSingleCustomer from '../../MerchantPages/ChatPages/ChatToSingleCustomer';
+import ChatToSingleMerchant from './ChatToSingleMerchant';
+import { mapToStyles } from '@popperjs/core/lib/modifiers/computeStyles';
+import { useState } from 'react';
+
 
 function Copyright(props) {
   return (
@@ -25,52 +28,59 @@ function Copyright(props) {
 }
 
 export default function CustomerChatToMerchantList(customerId,{ allMerchants }) {
-  allMerchants={1:"21377225",2:"21377006"}
+  allMerchants=new Array("21377223","21377006","21377227","21377226")
   customerId = "21377225"
+  function Each({merchantId}){    
+    return <Page merchantId={merchantId} customerId={customerId} />;
+  }
 
-  const image = "xxx"  //查询商家
-  const nickname =  "abc"
-  
   return (
     <Container>
-      <Page />
-
-    </Container>
-  )
+      {allMerchants.map((item, index) => {
+        return(
+          <React.Fragment key={index}><Each merchantId={item}/></React.Fragment>   
+        );
+      })}
+      
+    </Container>  
+    )
 }
 
 
-
-function Page(){
-  const image = "/node_modules/jsdom/lib/jsdom/browser/resources/image/img.jpg"
-  const id = "merchantID"
-  const nickname = "nickname"
+function Page({merchantId,customerId}){
+  
+  //查询
+  const imageM = "../../../images/img.jpg"
+  const imageC = "../../../images/img.jpg"
+  const NICKNAMEM = "nicknameM"
+  const NiCKNAMEC = "nicknameC"
   const lastMessage = "hello"  //查询
   const time = "2024-1-1 10:00:00"
-  const communication = [
-    ["21377223", 'get', "21377225", 'rita', 'Hello!', "customer"],
-    ["21377223", 'get', "21377225", 'rita', 'Hi,what can I do for you?', "merchant"],
-    ["21377223", 'get', "21377225", 'rita', 'I want to know more about the book.', "customer"],
-  ]
-
+  
+  const [isDotVisible, setIsDotVisible] = useState(true);
+  const handleLinkClick = (merchant,customerId) => {
+    setIsDotVisible(false);
+    ChatToSingleMerchant(merchantId,customerId);
+  };
+  
+  const mc = merchantId+"&"+customerId
+  console.log(mc)
   return (
   <Container>
-     <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+     <List sx={{marginLeft:20, width: '100%', maxWidth: 800, bgcolor: 'background.paper' }}>
       <ListItem alignItems="flex-start">
-        <a href='/customer/chat/merchant/' className="no-underline">
-          <ChatToSingleCustomer 
-            communication={communication}
-            image={image}  
-          />
+        
         <ListItemAvatar>
           <Space size={24}>
-            <Badge dot>
-              <Avatar alt={id+"'s photo"} src={image} />
+            <Badge dot invisible={isDotVisible ? undefined : "false"}>
+              <Avatar alt={merchantId+"'s photo"} src={imageM} />
             </Badge>
           </Space>
         </ListItemAvatar>
+        
+        <a href={`/customer/chat/merchant/${ mc }`} style={{textDecoration: "none"}} onClick={() => handleLinkClick(merchantId,customerId)}>
         <ListItemText
-          primary={nickname}
+          primary={NICKNAMEM}
           secondary={
             <React.Fragment>
               <Typography
@@ -79,7 +89,7 @@ function Page(){
                 variant="body2"
                 color="text.primary"
               >
-                {id}
+                {merchantId}
               </Typography>
               {" — "+lastMessage+"    "+time}
             </React.Fragment>
@@ -89,33 +99,9 @@ function Page(){
       </ListItem>
       <Divider variant="inset" component="li" />
       
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Space size={24}>
-            <Badge dot>
-              <Avatar alt={id+"'s photo"} src={image} />
-            </Badge>
-          </Space>
-        </ListItemAvatar>
-        <ListItemText
-          primary={nickname}
-          secondary={
-            <React.Fragment>
-              <Typography
-                sx={{ display: 'inline' }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-              >
-                {id}
-              </Typography>
-              {" — "+lastMessage+"    "+time}
-            </React.Fragment>
-          }
-        />
-      </ListItem>
+      
       </List>
-      <Box
+      <Box 
         sx={{
           marginTop: 8,
           display: 'flex',
@@ -124,9 +110,8 @@ function Page(){
           justifyContent: 'center',
         }}
       >
-        <Copyright sx={{ mt: 5 }} />
+        <Copyright sx={{marginLeft:55, mt: 5 }} />
       </Box>
-      
   </Container>
   );
 

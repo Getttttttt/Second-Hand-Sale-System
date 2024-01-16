@@ -14,6 +14,7 @@ import Typography from '@mui/material/Typography';
 import { CustomerServiceFilled, UserOutlined } from '@ant-design/icons';
 import SendIcon from "@mui/icons-material/Send.js";
 import { Avatar, Badge, Space, Popover } from 'antd';
+import { useParams } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -29,7 +30,7 @@ function Copyright(props) {
 }
 
 
-function ChatCanvas(merchantId, nicknameM, customerId, nicknameC, message, fromWho,image){
+function ChatCanvas(merchantId, nicknameM, customerId, nicknameC, message, fromWho,imageM,imageC){
   /*const image = "/node_modules/jsdom/lib/jsdom/browser/resources/image/img.jpg"
   const id = "ID"
   const nickname = "nickname"
@@ -61,11 +62,10 @@ function ChatCanvas(merchantId, nicknameM, customerId, nicknameC, message, fromW
           }}
         >
           <space>
-            <Popover content={merchantId} title={nicknameM}>
-              <Button type="primary">{message}</Button>
+            <Popover content={customerId} title={nicknameM}>
+              <Typography variant="body1">{message}</Typography>
             </Popover>
-            <d>  </d>
-            <Avatar alt={merchantId+"'s photo"} src={image} />
+            <Avatar alt={merchantId+"'s photo"} src={imageC} />
 
           </space>
         </Box>
@@ -84,10 +84,9 @@ function ChatCanvas(merchantId, nicknameM, customerId, nicknameC, message, fromW
           }}
         >
           <space>
-            <Avatar alt={merchantId+"'s photo"} src={image} />
-            <d>  </d>
+            <Avatar alt={merchantId+"'s photo"} src={imageM} />
             <Popover content={merchantId} title={nicknameM}>
-              <Button type="primary">{message}</Button>
+              <Typography variant="body1">{message}</Typography>
             </Popover>
 
           </space>
@@ -100,23 +99,31 @@ function ChatCanvas(merchantId, nicknameM, customerId, nicknameC, message, fromW
 
 
 
-export default function ChatToSingleMerchant({ communication },image) {
+const ChatToSingleMerchant = () => {
+  let { mc } = useParams();
+  mc = mc.split("&")
+  const merchantId = mc[0]
+  const customerId = mc[1]
   
-  var merchantId
-  var nicknameM
-  var customerId
-  var nicknameC
+  //根据商家id和用户id查询沟通记录
+  const c = [
+    ["21377223", 'get', "21377225", 'rita', 'Hello!', "customer", "customer", "../../../images/img.jpg", "../../../images/img.jpg"],
+    ["21377223", 'get', "21377225", 'rita', 'Hi, what can I do for you?', "merchant", "customer", "../../../images/img.jpg", "../../../images/img.jpg"],
+    ["21377223", 'get', "21377225", 'rita', 'I want to know more about the book.', "customer", "customer", "../../../images/img.jpg", "../../../images/img.jpg"],
+  ]
+  var MERCHANTID
+  var NICKNAMEM
+  var CUSTOMERID
+  var NICKNAMEC
   var message
   var fromWho
+  var IMAGEM
+  var IMAGEC
 
-  communication.map((item, index) => (
-    merchantId = item[0],
-    nicknameM = item[1],
-    customerId = item[2],
-    nicknameC = item[3],
-    message = item[4],
-    fromWho = item[5] 
-  ))
+  function Each({merchantId,nicknameM,customerId,nicknameC,message,fromWho,imageM,imageC}){  
+    return <ChatCanvas  merchantId={merchantId} nicknameM={nicknameM} customerId={customerId} nicknameC={nicknameC} message={message} fromWho={fromWho} imageM={imageM} imageC={imageC}/>;
+  }
+
   const [inputValue, setInputValue] = useState('');
   const [chatHistory, setChatHistory] = useState([]);
   const handleChange = (event) => {
@@ -162,45 +169,47 @@ export default function ChatToSingleMerchant({ communication },image) {
   }
 
   const sendMessage = () => {
-    ChatCanvas(merchantId, nicknameM, customerId, nicknameC, message, fromWho, image = {image} );
+    ChatCanvas(MERCHANTID, NICKNAMEM, CUSTOMERID, NICKNAMEC, message, "customer", IMAGEC);
     setInputValue('');
     setChatHistory(...chatHistory,inputValue)
   }
   
   return (
-    <container className="chat-container">
-      <container className="header" style={{position: 'fixed', top: 0, left: 0, right: 0, backgroundColor: 'lightgray' }}>
+    <Container className="chat-container">
+      <Container className="header" style={{position: 'fixed', top: 0, left: 0, right: 0 }}>
         <Box
-        style={{backgroundColor:"lightblue"}}
+        style={{backgroundColor:"#2979ff"}}
         sx={{
           display:'flex',
           justifyContent: 'center',
           alignItems: 'flex-start',
           height: '100vh',
           marginTop: 2,
-          width: 1500,
+          width: 1150,
           height: 50,
           display: 'flex',
           position: 'absolute',
           top: 2,
         }}>
-        <p class="name" style={{ fontSize: '20px', fontWeight: "bold" }}> {nicknameM}</p>
+        <p className="name" style={{ fontSize: '20px', fontWeight: "bold", color:"white" }}> {NICKNAMEM}</p>
         </Box>
-      </container>
-      <ChatCanvas 
-        merchantId={merchantId}
-        nicknameM = {nicknameM}
-        customerId = {customerId}
-        nicknameC = {nicknameC}
-        message = {message}
-        fromWho = {fromWho}
-        image = {image} 
-      />
-    <container className="chat-input" style={{position: 'fixed', bottom: 0, left: 0, right: 0}}>
+      </Container>
+      <Container>
+      {
+        c.map((item, index) => {
+          console.log(item)
+          return(
+            
+            <React.Fragment key={index}><Each merchantId={item[0]} nicknameM={item[1]} customerId={item[2]} nicknameC={item[3]} message={item[4]} fromWho={item[5]} imageM={item[6]} imageC={item[7]}/></React.Fragment>   
+          );
+          })
+      }
+      </Container> 
+    <Container className="chat-input" style={{position: 'fixed', bottom: 0, left: 0, right: 0}}>
       <Box
       style={boxsendStyle}
       sx={{
-        width: 1500,
+        width: 1200,
         height: 100,
         display: 'flex',
         position: 'absolute',
@@ -214,7 +223,6 @@ export default function ChatToSingleMerchant({ communication },image) {
             onChange={handleChange}
             placeholder="Type your message..."
           />
-          <d>  </d>
           <Button 
             onClick={sendMessage} 
             endIcon={<SendIcon />}
@@ -223,7 +231,12 @@ export default function ChatToSingleMerchant({ communication },image) {
             sx={{ mt: 5, mb: 5 }}>Send</Button>
         </Space>
       </Box>
-    </container>
-  </container>
+      <Copyright justifyContent="center"/>
+    </Container>
+  </Container>
   );
 }
+
+
+
+export default ChatToSingleMerchant;

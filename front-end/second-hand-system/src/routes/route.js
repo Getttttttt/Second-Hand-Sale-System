@@ -18,6 +18,8 @@ import ChatToSingleCustomer from "../pages/MerchantPages/ChatPages/ChatToSingleC
 import SaledBookStatusPage from "../pages/MerchantPages/SaledBookList/SaledBookStatusPage";
 import SingleSaledBookStatusPage from "../pages/MerchantPages/SaledBookList/SingleSaledBookStatusPage";
 import SaleBookFormPage from "../pages/MerchantPages/AddSaleBook/SaleBookFormPage";
+import SinglePurchasedBookEvaluation from "../pages/CustomerPages/PurchasedBookList/SinglePurchasedBookEvaluation"
+
 
 export default [
     {
@@ -49,7 +51,7 @@ export default [
         element: <CustomerChatToMerchantList />
     },
     {
-        path: '/customer/chat/merchant',
+        path: '/customer/chat/merchant/:mc',
         element: <ChatToSingleMerchant />
     },
     {
@@ -57,8 +59,12 @@ export default [
         element: <PurchasedBookStatusPage />
     },
     {
-        path: '/customer/purchased/book',
+        path: '/customer/purchased/:orderID',
         element: <SinglePurchasedBookStatusPage />
+    },
+    {
+        path: '/customer/purchased/evaluation/:orderID',
+        element: <SinglePurchasedBookEvaluation />
     },
     {
         path: '/books',

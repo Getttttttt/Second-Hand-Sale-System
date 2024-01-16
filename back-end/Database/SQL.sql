@@ -33,9 +33,9 @@ GO
 CREATE TABLE [沟通记录] (
   [商家id] char(10) NOT NULL,
   [用户id] char(10) NOT NULL,
-  [沟通时间] time NOT NULL,
+  [沟通时间] datetime2 NOT NULL,
   [会话内容] char(200) NULL,
-  [标签] char(200) NOT NULL,
+  [标签] char(10) NOT NULL,
   CONSTRAINT [_copy_6] PRIMARY KEY CLUSTERED ([商家id], [用户id], [沟通时间])
 WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
 )
@@ -103,7 +103,7 @@ CREATE TABLE [用户] (
   [用户id] char(10) NOT NULL,
   [昵称] char(100) NULL,
   [登录密码] char(20) NOT NULL,
-  [手机号] int NULL,
+  [手机号] char(20) NULL,
   [收货地址] char(100) NULL,
   [头像] char(100) NULL,
   PRIMARY KEY CLUSTERED ([用户id])

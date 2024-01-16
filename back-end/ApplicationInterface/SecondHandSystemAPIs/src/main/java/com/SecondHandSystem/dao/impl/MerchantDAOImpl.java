@@ -75,7 +75,8 @@ public class MerchantDAOImpl implements IMerchantDAO {
     }
 
     @Override
-    public List<Merchant> updateMerchant(String merchantId, String nickname, String password, String truthLevel,int numbOfBookOnsale,int length,String picUrl) throws Exception {
+    public List<Merchant> updateMerchant(String merchantId,String nickname,String password,String truthLevel,int numbOfBookOnsale,int length,String picUrl) throws Exception {
+        System.out.println("11111111");
         String sql = "UPDATE 商家 SET 昵称=?,登录密码=?,信用等级=?,在售书籍数量=?,开店时长=?,头像=? WHERE 商家id='"+merchantId+"'";  //定义要实现的SQL语句
         this.prestmt = this.conn.prepareStatement(sql);  //prestmt用于执行sql语句
         prestmt.setString(1,nickname);
@@ -84,7 +85,8 @@ public class MerchantDAOImpl implements IMerchantDAO {
         prestmt.setInt(4,numbOfBookOnsale);
         prestmt.setInt(5,length);
         prestmt.setString(6,picUrl);
-        this.prestmt.execute();  //执行sql语句
+        int i = this.prestmt.executeUpdate(sql);  //执行sql语句
+        System.out.println(i);
         return searchMerchant(merchantId,password);
     }
 

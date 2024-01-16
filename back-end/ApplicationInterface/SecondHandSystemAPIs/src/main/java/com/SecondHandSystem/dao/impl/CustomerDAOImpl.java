@@ -74,6 +74,7 @@ public class CustomerDAOImpl implements ICustomerDAO {
 
     @Override
     public List<Customer> updateCustomer(String customerId, String nickname, String password, String phoneNumber, String address, String picUrl) throws Exception {
+        System.out.println(11111111);
         List<Customer> all = new ArrayList<>(); //创建Customer对象列表用于保存从数据库中查询到的信息
         String sql = "UPDATE 用户 SET 昵称=?,登录密码=?,手机号=?,收货地址=?,头像=? WHERE 用户id='"+customerId+"'";  //定义要实现的SQL语句
         this.prestmt = this.conn.prepareStatement(sql);  //prestmt用于执行sql语句
