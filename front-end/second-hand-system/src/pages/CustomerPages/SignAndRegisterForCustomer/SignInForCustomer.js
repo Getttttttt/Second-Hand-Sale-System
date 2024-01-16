@@ -38,13 +38,39 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignInForCustomer() {
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      account: data.get('account'),
+
+    const jsonData = JSON.stringify({
+      telephone: data.get('telephone'),
       password: data.get('password'),
     });
+
+    try {
+      let myHeaders = new Headers({
+        'Content-Type': 'application/json'
+      });
+      
+      const response = await fetch('http://localhost:8080/SecondHandSystemAPIs_war_exploded/customer/signIn', {
+        method: 'POST',
+        headers: myHeaders,
+        body: jsonData,
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      // 处理返回的数据
+      const responseData = await response.json();
+      console.log(responseData);
+  
+      // 执行下一步操作
+      // 例如：更新UI或状态等
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+    }
   };
 
   const [showPassword, setShowPassword] = React.useState(false);
@@ -78,10 +104,10 @@ export default function SignInForCustomer() {
               margin="normal"
               required
               fullWidth
-              id="account"
-              label="Account Infor"
-              name="account"
-              autoComplete="account"
+              id="telephone"
+              label="Telephone Number"
+              name="telephone"
+              autoComplete="telephone"
               autoFocus
             />
             <FormControl fullWidth variant="outlined">

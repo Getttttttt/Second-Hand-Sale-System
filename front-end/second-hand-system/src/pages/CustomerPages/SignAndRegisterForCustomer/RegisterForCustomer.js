@@ -42,7 +42,7 @@ export default function RegisterForCustomer() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
   
-    // 将表单数据转换为JSON
+    // convert form to JSON
     const jsonData = JSON.stringify({
       telephone: data.get('telephone'),
       password: data.get('password'),
