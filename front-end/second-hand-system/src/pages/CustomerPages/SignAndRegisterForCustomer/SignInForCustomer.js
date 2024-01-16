@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -19,6 +19,10 @@ import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { IconButton } from '@mui/material';
+import { useSelector,useDispatch } from 'react-redux';
+import { updateSignInData } from '../../../state/signInDataSlice';
+import {Alert} from '@mui/material';
+import {AlertTitle} from '@mui/material';
 
 function Copyright(props) {
   return (
@@ -38,6 +42,14 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignInForCustomer() {
+
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [showFailureMessage, setShowFailureMessage] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const signInData = useSelector((state) => state.signInData);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -65,6 +77,17 @@ export default function SignInForCustomer() {
       // 处理返回的数据
       const responseData = await response.json();
       console.log(responseData);
+
+      if (responseData.message === "Search Successful") {
+        dispatch(updateSignInData({ customerID: data.get('telephone') }));
+        setShowSuccessMessage(true);
+      }
+
+      else {
+        setShowFailureMessage(true);
+      }
+      
+      console.log(signInData.customerID);
   
       // 执行下一步操作
       // 例如：更新UI或状态等
@@ -93,6 +116,25 @@ export default function SignInForCustomer() {
             alignItems: 'center',
           }}
         >
+          <Box
+            sx={{
+              marginTop: 8,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            {showSuccessMessage && 
+              <Alert severity="success">
+                <AlertTitle>Success</AlertTitle>
+                The page will be redirected to the Customer Center after 2 seconds
+              </Alert>}
+            {showFailureMessage && 
+              <Alert severity="error">
+                <AlertTitle>Error</AlertTitle>
+                The account does not exist or the password is incorrect
+              </Alert>}
+          </Box>
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>

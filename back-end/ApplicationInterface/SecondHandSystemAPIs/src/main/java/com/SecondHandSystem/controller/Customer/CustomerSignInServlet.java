@@ -2,6 +2,7 @@ package com.SecondHandSystem.controller.Customer;
 
 import com.SecondHandSystem.dao.ICustomerDAO;
 import com.SecondHandSystem.factory.DAOFactory;
+import com.SecondHandSystem.vo.Customer;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/customer/signIn")
 public class CustomerSignInServlet extends HttpServlet {
@@ -58,8 +60,12 @@ public class CustomerSignInServlet extends HttpServlet {
 
         try {
             ICustomerDAO cuatomerDAO = DAOFactory.getICustomerDAOInstance();
-            cuatomerDAO.searchCustomer(telephone,password);
-            returnMessage = "Search Successful";
+            List<Customer> customers;
+            customers = cuatomerDAO.searchCustomer(telephone,password);
+            if (customers.size() != 0)
+                returnMessage = "Search Successful";
+            else
+                returnMessage = "Error";
         } catch (Exception e) {
             returnMessage = "Search failure: "+e.toString();
         }
