@@ -1,26 +1,24 @@
-package com.SecondHandSystem.controller.Customer;
+package com.SecondHandSystem.controller.Merchant;
 
 import com.SecondHandSystem.dao.ICustomerDAO;
-import com.SecondHandSystem.dao.proxy.CustomerDAOProxy;
+import com.SecondHandSystem.dao.IMerchantDAO;
 import com.SecondHandSystem.factory.DAOFactory;
 import com.SecondHandSystem.vo.Customer;
+import com.SecondHandSystem.vo.Merchant;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.ServletException;
-import java.io.IOException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
-import java.util.Objects;
+import java.io.IOException;
+import java.util.List;
 
-@WebServlet("/customer/signUpNewUser")
-public class CustomerSignUpServlet extends HttpServlet {
-
-
+@WebServlet("/merchant/signIn")
+public class MerchantSignInServlet extends HttpServlet {
     private void setAccessControlHeaders(HttpServletResponse response) {
         response.setHeader("Access-Control-Allow-Origin", "http://localhost:9000"); // 允许的来源，根据需要更改
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
@@ -59,20 +57,19 @@ public class CustomerSignUpServlet extends HttpServlet {
         // analysis variable
         String telephone = jsonObject.optString("telephone"); // 使用 optString 避免 JSONException
         String password = jsonObject.optString("password");
-        String nickname = jsonObject.optString("nickname");
-        String address = jsonObject.optString("address");
 
         String returnMessage;
 
         try {
-            ICustomerDAO cuatomerDAO = DAOFactory.getICustomerDAOInstance();
-            if (Objects.equals(password, "")) throw new Exception();
-            if (Objects.equals(telephone, "")) throw new Exception();
-            if (Objects.equals(nickname, "")) throw new Exception();
-            cuatomerDAO.insertCustomer(telephone,nickname,password,telephone,address,"");
-            returnMessage = "Insert Successful";
+            IMerchantDAO merchantDAO = DAOFactory.getIMerchantDAOInstance();
+            List<Merchant> merchants;
+            merchants = merchantDAO.searchMerchant(telephone,password);
+            if (merchants.size() != 0)
+                returnMessage = "Search Successful";
+            else
+                returnMessage = "Error";
         } catch (Exception e) {
-            returnMessage = "Insert failure: "+e.toString();
+            returnMessage = "Search failure: "+e.toString();
         }
 
         // 设置响应类型和状态

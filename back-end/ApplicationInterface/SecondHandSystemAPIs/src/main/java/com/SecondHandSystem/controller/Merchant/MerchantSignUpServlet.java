@@ -1,24 +1,22 @@
-package com.SecondHandSystem.controller.Customer;
+package com.SecondHandSystem.controller.Merchant;
 
 import com.SecondHandSystem.dao.ICustomerDAO;
-import com.SecondHandSystem.dao.proxy.CustomerDAOProxy;
+import com.SecondHandSystem.dao.IMerchantDAO;
 import com.SecondHandSystem.factory.DAOFactory;
-import com.SecondHandSystem.vo.Customer;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.ServletException;
-import java.io.IOException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.Objects;
 
-@WebServlet("/customer/signUpNewUser")
-public class CustomerSignUpServlet extends HttpServlet {
+@WebServlet("/merchant/signUpNewUser")
+public class MerchantSignUpServlet extends HttpServlet {
 
 
     private void setAccessControlHeaders(HttpServletResponse response) {
@@ -60,16 +58,15 @@ public class CustomerSignUpServlet extends HttpServlet {
         String telephone = jsonObject.optString("telephone"); // 使用 optString 避免 JSONException
         String password = jsonObject.optString("password");
         String nickname = jsonObject.optString("nickname");
-        String address = jsonObject.optString("address");
 
         String returnMessage;
 
         try {
-            ICustomerDAO cuatomerDAO = DAOFactory.getICustomerDAOInstance();
+            IMerchantDAO merchantDAO = DAOFactory.getIMerchantDAOInstance();
             if (Objects.equals(password, "")) throw new Exception();
             if (Objects.equals(telephone, "")) throw new Exception();
             if (Objects.equals(nickname, "")) throw new Exception();
-            cuatomerDAO.insertCustomer(telephone,nickname,password,telephone,address,"");
+            merchantDAO.insertMerchant(telephone,nickname,password,"");
             returnMessage = "Insert Successful";
         } catch (Exception e) {
             returnMessage = "Insert failure: "+e.toString();

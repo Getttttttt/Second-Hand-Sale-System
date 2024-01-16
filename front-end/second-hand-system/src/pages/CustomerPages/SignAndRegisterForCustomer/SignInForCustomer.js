@@ -23,6 +23,8 @@ import { useSelector,useDispatch } from 'react-redux';
 import { updateSignInData } from '../../../state/signInDataSlice';
 import {Alert} from '@mui/material';
 import {AlertTitle} from '@mui/material';
+import { Height } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -45,6 +47,7 @@ export default function SignInForCustomer() {
 
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showFailureMessage, setShowFailureMessage] = useState(false);
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -81,10 +84,16 @@ export default function SignInForCustomer() {
       if (responseData.message === "Search Successful") {
         dispatch(updateSignInData({ customerID: data.get('telephone') }));
         setShowSuccessMessage(true);
+        setTimeout(() => {
+          navigate('/customer');
+        }, 2000);
       }
 
       else {
         setShowFailureMessage(true);
+        setTimeout(() => {
+          setShowFailureMessage(false);
+        }, 2000);
       }
       
       console.log(signInData.customerID);
@@ -110,7 +119,7 @@ export default function SignInForCustomer() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 6,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -118,22 +127,17 @@ export default function SignInForCustomer() {
         >
           <Box
             sx={{
-              marginTop: 8,
+              height:60,
+              marginTop: 0,
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
             }}
           >
             {showSuccessMessage && 
-              <Alert severity="success">
-                <AlertTitle>Success</AlertTitle>
-                The page will be redirected to the Customer Center after 2 seconds
-              </Alert>}
+              <Alert severity="success">Page'll navigate to Customer Center after 2s</Alert>}
             {showFailureMessage && 
-              <Alert severity="error">
-                <AlertTitle>Error</AlertTitle>
-                The account does not exist or the password is incorrect
-              </Alert>}
+              <Alert severity="error">Account no exist or Password incorrect.</Alert>}
           </Box>
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />

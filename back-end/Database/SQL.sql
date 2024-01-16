@@ -31,7 +31,7 @@ WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW
 GO
 
 CREATE TABLE [沟通记录] (
-  [商家id] char(10) NOT NULL,
+  [商家id] char(20) NOT NULL,
   [用户id] char(20) NOT NULL,
   [沟通时间] time NOT NULL,
   [会话内容] char(200) NULL,
@@ -42,7 +42,7 @@ WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW
 GO
 
 CREATE TABLE [商家] (
-  [商家id] char(10) NOT NULL,
+  [商家id] char(20) NOT NULL,
   [昵称] char(100) NULL,
   [登录密码] char(20) NULL,
   [信用等级] char(10) NULL,
@@ -56,7 +56,7 @@ GO
 
 CREATE TABLE [售卖书籍] (
   [商品id] char(10) NOT NULL,
-  [商家id] char(10) NOT NULL,
+  [商家id] char(20) NOT NULL,
   [库存数量] int NULL,
   [上架时间] char(20) NULL,
   [新旧程度] char(100) NULL,
