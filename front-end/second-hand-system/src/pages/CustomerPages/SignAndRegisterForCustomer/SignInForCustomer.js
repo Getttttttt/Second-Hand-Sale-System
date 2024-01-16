@@ -85,7 +85,7 @@ export default function SignInForCustomer() {
               autoFocus
             />
             <FormControl fullWidth variant="outlined">
-                  <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                  <InputLabel htmlFor="outlined-adornment-password" required>Password</InputLabel>
                   <OutlinedInput
                     id="outlined-adornment-password"
                     type={showPassword ? 'text' : 'password'}

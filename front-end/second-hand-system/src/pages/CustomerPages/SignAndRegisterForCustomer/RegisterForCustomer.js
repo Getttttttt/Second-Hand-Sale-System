@@ -38,16 +38,44 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function RegisterForCustomer() {
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+  
+    // 将表单数据转换为JSON
+    const jsonData = {
       telephone: data.get('telephone'),
       password: data.get('password'),
       nickname: data.get('nickname'),
       address: data.get('address'),
-    });
+    };
+  
+    try {
+      let myHeaders = new Headers({
+        'Content-Type': 'application/json'
+      });
+      
+      const response = await fetch('http://localhost:8080/SecondHandSystemAPIs_war_exploded/customer/signUpNewUser', {
+        method: 'POST',
+        headers: myHeaders,
+        body: jsonData,
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      // 处理返回的数据
+      const responseData = await response.json();
+      console.log(responseData);
+  
+      // 执行下一步操作
+      // 例如：更新UI或状态等
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+    }
   };
+  
 
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -107,10 +135,11 @@ export default function RegisterForCustomer() {
               </Grid>
               <Grid item xs={12}>
                 <FormControl fullWidth variant="outlined">
-                  <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                  <InputLabel htmlFor="outlined-adornment-password" required>Password</InputLabel>
                   <OutlinedInput
                     id="outlined-adornment-password"
                     type={showPassword ? 'text' : 'password'}
+                    required
                     endAdornment={
                       <InputAdornment position="end">
                         <IconButton
