@@ -17,7 +17,7 @@ GO
 
 
 CREATE TABLE [订单] (
-  [用户ID] char(10) NOT NULL,
+  [用户ID] char(20) NOT NULL,
   [商品ID] char(10) NOT NULL,
   [交易时间] datetime2 NOT NULL,
   [交易价格] float NULL,
@@ -31,9 +31,15 @@ WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW
 GO
 
 CREATE TABLE [沟通记录] (
+<<<<<<< HEAD
   [商家id] char(10) NOT NULL,
   [用户id] char(10) NOT NULL,
   [沟通时间] datetime2 NOT NULL,
+=======
+  [商家id] char(20) NOT NULL,
+  [用户id] char(20) NOT NULL,
+  [沟通时间] time NOT NULL,
+>>>>>>> 2b257b07ac277810a72c4f392ba03848a0053873
   [会话内容] char(200) NULL,
   [标签] char(10) NOT NULL,
   CONSTRAINT [_copy_6] PRIMARY KEY CLUSTERED ([商家id], [用户id], [沟通时间])
@@ -42,7 +48,7 @@ WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW
 GO
 
 CREATE TABLE [商家] (
-  [商家id] char(10) NOT NULL,
+  [商家id] char(20) NOT NULL,
   [昵称] char(100) NULL,
   [登录密码] char(20) NULL,
   [信用等级] char(10) NULL,
@@ -56,7 +62,7 @@ GO
 
 CREATE TABLE [售卖书籍] (
   [商品id] char(10) NOT NULL,
-  [商家id] char(10) NOT NULL,
+  [商家id] char(20) NOT NULL,
   [库存数量] int NULL,
   [上架时间] char(20) NULL,
   [新旧程度] char(100) NULL,
@@ -100,7 +106,7 @@ WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW
 GO
 
 CREATE TABLE [用户] (
-  [用户id] char(10) NOT NULL,
+  [用户id] char(20) NOT NULL,
   [昵称] char(100) NULL,
   [登录密码] char(20) NOT NULL,
   [手机号] char(20) NULL,
@@ -112,7 +118,7 @@ WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW
 GO
 
 CREATE TABLE [购物车] (
-  [用户id] char(10) NOT NULL,
+  [用户id] char(20) NOT NULL,
   [商品id] char(10) NOT NULL,
   [加购数量] int NULL,
   CONSTRAINT [_copy_10] PRIMARY KEY CLUSTERED ([用户id], [商品id])

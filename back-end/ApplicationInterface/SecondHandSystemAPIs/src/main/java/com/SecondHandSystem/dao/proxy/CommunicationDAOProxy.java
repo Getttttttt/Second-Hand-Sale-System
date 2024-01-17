@@ -28,6 +28,21 @@ public class CommunicationDAOProxy implements ICommunicationDAO {
     }
 
     @Override
+    public String[][] searchByCustomerId(String Id, String tag) throws Exception {
+        String[][] communication = new String[300][5];
+        try{
+            communication = this.dao.searchByCustomerId(Id,tag);
+        }
+        catch (Exception e){
+            throw e;
+        }
+        finally{
+            DatabaseConnection.release(((CommunicationDAOImpl)dao).getStat(),((CommunicationDAOImpl)dao).getConn());
+        }
+        return communication;
+    }
+
+    @Override
     public String searchLastMessage(String merchantId, String customerId) throws Exception {
         String lastMessage;
         try{

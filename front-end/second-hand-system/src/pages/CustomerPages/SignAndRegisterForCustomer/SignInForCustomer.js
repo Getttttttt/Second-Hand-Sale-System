@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -19,6 +19,12 @@ import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { IconButton } from '@mui/material';
+import { useSelector,useDispatch } from 'react-redux';
+import { updateSignInData } from '../../../state/signInDataSlice';
+import {Alert} from '@mui/material';
+import {AlertTitle} from '@mui/material';
+import { Height } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -38,13 +44,65 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignInForCustomer() {
-  const handleSubmit = (event) => {
+
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [showFailureMessage, setShowFailureMessage] = useState(false);
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
+  const signInData = useSelector((state) => state.signInData);
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      account: data.get('account'),
+
+    const jsonData = JSON.stringify({
+      telephone: data.get('telephone'),
       password: data.get('password'),
     });
+
+    try {
+      let myHeaders = new Headers({
+        'Content-Type': 'application/json'
+      });
+      
+      const response = await fetch('http://localhost:8080/SecondHandSystemAPIs_war_exploded/customer/signIn', {
+        method: 'POST',
+        headers: myHeaders,
+        body: jsonData,
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      // 处理返回的数据
+      const responseData = await response.json();
+      console.log(responseData);
+
+      if (responseData.message === "Search Successful") {
+        dispatch(updateSignInData({ customerID: data.get('telephone') }));
+        setShowSuccessMessage(true);
+        setTimeout(() => {
+          navigate('/customer');
+        }, 2000);
+      }
+
+      else {
+        setShowFailureMessage(true);
+        setTimeout(() => {
+          setShowFailureMessage(false);
+        }, 2000);
+      }
+      
+      console.log(signInData.customerID);
+  
+      // 执行下一步操作
+      // 例如：更新UI或状态等
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+    }
   };
 
   const [showPassword, setShowPassword] = React.useState(false);
@@ -61,12 +119,26 @@ export default function SignInForCustomer() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 6,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
         >
+          <Box
+            sx={{
+              height:60,
+              marginTop: 0,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            {showSuccessMessage && 
+              <Alert severity="success">Page'll navigate to Customer Center after 2s</Alert>}
+            {showFailureMessage && 
+              <Alert severity="error">Account no exist or Password incorrect.</Alert>}
+          </Box>
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
@@ -78,10 +150,10 @@ export default function SignInForCustomer() {
               margin="normal"
               required
               fullWidth
-              id="account"
-              label="Account Infor"
-              name="account"
-              autoComplete="account"
+              id="telephone"
+              label="Telephone Number"
+              name="telephone"
+              autoComplete="telephone"
               autoFocus
             />
             <FormControl fullWidth variant="outlined">

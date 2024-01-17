@@ -25,6 +25,7 @@ function Copyright(props) {
 
 
 export default function CustomerChatToMerchantList({ customerId, allMerchants }) {
+  
   allMerchants=new Array("21377223","21377006","21377227","21377226")
   customerId = "21377225"
   function Each({merchantId}){    
@@ -44,7 +45,6 @@ export default function CustomerChatToMerchantList({ customerId, allMerchants })
 
 
 function Page({merchantId,customerId}){
-  
   //查询
   const imageM = "../../../images/img.jpg"
   const imageC = "../../../images/img.jpg"
@@ -60,7 +60,6 @@ function Page({merchantId,customerId}){
   };
   
   const mc = merchantId+"&"+customerId
-  console.log(mc)
   return (
   <Container>
      <List sx={{marginLeft:20, width: '100%', maxWidth: 800, bgcolor: 'background.paper' }}>

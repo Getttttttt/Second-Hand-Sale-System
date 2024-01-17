@@ -185,7 +185,7 @@ const ChatToSingleMerchant = () => {
           position: 'absolute',
           top: 2,
         }}>
-        <p className="name" style={{ fontSize: '18px', fontWeight: "bold", color:"white" }} > {NICKNAMEC}<Typography>{}</Typography></p>
+          <React.Fragment><Typography className="name" sx={{ marginTop:"2px", fontSize: '25px', fontWeight: "bold", color:"white",}}>{NICKNAMEC}</Typography></React.Fragment>
         </Box>
       </Container>
       <Container>
@@ -224,6 +224,7 @@ const ChatToSingleMerchant = () => {
             placeholder="Type your message..."
           />
           <Button 
+            variant="contained" 
             onClick={() => sendMessage(inputValue)} 
             endIcon={<SendIcon />}
             size="small"
