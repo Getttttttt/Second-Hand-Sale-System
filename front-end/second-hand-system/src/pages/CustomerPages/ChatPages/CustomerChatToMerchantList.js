@@ -7,7 +7,6 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Typography from '@mui/material/Typography';
-import { UserOutlined } from '@ant-design/icons';
 import { Avatar, Badge, Space } from 'antd';
 import ChatToSingleMerchant from './ChatToSingleMerchant';
 
@@ -25,7 +24,7 @@ function Copyright(props) {
 }
 
 
-export default function CustomerChatToMerchantList(customerId,{ allMerchants }) {
+export default function CustomerChatToMerchantList({ customerId, allMerchants }) {
   allMerchants=new Array("21377223","21377006","21377227","21377226")
   customerId = "21377225"
   function Each({merchantId}){    
@@ -39,7 +38,6 @@ export default function CustomerChatToMerchantList(customerId,{ allMerchants }) 
           <React.Fragment key={index}><Each merchantId={item}/></React.Fragment>   
         );
       })}
-      
     </Container>  
     )
 }
@@ -56,7 +54,7 @@ function Page({merchantId,customerId}){
   const time = "2024-1-1 10:00:00"
   
   const [isDotVisible, setIsDotVisible] = React.useState(true);
-  const handleLinkClick = (merchant,customerId) => {
+  const handleLinkClick = (merchantId,customerId) => {
     setIsDotVisible(false);
     ChatToSingleMerchant(merchantId,customerId);
   };
