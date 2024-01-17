@@ -15,6 +15,8 @@ import { CustomerServiceFilled, UserOutlined } from '@ant-design/icons';
 import SendIcon from "@mui/icons-material/Send.js";
 import { Avatar, Badge, Space, Popover } from 'antd';
 import { useParams } from 'react-router-dom';
+import "../../../images/img.jpg"
+
 
 function Copyright(props) {
   return (
@@ -30,7 +32,8 @@ function Copyright(props) {
 }
 
 
-function ChatCanvas(merchantId, nicknameM, customerId, nicknameC, message, fromWho,imageM,imageC){
+function ChatCanvas({merchantId, nicknameM, customerId, nicknameC, message, fromWho,imageM,imageC}){
+  console.log(merchantId)
   /*const image = "/node_modules/jsdom/lib/jsdom/browser/resources/image/img.jpg"
   const id = "ID"
   const nickname = "nickname"
@@ -40,64 +43,62 @@ function ChatCanvas(merchantId, nicknameM, customerId, nicknameC, message, fromW
   const boxcontentleftStle = {
     display: 'flex',
     justifyContent: 'flex-start',
-    height: '100vh',
-    marginLeft: '160px',
+    height: '5vh',
+    marginLeft: '100px',
   }
   const boxcontentrightStle = {
     display: 'flex',
     justifyContent: 'flex-end',
-    height: '100vh',
-    marginRight: '160px',
+    height: '5vh',
+    marginRight: '100px',
   }
 
-  if(fromWho==="customer"){  
+  if(fromWho==="customer"){
     return(
-      <Container sx={{justifyContent: 'flex-end'}}>
         <Box 
           style={boxcontentrightStle}
           sx={{
-            marginTop: 13,
+            marginTop: 3,
             display: 'flex',
             justifyContent: 'flex-end',
           }}
         >
-          <space>
-            <Popover content={customerId} title={nicknameM}>
-              <Typography variant="body1">{message}</Typography>
+          <div sx={{ display: 'flex', alignItems: 'center',}}>
+            <Typography variant="body1">{message}</Typography>
+            <Popover content={customerId} title={nicknameC}>
+              <Avatar alt={merchantId+"'s photo"} src={imageC} />
             </Popover>
-            <Avatar alt={merchantId+"'s photo"} src={imageC} />
-
-          </space>
+          </div>
         </Box>
-      </Container>
+    
   )
   }
   if(fromWho==="merchant"){
     return(
-      <Container>
         <Box 
           style={boxcontentleftStle}
           sx={{
-            marginTop: 13,
+            marginTop: 3,
             display: 'flex',
             justifyContent: 'flex-start',
           }}
         >
-          <space>
-            <Avatar alt={merchantId+"'s photo"} src={imageM} />
+          <div sx={{ display: 'flex', alignItems: 'flex-start',}}>
             <Popover content={merchantId} title={nicknameM}>
-              <Typography variant="body1">{message}</Typography>
+              <Avatar alt={merchantId+"'s photo"} src={imageM} />
             </Popover>
-
-          </space>
+            <Typography variant="body1">{message}</Typography>
+          </div>
         </Box>
-      </Container>
     )
   }
 }
 
 
-
+function Each({merchantId,nicknameM,customerId,nicknameC,message,fromWho,imageM,imageC}){  
+  console.log(merchantId)
+  return <ChatCanvas  merchantId={merchantId} nicknameM={nicknameM} customerId={customerId} nicknameC={nicknameC} message={message} fromWho={fromWho} imageM={imageM} imageC={imageC}/>;
+}
 
 const ChatToSingleMerchant = () => {
   let { mc } = useParams();
@@ -105,53 +106,63 @@ const ChatToSingleMerchant = () => {
   const merchantId = mc[0]
   const customerId = mc[1]
   
-  //根据商家id和用户id查询沟通记录
-  const c = [
-    ["21377223", 'get', "21377225", 'rita', 'Hello!', "customer", "customer", "../../../images/img.jpg", "../../../images/img.jpg"],
-    ["21377223", 'get', "21377225", 'rita', 'Hi, what can I do for you?', "merchant", "customer", "../../../images/img.jpg", "../../../images/img.jpg"],
-    ["21377223", 'get', "21377225", 'rita', 'I want to know more about the book.', "customer", "customer", "../../../images/img.jpg", "../../../images/img.jpg"],
-  ]
-  var MERCHANTID
-  var NICKNAMEM
-  var CUSTOMERID
-  var NICKNAMEC
-  var message
-  var fromWho
-  var IMAGEM
-  var IMAGEC
 
-  function Each({merchantId,nicknameM,customerId,nicknameC,message,fromWho,imageM,imageC}){  
-    return <ChatCanvas  merchantId={merchantId} nicknameM={nicknameM} customerId={customerId} nicknameC={nicknameC} message={message} fromWho={fromWho} imageM={imageM} imageC={imageC}/>;
-  }
 
   const [inputValue, setInputValue] = useState('');
-  const [chatHistory, setChatHistory] = useState([]);
+  let [chatHistory, setChatHistory] = useState([]);
   const handleChange = (event) => {
     setInputValue(event.target.value);
   };
+  const sendMessage = (newMessage) => {
+    setInputValue('');
+    const newChatHistory = [...chatHistory,[MERCHANTID, NICKNAMEM, CUSTOMERID, NICKNAMEC, newMessage, "customer", IMAGEM, IMAGEC]]
+    setChatHistory(newChatHistory);
+    console.log(newChatHistory)
+    console.log(chatHistory)
+    return(
+      <Container>
+        <List sx={{marginLeft:20, marginTop:10, marginBottom:20, width: '100%', maxWidth: 800, bgcolor: 'transparent' }}>
+      {
+        newChatHistory.map((item, index) => {
+          if(i<chatHistory.length){
+            console.log(i)
+            console.log(item[0])
+            i=i+1
+            return(
+              <React.Fragment key={index}><Each merchantId={item[0]} nicknameM={item[1]} customerId={item[2]} nicknameC={item[3]} message={item[4]} fromWho={item[5]} imageM={item[6]} imageC={item[7]}/></React.Fragment>   
+          );
+          }
+        })}
+        </List>
+      </Container> 
+    )
+  }
 
-  /*const [messages, setMessages] = useState([]);
-  const [inputValue,setInputValue] = useState('');
-  const messagesEndRef = useRef(null);
+ //根据商家id和用户id查询沟通记录
+  chatHistory = [
+    [merchantId, 'get', customerId, 'rita', 'Hello!', "customer",  "../../../images/img.jpg", "../../../images/img.jpg"],
+    [merchantId, 'get', customerId, 'rita', 'Hi, what can I do for you?', "merchant",  "../../../images/img.jpg", "../../../images/img.jpg"],
+    [merchantId, 'get', customerId, 'rita', 'I want to know more about the book.', "customer",  "../../../images/img.jpg", "../../../images/img.jpg"],
+    [merchantId, 'get', customerId, 'rita', 'I am glad to tell you.', "merchant", "../../../images/img.jpg", "../../../images/img.jpg"],
+  ]
 
-  // 处理发送消息
-  const sendMessage = () => {
-    if (inputValue.trim() !== '') {
-      const newMessage = {
-        content: inputValue,
-        sender: 'user', // 假设用户发送的消息
-        timestamp: new Date().getTime() // 当前时间戳
-      };
-      setMessages([...messages, inputValue]);
-      setInputValue('');
-    }
-  };*/
+   var MERCHANTID = chatHistory[0][0]
+   var NICKNAMEM = chatHistory[0][1]
+   var CUSTOMERID = chatHistory[0][2]
+   var NICKNAMEC = chatHistory[0][3]
+   var message
+   var fromWho
+   var IMAGEM = chatHistory[0][6]
+   var IMAGEC = chatHistory[0][7]
+
 
   const boxsendStyle = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'flex-end',
-    height: '100vh'
+    height: '5vh',
+    backgroundColor: '#FFFFFF',
+    marginBottom:20
   };
   const inputStyle = {
     padding: '10px',
@@ -165,15 +176,11 @@ const ChatToSingleMerchant = () => {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'flex-start',
-    height: '100vh'
-  }
-
-  const sendMessage = () => {
-    ChatCanvas(MERCHANTID, NICKNAMEM, CUSTOMERID, NICKNAMEC, message, "customer", IMAGEC);
-    setInputValue('');
-    setChatHistory(...chatHistory,inputValue)
+    height: '10vh',
+    backgroundColor: '#FFFFFF'
   }
   
+  let i = 0
   return (
     <Container className="chat-container">
       <Container className="header" style={{position: 'fixed', top: 0, left: 0, right: 0 }}>
@@ -191,19 +198,24 @@ const ChatToSingleMerchant = () => {
           position: 'absolute',
           top: 2,
         }}>
-        <p className="name" style={{ fontSize: '20px', fontWeight: "bold", color:"white" }}> {NICKNAMEM}</p>
+        <p className="name" style={{ fontSize: '18px', fontWeight: "bold", color:"white" }} > {NICKNAMEM}<Typography>{}</Typography></p>
         </Box>
       </Container>
       <Container>
+        <List sx={{marginLeft:20, marginTop:10, marginBottom:20, width: '100%', maxWidth: 800, bgcolor: 'transparent' }}>
       {
-        c.map((item, index) => {
-          console.log(item)
-          return(
-            
-            <React.Fragment key={index}><Each merchantId={item[0]} nicknameM={item[1]} customerId={item[2]} nicknameC={item[3]} message={item[4]} fromWho={item[5]} imageM={item[6]} imageC={item[7]}/></React.Fragment>   
+        chatHistory.map((item, index) => {
+          if(i<chatHistory.length){
+            console.log(i)
+            console.log(item[0])
+            i=i+1
+            return(
+              <React.Fragment key={index}><Each merchantId={item[0]} nicknameM={item[1]} customerId={item[2]} nicknameC={item[3]} message={item[4]} fromWho={item[5]} imageM={item[6]} imageC={item[7]}/></React.Fragment>   
           );
-          })
-      }
+          
+          }
+        })}
+        </List>
       </Container> 
     <Container className="chat-input" style={{position: 'fixed', bottom: 0, left: 0, right: 0}}>
       <Box
@@ -224,19 +236,18 @@ const ChatToSingleMerchant = () => {
             placeholder="Type your message..."
           />
           <Button 
-            onClick={sendMessage} 
+            onClick={() => sendMessage(inputValue)} 
             endIcon={<SendIcon />}
-            variant="contained"
             size="small"
             sx={{ mt: 5, mb: 5 }}>Send</Button>
         </Space>
+      </Box >
+      <Box style={{marginBottom: 0, backgroundColor: '#FFFFFF'}}>
+        <Copyright justifyContent="center"/>
       </Box>
-      <Copyright justifyContent="center"/>
     </Container>
   </Container>
   );
 }
-
-
 
 export default ChatToSingleMerchant;

@@ -10,9 +10,6 @@ import Typography from '@mui/material/Typography';
 import { UserOutlined } from '@ant-design/icons';
 import { Avatar, Badge, Space } from 'antd';
 import ChatToSingleMerchant from './ChatToSingleMerchant';
-import { mapToStyles } from '@popperjs/core/lib/modifiers/computeStyles';
-import { useState } from 'react';
-
 
 function Copyright(props) {
   return (
@@ -26,6 +23,7 @@ function Copyright(props) {
     </Typography>
   );
 }
+
 
 export default function CustomerChatToMerchantList(customerId,{ allMerchants }) {
   allMerchants=new Array("21377223","21377006","21377227","21377226")
@@ -57,7 +55,7 @@ function Page({merchantId,customerId}){
   const lastMessage = "hello"  //查询
   const time = "2024-1-1 10:00:00"
   
-  const [isDotVisible, setIsDotVisible] = useState(true);
+  const [isDotVisible, setIsDotVisible] = React.useState(true);
   const handleLinkClick = (merchant,customerId) => {
     setIsDotVisible(false);
     ChatToSingleMerchant(merchantId,customerId);
