@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import { IconButton } from '@mui/material';
@@ -19,6 +19,10 @@ import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import {Alert} from '@mui/material';
+import {AlertTitle} from '@mui/material';
+import { Height } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -38,16 +42,61 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function RegisterForCustomer() {
-  const handleSubmit = (event) => {
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [showFailureMessage, setShowFailureMessage] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+  
+    // convert form to JSON
+    const jsonData = JSON.stringify({
       telephone: data.get('telephone'),
       password: data.get('password'),
       nickname: data.get('nickname'),
       address: data.get('address'),
     });
+  
+    try {
+      let myHeaders = new Headers({
+        'Content-Type': 'application/json'
+      });
+      
+      const response = await fetch('http://localhost:8080/SecondHandSystemAPIs_war_exploded/customer/signUpNewUser', {
+        method: 'POST',
+        headers: myHeaders,
+        body: jsonData,
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      // 处理返回的数据
+      const responseData = await response.json();
+      console.log(responseData);
+      
+      if (responseData.message === "Insert Successful") {
+        setShowSuccessMessage(true);
+        setTimeout(() => {
+          navigate('/customer/validate/signin');
+        }, 2000);
+      }
+
+      else {
+        setShowFailureMessage(true);
+        setTimeout(() => {
+          setShowFailureMessage(false);
+        }, 2000);
+      }
+
+
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+    }
   };
+  
 
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -63,12 +112,26 @@ export default function RegisterForCustomer() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 6,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
         >
+          <Box
+            sx={{
+              height:50,
+              marginTop: 0,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            {showSuccessMessage && 
+              <Alert severity="success">Page'll navigate to Sign In after 2s</Alert>}
+            {showFailureMessage && 
+              <Alert severity="error">Please try again</Alert>}
+          </Box>
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
@@ -89,6 +152,7 @@ export default function RegisterForCustomer() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                required
                   fullWidth
                   id="telephone number"
                   label="Telephone Number"
@@ -107,10 +171,11 @@ export default function RegisterForCustomer() {
               </Grid>
               <Grid item xs={12}>
                 <FormControl fullWidth variant="outlined">
-                  <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                  <InputLabel htmlFor="outlined-adornment-password" required>Password</InputLabel>
                   <OutlinedInput
                     id="outlined-adornment-password"
                     type={showPassword ? 'text' : 'password'}
+                    required
                     endAdornment={
                       <InputAdornment position="end">
                         <IconButton
