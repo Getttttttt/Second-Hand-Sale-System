@@ -7,7 +7,7 @@ import List from '@mui/material/List';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import SendIcon from "@mui/icons-material/Send.js";
-import { Avatar, Badge, Space, Popover } from 'antd';
+import { Avatar, Space, Popover } from 'antd';
 import { useParams } from 'react-router-dom';
 import "../../../images/img.jpg"
 
@@ -52,8 +52,8 @@ function ChatCanvas({merchantId, nicknameM, customerId, nicknameC, message, from
           }}
         >
           <React.Fragment>
-            <Typography variant="body1" style={{ whiteSpace: 'pre' }}>{message+"  "}</Typography>
-            
+            <Typography variant="body1" style={{ height:"35px", whiteSpace: 'pre', borderRadius:"5px", backgroundColor: "#e3f2fd", display: "flex", alignItems: "center", justifyContent: "center" }}>{"  "+message+"  "}</Typography>
+            <Typography variant="body1" style={{ whiteSpace: 'pre' }}>{"  "}</Typography>
             <Popover content={merchantId} title={nicknameM}>
               <Avatar alt={merchantId+"'s photo"} src={imageM} />
             </Popover>
@@ -75,7 +75,9 @@ function ChatCanvas({merchantId, nicknameM, customerId, nicknameC, message, from
             <Popover content={customerId} title={nicknameC}>
               <Avatar alt={customerId+"'s photo"} src={imageC} />
             </Popover>
-            <Typography variant="body1" style={{ whiteSpace: 'pre' }}>{"  "+message}</Typography>
+            <Typography variant="body1" style={{ whiteSpace: 'pre' }}>{"  "}</Typography>
+            <Typography variant="body1" style={{height:"35px", whiteSpace: 'pre', borderRadius:"5px", backgroundColor: "#e3f2fd", display: "flex", alignItems: "center", justifyContent: "center"}}>{"  "+message+" "}</Typography>
+
           </React.Fragment>
         </Box>
   )}
