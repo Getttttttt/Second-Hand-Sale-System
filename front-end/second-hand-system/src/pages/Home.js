@@ -10,13 +10,92 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import logo from '../images/logo.svg'
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import SearchIcon from '@mui/icons-material/Search';
+import InputBase from '@mui/material/InputBase';
+import { styled, alpha } from '@mui/material/styles';
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const Search = styled('div')(({ theme }) => ({
+  position: 'relative',
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  '&:hover': {
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
+  },
+  marginLeft: 0,
+  width: '100%',
+  [theme.breakpoints.up('sm')]: {
+    marginLeft: theme.spacing(1),
+    width: 'auto',
+  },
+}));
+
+const SearchIconWrapper = styled('div')(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: '100%',
+  position: 'absolute',
+  pointerEvents: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: 'inherit',
+  width: '100%',
+  '& .MuiInputBase-input': {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create('width'),
+    [theme.breakpoints.up('sm')]: {
+      width: '12ch',
+      '&:focus': {
+        width: '20ch',
+      },
+    },
+  },
+}));
+
+
+function mapString(inputString) {
+  if (inputString === "Customer") {
+    return "/customer";
+  } else if (inputString === "Book") {
+    return "/home";
+  } else if (inputString === "Merchant" ){
+    return "/merchant";
+  } else if (inputString === 'Customer Sign In'){
+    return "/"
+  }
+}
+
 
 function Home() {
+
+  const signInData = useSelector((state) => state.signInData);
+
+  const pages = ['Home', 'Customer', 'Merchant'];
+
+  const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+
+  /*
+  if (signInData.customerID !== '') {
+    settings = ['Profile', 'Account', 'Dashboard', 'Logout', 'Merchant'];
+  }
+  else if(signInData.merchantID !== ''){
+    settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+  }
+  else {
+    settings = ['Customer Sign In', ' Customer Register', 'Dashboard', 'Logout'];
+  }*/
+  const Navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  console.log(signInData)
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -25,7 +104,7 @@ function Home() {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
+  const handleCloseNavMenu = (event) => {
     setAnchorElNav(null);
   };
 
@@ -34,8 +113,8 @@ function Home() {
   };
   return (
     <Container maxWidth="String" >
-      <AppBar position="static">
-        <Container maxWidth="xl">
+      <AppBar maxWidth="String">
+        <Container maxWidth="String">
           <Toolbar disableGutters>
             <Typography variant="h6" noWrap component="a" href="#app-bar-with-responsive-menu"
               sx={{
@@ -48,7 +127,7 @@ function Home() {
                 textDecoration: 'none',
               }}
             >
-              LOGO
+              <img src = {logo}  mx-auto="True" d-block="True" width={50} height={50}></img>
             </Typography>
 
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -102,20 +181,31 @@ function Home() {
                 textDecoration: 'none',
               }}
             >
-              LOGO
+              <img src={logo}></img>
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page) => (
-                <Button
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
-                >
-                  {page}
-                </Button>
+                  <Button
+                    key={page}
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, color: 'white', display: 'block' }}
+                  >
+                    {page}
+                  </Button>
               ))}
             </Box>
-
+            <Box sx={{ flexGrow: 0 }}>
+              <Search>
+                <SearchIconWrapper>
+                  <SearchIcon />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder="Search…"
+                  inputProps={{ 'aria-label': 'search' }}
+                />
+              </Search>
+            </Box>
+            <Box><p>   </p></Box>
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -139,9 +229,11 @@ function Home() {
                 onClose={handleCloseUserMenu}
               >
                 {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
+                  <Link to={mapString(setting)}>
+                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                      <Typography textAlign="center">{setting}</Typography>
+                    </MenuItem>
+                    </Link>              
                 ))}
               </Menu>
             </Box>
@@ -152,4 +244,4 @@ function Home() {
   );
 }
   
-  export default Home;
+export default Home;
