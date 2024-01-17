@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Box, Container } from "@mui/material";
+import { useParams } from 'react-router-dom';
 import Divider from '@mui/material/Divider';
 import Link from '@mui/material/Link';
 import List from '@mui/material/List';
@@ -24,16 +25,46 @@ function Copyright(props) {
 }
 
 
-export default function CustomerChatToMerchantList({ customerId, allMerchants }) {
+export default function CustomerChatToMerchantList() {
+  let { customerId } = useParams();
   
-  allMerchants=new Array("21377223","21377006","21377227","21377226")
-  customerId = "21377225"
+  const getMerchantList = async (event) => {
+    const jsonData = JSON.stringify({
+      customerId: customerId
+    })
+    
+    try{
+      let myHeaders = new Headers({
+        'Content-Type': 'application/json'
+      });
+  
+      const response = await fetch('http://localhost:8080/SecondHandSystemAPIs_war_exploded/customer/chatToMerchantList',{
+        method: 'POST',
+        headers: myHeaders,
+        body: jsonData,
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      //处理返回的数据
+      const responseData = await response.json();
+      console.log(responseData);
+      setAllMerchants(responseData);
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+    }
+  };
+
+  const [allMerchants, setAllMerchants] = React.useState([])
+
   function Each({merchantId}){    
     return <Page merchantId={merchantId} customerId={customerId} />;
   }
 
   return (
     <Container>
+      {getMerchantList}
+
       {allMerchants.map((item, index) => {
         return(
           <React.Fragment key={index}><Each merchantId={item}/></React.Fragment>   
@@ -79,7 +110,7 @@ function Page({merchantId,customerId}){
           secondary={
             <React.Fragment>
               <Typography
-                sx={{ display: 'inline' }}
+                sx={{ display: 'inline', fontSize:"14px"}}
                 component="span"
                 variant="body2"
                 color="text.primary"
@@ -88,13 +119,11 @@ function Page({merchantId,customerId}){
               </Typography>
               {" — "+lastMessage+"    "+time}
             </React.Fragment>
-          }
-        />
+          }/>
         </a>
       </ListItem>
       <Divider variant="inset" component="li" />
-      
-      
+     
       </List>
       <Box 
         sx={{

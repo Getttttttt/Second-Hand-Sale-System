@@ -30,7 +30,7 @@ function SetCommunication({ chatHistory }){
   let i = 0
   return(
     <Container>
-        <List sx={{marginLeft:20, marginTop:10, marginBottom:20, width: '100%', maxWidth: 800, bgcolor: 'transparent' }}>
+        <List sx={{marginLeft:20, marginTop:5, marginBottom:20, width: '100%', maxWidth: 800, bgcolor: 'transparent' }}>
         {
           chatHistory.map((item, index) => {
             if(i<chatHistory.length){
@@ -40,9 +40,8 @@ function SetCommunication({ chatHistory }){
               return(
                 <React.Fragment key={index}><Each merchantId={item[0]} nicknameM={item[1]} customerId={item[2]} nicknameC={item[3]} message={item[4]} fromWho={item[5]} imageM={item[6]} imageC={item[7]}/></React.Fragment>   
             );
-            
             }
-        })}
+          })}
         </List>
       </Container> 
   )
@@ -71,8 +70,7 @@ function ChatCanvas({merchantId, nicknameM, customerId, nicknameC, message, from
             marginTop: 3,
             display: 'flex',
             justifyContent: 'flex-end',
-          }}
-        >
+          }}>
           <React.Fragment>
             <Typography variant="body1" style={{ height:"35px", whiteSpace: 'pre', borderRadius:"5px", backgroundColor: "#e3f2fd", display: "flex", alignItems: "center", justifyContent: "center" }}>{"  "+message+"  "}</Typography>
             <Typography variant="body1" style={{ whiteSpace: 'pre' }}>{"  "}</Typography>
@@ -91,8 +89,7 @@ function ChatCanvas({merchantId, nicknameM, customerId, nicknameC, message, from
             display: 'flex',
             justifyContent: 'flex-start',
             whiteSpace: 'nowrap',
-          }}
-        >
+          }}>
           <React.Fragment>
             <Popover content={merchantId} title={nicknameM}>
               <Avatar alt={merchantId+"'s photo"} src={imageM} />
@@ -115,27 +112,26 @@ const ChatToSingleMerchant = () => {
   const merchantId = mc[0]
   const customerId = mc[1]
   //
-  let [inputValue, setInputValue] = useState('');
-  let [chatHistory, setChatHistory] = useState([]);
+  const [inputValue, setInputValue] = useState('');
+  const [chatHistory, setChatHistory] = useState([
+    [merchantId, 'get', customerId, 'rita', 'Hello!', "customer",  "../../../images/img.jpg", "../../../images/img.jpg"],
+    [merchantId, 'get', customerId, 'rita', 'Hi, what can I do for you?', "merchant",  "../../../images/img.jpg", "../../../images/img.jpg"],
+    [merchantId, 'get', customerId, 'rita', 'I want to know more about the book.', "customer",  "../../../images/img.jpg", "../../../images/img.jpg"],
+    [merchantId, 'get', customerId, 'rita', 'I am glad to tell you.', "merchant", "../../../images/img.jpg", "../../../images/img.jpg"],
+    [merchantId, 'get', customerId, 'rita', 'Hello!', "customer",  "../../../images/img.jpg", "../../../images/img.jpg"],
+    [merchantId, 'get', customerId, 'rita', 'Hi, what can I do for you?', "merchant",  "../../../images/img.jpg", "../../../images/img.jpg"],
+    [merchantId, 'get', customerId, 'rita', 'I want to know more about the book.', "customer",  "../../../images/img.jpg", "../../../images/img.jpg"],
+    [merchantId, 'get', customerId, 'rita', 'I am glad to tell you.', "merchant", "../../../images/img.jpg", "../../../images/img.jpg"],
+    [merchantId, 'get', customerId, 'rita', 'Hello!', "customer",  "../../../images/img.jpg", "../../../images/img.jpg"],
+    [merchantId, 'get', customerId, 'rita', 'Hi, what can I do for you?', "merchant",  "../../../images/img.jpg", "../../../images/img.jpg"],
+    [merchantId, 'get', customerId, 'rita', 'I want to know more about the book.', "customer",  "../../../images/img.jpg", "../../../images/img.jpg"],
+    [merchantId, 'get', customerId, 'rita', 'I am glad to tell you.', "merchant", "../../../images/img.jpg", "../../../images/img.jpg"],
+  ]);
   const handleChange = (event) => {
     setInputValue(event.target.value);
   };
 
- //根据商家id和用户id查询沟通记录
-  chatHistory = [
-    [merchantId, 'get', customerId, 'rita', 'Hello!', "customer",  "../../../images/img.jpg", "../../../images/img.jpg"],
-    [merchantId, 'get', customerId, 'rita', 'Hi, what can I do for you?', "merchant",  "../../../images/img.jpg", "../../../images/img.jpg"],
-    [merchantId, 'get', customerId, 'rita', 'I want to know more about the book.', "customer",  "../../../images/img.jpg", "../../../images/img.jpg"],
-    [merchantId, 'get', customerId, 'rita', 'I am glad to tell you.', "merchant", "../../../images/img.jpg", "../../../images/img.jpg"],
-    [merchantId, 'get', customerId, 'rita', 'Hello!', "customer",  "../../../images/img.jpg", "../../../images/img.jpg"],
-    [merchantId, 'get', customerId, 'rita', 'Hi, what can I do for you?', "merchant",  "../../../images/img.jpg", "../../../images/img.jpg"],
-    [merchantId, 'get', customerId, 'rita', 'I want to know more about the book.', "customer",  "../../../images/img.jpg", "../../../images/img.jpg"],
-    [merchantId, 'get', customerId, 'rita', 'I am glad to tell you.', "merchant", "../../../images/img.jpg", "../../../images/img.jpg"],
-    [merchantId, 'get', customerId, 'rita', 'Hello!', "customer",  "../../../images/img.jpg", "../../../images/img.jpg"],
-    [merchantId, 'get', customerId, 'rita', 'Hi, what can I do for you?', "merchant",  "../../../images/img.jpg", "../../../images/img.jpg"],
-    [merchantId, 'get', customerId, 'rita', 'I want to know more about the book.', "customer",  "../../../images/img.jpg", "../../../images/img.jpg"],
-    [merchantId, 'get', customerId, 'rita', 'I am glad to tell you.', "merchant", "../../../images/img.jpg", "../../../images/img.jpg"],
-  ]
+ 
    var MERCHANTID = chatHistory[0][0]
    var NICKNAMEM = chatHistory[0][1]
    var CUSTOMERID = chatHistory[0][2]
@@ -160,7 +156,8 @@ const ChatToSingleMerchant = () => {
     border: '2px solid #ccc',
     borderRadius: '5px',
     outline: 'none',
-    width:'500px'
+    width:'500px',
+    backgroundColor: '#FFFFFF',
   };
   const boxheadStyle = {
     display: 'flex',
@@ -170,17 +167,12 @@ const ChatToSingleMerchant = () => {
     backgroundColor: '#FFFFFF'
   }
   
-  let i = 0
-
   const sendMessage = (newMessage) => {
     console.log("消息内容："+newMessage)
     setInputValue('');
     const newChatHistory = [...chatHistory,[MERCHANTID, NICKNAMEM, CUSTOMERID, NICKNAMEC, newMessage, "customer", IMAGEM, IMAGEC]]
     setChatHistory(newChatHistory);
-    console.log(newChatHistory)
-    setChatHistory(newChatHistory)
-    
-    return (<SetCommunication chatHistory={newChatHistory}/>)
+    console.log(newChatHistory);
   }
 
 
@@ -203,7 +195,9 @@ const ChatToSingleMerchant = () => {
           <React.Fragment><Typography className="name" sx={{ marginTop:"2px", fontSize: '25px', fontWeight: "bold", color:"white",}}>{NICKNAMEM}</Typography></React.Fragment>
         </Box>
       </Container>
+
     <SetCommunication chatHistory={chatHistory}/>
+
     <Container className="chat-input" style={{position: 'fixed', bottom: 0, left: 0, right: 0, backgroundColor: '#FFFFFF'}}>
       <Box
       style={boxsendStyle}
@@ -212,7 +206,7 @@ const ChatToSingleMerchant = () => {
         height: 100,
         display: 'flex',
         position: 'absolute',
-        bottom: 62,
+        bottom: 2,
       }}>
         <Space>
           <input

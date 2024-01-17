@@ -24,6 +24,28 @@ function Copyright(props) {
   );
 }
 
+function SetCommunication({ chatHistory }){
+  console.log(chatHistory)
+  let i = 0
+  return(
+    <Container>
+        <List sx={{marginLeft:20, marginTop:5, marginBottom:20, width: '100%', maxWidth: 800, bgcolor: 'transparent' }}>
+        {
+          chatHistory.map((item, index) => {
+            if(i<chatHistory.length){
+              //console.log(i)
+              //console.log(item[0])
+              i=i+1
+              return(
+                <React.Fragment key={index}><Each merchantId={item[0]} nicknameM={item[1]} customerId={item[2]} nicknameC={item[3]} message={item[4]} fromWho={item[5]} imageM={item[6]} imageC={item[7]}/></React.Fragment>   
+            );
+            }
+          })}
+        </List>
+      </Container> 
+  )
+}
+
 
 function ChatCanvas({merchantId, nicknameM, customerId, nicknameC, message, fromWho,imageM,imageC}){
   console.log(merchantId)
@@ -49,8 +71,7 @@ function ChatCanvas({merchantId, nicknameM, customerId, nicknameC, message, from
             marginTop: 3,
             display: 'flex',
             justifyContent: 'flex-end',
-          }}
-        >
+          }}>
           <React.Fragment>
             <Typography variant="body1" style={{ height:"35px", whiteSpace: 'pre', borderRadius:"5px", backgroundColor: "#e3f2fd", display: "flex", alignItems: "center", justifyContent: "center" }}>{"  "+message+"  "}</Typography>
             <Typography variant="body1" style={{ whiteSpace: 'pre' }}>{"  "}</Typography>
@@ -69,8 +90,7 @@ function ChatCanvas({merchantId, nicknameM, customerId, nicknameC, message, from
             display: 'flex',
             justifyContent: 'flex-start',
             whiteSpace: 'nowrap',
-          }}
-        >
+          }}>
           <React.Fragment>
             <Popover content={customerId} title={nicknameC}>
               <Avatar alt={customerId+"'s photo"} src={imageC} />
@@ -85,7 +105,7 @@ function ChatCanvas({merchantId, nicknameM, customerId, nicknameC, message, from
 
 
 function Each({merchantId,nicknameM,customerId,nicknameC,message,fromWho,imageM,imageC}){  
-  console.log(imageC)
+  //console.log(imageC)
   return <ChatCanvas  merchantId={merchantId} nicknameM={nicknameM} customerId={customerId} nicknameC={nicknameC} message={message} fromWho={fromWho} imageM={imageM} imageC={imageC}/>;
 }
 
@@ -96,115 +116,93 @@ const ChatToSingleMerchant = () => {
   const customerId = cm[0]
   const merchantId = cm[1]
   //
-  const [inputValue, setInputValue] = useState('');
-  let [chatHistory, setChatHistory] = useState([]);
-  const [showList, setShowList] = useState(true);
-  const handleChange = (event) => {
-    setInputValue(event.target.value);
-  };
-  const sendMessage = (newMessage) => {
-    setInputValue('');
-    setShowList(false);
-    const newChatHistory = [...chatHistory,[MERCHANTID, NICKNAMEM, CUSTOMERID, NICKNAMEC, newMessage, "merchant", IMAGEM, IMAGEC]]
-    setChatHistory(newChatHistory);
-    console.log(newChatHistory)
-    console.log(chatHistory)
-    return(
-      <Container>
-        <List sx={{marginLeft:20, marginTop:10, marginBottom:20, width: '100%', maxWidth: 800, bgcolor: 'transparent' }}>
-        {
-          newChatHistory.map((item, index) => {
-            if(i<chatHistory.length){
-              i=i+1
-              return(
-                <React.Fragment key={index}><Each merchantId={item[0]} nicknameM={item[1]} customerId={item[2]} nicknameC={item[3]} message={item[4]} fromWho={item[5]} imageM={item[6]} imageC={item[7]}/></React.Fragment>   
-            );
-          }})
-        }
-        </List>
-      </Container> 
-    )
-  }
 
- //根据商家id和用户id查询沟通记录
-  chatHistory = [
+  const [inputValue, setInputValue] = useState('');
+  const [chatHistory, setChatHistory] = useState([
     [merchantId, 'get', customerId, 'rita', 'Hello!', "customer",  "../../../images/img.jpg", "../../../images/img.jpg"],
     [merchantId, 'get', customerId, 'rita', 'Hi, what can I do for you?', "merchant",  "../../../images/img.jpg", "../../../images/img.jpg"],
     [merchantId, 'get', customerId, 'rita', 'I want to know more about the book.', "customer",  "../../../images/img.jpg", "../../../images/img.jpg"],
     [merchantId, 'get', customerId, 'rita', 'I am glad to tell you.', "merchant", "../../../images/img.jpg", "../../../images/img.jpg"],
-  ]
-   var MERCHANTID = chatHistory[0][0]
-   var NICKNAMEM = chatHistory[0][1]
-   var CUSTOMERID = chatHistory[0][2]
-   var NICKNAMEC = chatHistory[0][3]
-   var message
-   var fromWho
-   var IMAGEM = chatHistory[0][6]
-   var IMAGEC = chatHistory[0][7]
+    [merchantId, 'get', customerId, 'rita', 'Hello!', "customer",  "../../../images/img.jpg", "../../../images/img.jpg"],
+    [merchantId, 'get', customerId, 'rita', 'Hi, what can I do for you?', "merchant",  "../../../images/img.jpg", "../../../images/img.jpg"],
+    [merchantId, 'get', customerId, 'rita', 'I want to know more about the book.', "customer",  "../../../images/img.jpg", "../../../images/img.jpg"],
+    [merchantId, 'get', customerId, 'rita', 'I am glad to tell you.', "merchant", "../../../images/img.jpg", "../../../images/img.jpg"],
+    [merchantId, 'get', customerId, 'rita', 'Hello!', "customer",  "../../../images/img.jpg", "../../../images/img.jpg"],
+    [merchantId, 'get', customerId, 'rita', 'Hi, what can I do for you?', "merchant",  "../../../images/img.jpg", "../../../images/img.jpg"],
+    [merchantId, 'get', customerId, 'rita', 'I want to know more about the book.', "customer",  "../../../images/img.jpg", "../../../images/img.jpg"],
+    [merchantId, 'get', customerId, 'rita', 'I am glad to tell you.', "merchant", "../../../images/img.jpg", "../../../images/img.jpg"],
+  ]);
+  const handleChange = (event) => {
+    setInputValue(event.target.value);
+  };
+
+ 
+  var MERCHANTID = chatHistory[0][0]
+  var NICKNAMEM = chatHistory[0][1]
+  var CUSTOMERID = chatHistory[0][2]
+  var NICKNAMEC = chatHistory[0][3]
+  var message
+  var fromWho
+  var IMAGEM = chatHistory[0][6]
+  var IMAGEC = chatHistory[0][7]
 
 
-  const boxsendStyle = {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'flex-end',
-    height: '5vh',
-    backgroundColor: '#FFFFFF',
-    marginBottom:20
-  };
-  const inputStyle = {
-    padding: '10px',
-    fontSize: '16px',
-    border: '2px solid #ccc',
-    borderRadius: '5px',
-    outline: 'none',
-    width:'500px'
-  };
-  const boxheadStyle = {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    height: '10vh',
-    backgroundColor: '#FFFFFF'
-  }
-  
-  let i = 0
-  return (
-    <Container className="chat-container">
-      <Container className="header" style={{position: 'fixed', top: 0, left: 0, right: 0 }}>
-        <Box
-        style={{backgroundColor:"#2979ff", borderRadius:"10px"}}
-        sx={{
-          display:'flex',
-          justifyContent: 'center',
-          alignItems: 'flex-start',
-          height: '100vh',
-          marginTop: 2,
-          width: 1150,
-          height: 50,
-          display: 'flex',
-          position: 'absolute',
-          top: 2,
-        }}>
-          <React.Fragment><Typography className="name" sx={{ marginTop:"2px", fontSize: '25px', fontWeight: "bold", color:"white",}}>{NICKNAMEC}</Typography></React.Fragment>
-        </Box>
-      </Container>
-      <Container>
-      
-        <List sx={{marginLeft:20, marginTop:10, marginBottom:20, width: '100%', maxWidth: 800, bgcolor: 'transparent' }}>
-        {
-          chatHistory.map((item, index) => {
-            if(i<chatHistory.length){
-              console.log(i)
-              console.log(item[0])
-              i=i+1
-              return(
-                <React.Fragment key={index}><Each merchantId={item[0]} nicknameM={item[1]} customerId={item[2]} nicknameC={item[3]} message={item[4]} fromWho={item[5]} imageM={item[6]} imageC={item[7]}/></React.Fragment>   
-            );
-            
-            }
-        })}
-        </List>
-      </Container> 
+ const boxsendStyle = {
+   display: 'flex',
+   justifyContent: 'center',
+   alignItems: 'flex-end',
+   height: '5vh',
+   backgroundColor: '#FFFFFF',
+   marginBottom:20
+ };
+ const inputStyle = {
+   padding: '10px',
+   fontSize: '16px',
+   border: '2px solid #ccc',
+   borderRadius: '5px',
+   outline: 'none',
+   width:'500px',
+   backgroundColor: '#FFFFFF',
+ };
+ const boxheadStyle = {
+   display: 'flex',
+   justifyContent: 'center',
+   alignItems: 'flex-start',
+   height: '10vh',
+   backgroundColor: '#FFFFFF'
+ }
+ 
+ const sendMessage = (newMessage) => {
+   console.log("消息内容："+newMessage)
+   setInputValue('');
+   const newChatHistory = [...chatHistory,[MERCHANTID, NICKNAMEM, CUSTOMERID, NICKNAMEC, newMessage, "merchant", IMAGEM, IMAGEC]]
+   setChatHistory(newChatHistory);
+   console.log(newChatHistory);
+ }
+
+ 
+ return (
+  <Container className="chat-container">
+    <Container className="header" style={{position: 'fixed', top: 0, left: 0, right: 0, zIndex: 9999}}>
+      <Box
+      style={{backgroundColor:"#2979ff", borderRadius:"10px"}}
+      sx={{
+        display:'flex',
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        height: '100vh',
+        marginTop: 0,
+        width: 1150,
+        height: 50,
+        display: 'flex',
+        position: 'absolute',
+      }}>
+        <React.Fragment><Typography className="name" sx={{ marginTop:"2px", fontSize: '25px', fontWeight: "bold", color:"white",}}>{NICKNAMEC}</Typography></React.Fragment>
+      </Box>
+    </Container>
+
+  <SetCommunication chatHistory={chatHistory}/>
+
     <Container className="chat-input" style={{position: 'fixed', bottom: 0, left: 0, right: 0}}>
       <Box
       style={boxsendStyle}
@@ -231,7 +229,7 @@ const ChatToSingleMerchant = () => {
             sx={{ mt: 5, mb: 5, backgroundColor: "#2979ff", color: "#ffffff"}}>Send</Button>
         </Space>
       </Box >
-      <Box style={{marginBottom: 0, backgroundColor: '#FFFFFF'}}>
+      <Box style={{marginBottom: 2, backgroundColor: '#FFFFFF'}}>
         <Copyright justifyContent="center"/>
       </Box>
     </Container>

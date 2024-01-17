@@ -47,7 +47,7 @@ export default [
         element: <BookBacket />
     },
     {
-        path: '/customer/chat',
+        path: '/customer/chat/:customerId',
         element: <CustomerChatToMerchantList />
     },
     {
