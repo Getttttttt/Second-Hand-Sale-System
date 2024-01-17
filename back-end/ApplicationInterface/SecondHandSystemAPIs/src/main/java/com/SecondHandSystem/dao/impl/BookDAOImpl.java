@@ -52,21 +52,21 @@ public class BookDAOImpl implements IBookDAO {
 
     @Override
     public Book select(String bookID) throws Exception {
-        String sqlLabel="select * from 图书分类 where 商品ID = "+bookID;
+        String sqlLabel="select * from 图书分类 where 商品ID = '"+bookID+"';";
         rs= stat.executeQuery(sqlLabel);
         ArrayList<String> labels=new ArrayList<>();
         while(rs.next()){
             labels.add(rs.getString("分类类型"));
         }
         String[] strLabels= labels.toArray(new String[labels.size()]);
-        String sqlPictures="select * from 图书示例图片 where 商品ID = "+bookID;
+        String sqlPictures="select * from 图书示例图片 where 商品ID = '"+bookID+"';";
         rs= stat.executeQuery(sqlPictures);
         ArrayList<String> pictures=new ArrayList<>();
         while(rs.next()){
             pictures.add(rs.getString("分类类型"));
         }
         String[] strPictures= pictures.toArray(new String[pictures.size()]);
-        String sql="select * from 图书 where 商品ID = "+bookID;
+        String sql="select * from 图书 where 商品ID = '"+bookID+"';";
         rs= stat.executeQuery(sql);
         Book book=new Book();
         while(rs.next()){

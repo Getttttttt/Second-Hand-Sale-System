@@ -12,18 +12,43 @@ public class TestBookDAO {
         System.out.println("start test insert...");
         try{
             bookDAOProxy=DAOFactory.getIBookDAOInstance();
-            book.setBookID("123456789");
-            book.setBookName("gaoentong");
-            book.setBookPrice(12);
-            book.setBookNum(1);
+            book.setBookID("Bo123456");
+            book.setBookName("茶业战争：中国与印度的一段资本主义史");
+            book.setBookPrice(50);
+            book.setBookNum(15);
             book.setDiscount(0);
-            book.setAuthor("hd");
-            book.setBookISBN("2323");
-            book.setDegree("new");
-            book.setBookSurfacePic("hdwidhwidh");
-            book.setBookPublisher("hwudh");
-            book.setBookRealPics(new String[]{"dwjd","gdggd"});
-            book.setBookLabels(new String[]{"english","meth"});
+            book.setAuthor("刘仁威");
+            book.setBookISBN("9787547322062");
+            book.setDegree("九成");
+            book.setBookSurfacePic("../../../images/image_example1.jpg");
+            book.setBookPublisher("东方出版中心");
+            book.setBookRealPics(new String[]{"../../../images/image_example1.jpg\",\"../../../images/image_example1.jpg"});
+            book.setBookLabels(new String[]{"历史","政治"});
+            book.setShelfTime(new Date());
+            book.setPublicationTime(new Date());
+            boolean insert=bookDAOProxy.insert(book);
+            System.out.println("insert success");
+        }
+        catch (Exception ex){
+            System.out.println("insert error");
+            System.out.println(ex.toString());
+            ex.printStackTrace();
+        }
+        System.out.println("start test insert...");
+        try{
+            bookDAOProxy=DAOFactory.getIBookDAOInstance();
+            book.setBookID("Bo456789");
+            book.setBookName("法律的悖论:走出独断思维，接受多元包容");
+            book.setBookPrice(30);
+            book.setBookNum(10);
+            book.setDiscount(0);
+            book.setAuthor("罗翔");
+            book.setBookISBN("9787222221833");
+            book.setDegree("全新");
+            book.setBookSurfacePic("../../../images/image_example1.jpg");
+            book.setBookPublisher("云南人民出版社");
+            book.setBookRealPics(new String[]{"../../../images/image_example1.jpg"});
+            book.setBookLabels(new String[]{"法律","道德"});
             book.setShelfTime(new Date());
             book.setPublicationTime(new Date());
             boolean insert=bookDAOProxy.insert(book);

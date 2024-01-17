@@ -12,15 +12,34 @@ public class TestOrderDAO {
         System.out.println("start test insert...");
         try{
             orderDAOProxy= DAOFactory.getIOrderDAOInstance();
-            order.setOrderID("fefef");
-            order.setBookID("1234567");
+            order.setOrderID("Od123456");
+            order.setBookID("Bo123456");
             order.setCustomerID("123456");
-            order.setTradingPrice(12);
+            order.setMerchantID("123456");
+            order.setTradingPrice(50);
             order.setTradingNum(1);
-            order.setTradingStatus("dhw");
+            order.setTradingStatus("正在进行");
             order.setTradingTime(new Date());
-            order.setEstimationScale(5);
-            order.setEvaluation("dwdhwudh");
+            order.setEvaluation(null);
+            boolean insert=orderDAOProxy.insert(order);
+            System.out.println("insert success");
+        }
+        catch (Exception ex){
+            System.out.println("insert error");
+        }
+        System.out.println("start test insert...");
+        try{
+            orderDAOProxy= DAOFactory.getIOrderDAOInstance();
+            order.setOrderID("Od456789");
+            order.setBookID("Bo456789");
+            order.setCustomerID("123456");
+            order.setMerchantID("123456");
+            order.setTradingPrice(30);
+            order.setTradingNum(1);
+            order.setTradingStatus("已完成");
+            order.setTradingTime(new Date());
+            order.setEstimationScale(4);
+            order.setEvaluation("物流棒，发货快，包装好，品相佳，宝贝良，服务优，信誉高！");
             boolean insert=orderDAOProxy.insert(order);
             System.out.println("insert success");
         }

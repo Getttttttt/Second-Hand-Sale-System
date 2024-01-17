@@ -52,6 +52,8 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-context:5.2.6.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-expression:5.2.6.RELEASE" />
           <element id="library" level="project" name="Maven: com.microsoft.sqlserver:mssql-jdbc:7.4.1.jre8" />
+          <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.8.2" />
+          <element id="library" level="project" name="Maven: com.vaadin.external.google:android-json:0.0.20131108.vaadin1" />
         </element>
       </element>
       <element id="directory" name="META-INF">

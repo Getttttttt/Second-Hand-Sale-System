@@ -7,7 +7,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="13d1a60f-7763-48e0-9cd0-faab570e403f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/ApplicationInterface/SecondHandSystemAPIs/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/controller/Customer/CustomerSignInServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/controller/Customer/CustomerSignUpServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/controller/Merchant/MerchantSignInServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/controller/Merchant/MerchantSignUpServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../front-end/second-hand-system/src/state/signInDataSlice.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../front-end/second-hand-system/src/state/store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/SecondhandSaleSystem.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/SecondhandSaleSystem.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/SecondHandSystemAPIs_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/SecondHandSystemAPIs_war_exploded.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationInterface/SecondHandSystemAPIs/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationInterface/SecondHandSystemAPIs/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationInterface/SecondHandSystemAPIs/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationInterface/SecondHandSystemAPIs/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/dbc/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/dbc/DatabaseConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Database/SQL.sql" beforeDir="false" afterPath="$PROJECT_DIR$/Database/SQL.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/second-hand-system/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/second-hand-system/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/second-hand-system/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/second-hand-system/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/second-hand-system/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/second-hand-system/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/second-hand-system/src/pages/CustomerPages/PurchasedBookList/PurchasedBookStatusPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/second-hand-system/src/pages/CustomerPages/PurchasedBookList/PurchasedBookStatusPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/second-hand-system/src/pages/CustomerPages/PurchasedBookList/SinglePurchasedBookEvaluation.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/second-hand-system/src/pages/CustomerPages/PurchasedBookList/SinglePurchasedBookEvaluation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/second-hand-system/src/pages/CustomerPages/PurchasedBookList/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/second-hand-system/src/pages/CustomerPages/PurchasedBookList/store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/second-hand-system/src/pages/CustomerPages/SignAndRegisterForCustomer/RegisterForCustomer.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/second-hand-system/src/pages/CustomerPages/SignAndRegisterForCustomer/RegisterForCustomer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/second-hand-system/src/pages/CustomerPages/SignAndRegisterForCustomer/SignInForCustomer.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/second-hand-system/src/pages/CustomerPages/SignAndRegisterForCustomer/SignInForCustomer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/second-hand-system/src/pages/MerchantPages/SignAndRegisterForMerchant/RegisterForMerchant.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/second-hand-system/src/pages/MerchantPages/SignAndRegisterForMerchant/RegisterForMerchant.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/second-hand-system/src/pages/MerchantPages/SignAndRegisterForMerchant/SignInForMerchant.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/second-hand-system/src/pages/MerchantPages/SignAndRegisterForMerchant/SignInForMerchant.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -54,6 +79,7 @@
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth0" value="75" />
     <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -79,7 +105,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.SecondHandSystemApplication">
+  <component name="RunManager" selected="Application.TestOrderDAO">
     <configuration name="TestBookDAO" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.SecondHandSystem.test.test.TestBookDAO" />
       <module name="SecondHandSystemAPIs" />
@@ -209,15 +235,15 @@
       <item itemvalue="Application.TestBookDAO" />
       <item itemvalue="Application.TestCustomerDAO" />
       <item itemvalue="Application.TestOrderDAO" />
-      <item itemvalue="Tomcat Server.Tomcat" />
       <item itemvalue="Spring Boot.SecondHandSystemApplication" />
+      <item itemvalue="Tomcat Server.Tomcat" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.SecondHandSystemApplication" />
         <item itemvalue="Application.TestOrderDAO" />
-        <item itemvalue="Application.TestCustomerDAO" />
         <item itemvalue="Application.TestBookDAO" />
+        <item itemvalue="Spring Boot.SecondHandSystemApplication" />
+        <item itemvalue="Application.TestCustomerDAO" />
       </list>
     </recent_temporary>
   </component>
@@ -234,7 +260,12 @@
       <workItem from="1705026439460" duration="2239000" />
       <workItem from="1705036925036" duration="33134000" />
       <workItem from="1705109917026" duration="4132000" />
-      <workItem from="1705188425790" duration="10761000" />
+      <workItem from="1705188425790" duration="16560000" />
+      <workItem from="1705325824286" duration="2605000" />
+      <workItem from="1705386892245" duration="65000" />
+      <workItem from="1705428978048" duration="4741000" />
+      <workItem from="1705434740005" duration="4591000" />
+      <workItem from="1705460942256" duration="600000" />
     </task>
     <servers />
   </component>
