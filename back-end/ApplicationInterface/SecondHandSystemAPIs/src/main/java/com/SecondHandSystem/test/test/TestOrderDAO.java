@@ -9,6 +9,7 @@ public class TestOrderDAO {
     public static void main(String[] args) {
         IOrderDAO orderDAOProxy;
         Order order=new Order();
+        /*
         System.out.println("start test insert...");
         try{
             orderDAOProxy= DAOFactory.getIOrderDAOInstance();
@@ -46,6 +47,8 @@ public class TestOrderDAO {
         catch (Exception ex){
             System.out.println("insert error");
         }
+
+         */
         System.out.println("start test select1...");
         try{
             orderDAOProxy= DAOFactory.getIOrderDAOInstance();
