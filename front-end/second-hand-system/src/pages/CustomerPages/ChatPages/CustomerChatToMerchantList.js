@@ -10,6 +10,8 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Typography from '@mui/material/Typography';
 import { Avatar, Badge, Space } from 'antd';
 import ChatToSingleMerchant from './ChatToSingleMerchant';
+import img1 from "../../../images/img1.svg"
+import img2 from "../../../images/img2.svg"
 
 function Copyright(props) {
   return (
@@ -143,25 +145,36 @@ function Page({merchantId,customerId}){
         <ListItemAvatar>
           <Space size={24}>
             <Badge dot invisible={isDotVisible ? undefined : "false"}>
-              <Avatar alt={merchantId+"'s photo"} src={imageM} />
+              <img src={imageM}/>
             </Badge>
           </Space>
         </ListItemAvatar>
         
         <a href={`/customer/chat/merchant/${ mc }`} style={{textDecoration: "none"}} onClick={() => handleLinkClick(merchantId,customerId)}>
         <ListItemText
-          primary={NICKNAMEM}
+          primary=
+          {
+            <Typography 
+              sx={{ display: 'inline', fontSize: "18px", fontFamily: "Arial", fontWeight: "bold" }}
+              component="span"
+              variant="body2"
+              color="text.primary"
+            >
+              {NICKNAMEM}
+            </Typography>
+          }
           secondary={
             <React.Fragment>
               <Typography
                 sx={{ display: 'inline', fontSize:"14px"}}
                 component="span"
                 variant="body2"
-                color="text.primary"
+                color="blue"
               >
                 {merchantId}
               </Typography>
-              {" — "+lastMessage+"    "+time}
+              {" — "+lastMessage}
+              {"    "+time}
             </React.Fragment>
           }/>
         </a>

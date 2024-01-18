@@ -10,7 +10,8 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Typography from '@mui/material/Typography';
 import { Avatar, Badge, Space } from 'antd';
 import ChatToSingleCustomer from './ChatToSingleCustomer';
-
+import img1 from "../../../images/img1.svg"
+import img2 from "../../../images/img2.svg"
 
 function Copyright(props) {
   return (

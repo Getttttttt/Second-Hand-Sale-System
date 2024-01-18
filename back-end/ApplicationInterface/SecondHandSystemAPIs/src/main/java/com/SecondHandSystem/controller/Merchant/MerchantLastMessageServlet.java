@@ -84,7 +84,7 @@ public class MerchantLastMessageServlet extends HttpServlet {
             JSONObject json = new JSONObject();
             JSONArray jsonArray = new JSONArray();
             json.put("lastMessage",lastMessage);
-            json.put("time",time);
+            json.put("time",time.substring(0,19));
             json.put("imageM",imageC);
             json.put("nicknameM",nicknameC);
             jsonArray.put(json);

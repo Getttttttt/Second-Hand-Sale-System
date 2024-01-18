@@ -114,15 +114,19 @@ public class CommunicationDAOImpl implements ICommunicationDAO {
 
     @Override
     public String[] searchLastMessage(String merchantId,String customerId)throws Exception{
-        String sql = "SELECT top 1 会话内容,沟通时间 FROM 沟通记录 WHERE 用户id='"+customerId+"' and 商家id ='"+merchantId+"' ORDER BY 沟通时间 desc";
+        String sql = "SELECT 会话内容,沟通时间 FROM 沟通记录 WHERE 用户id='"+customerId+"' and 商家id ='"+merchantId+"' ORDER BY 沟通时间 desc";
         System.out.println(sql);
         this.prestmt = this.conn.prepareStatement(sql);  //prestmt用于执行sql语句
-        System.out.println(prestmt);
-        ResultSet rs = this.prestmt.executeQuery();  //执行sql语句，将结果赋给ResultSet对象rs
-        String[] last = new String[2];
-        last[0] = rs.getString(1);
-        last[1] = String.valueOf(rs.getDate(2));
-        return last;
-    }
 
+        ResultSet rs = this.prestmt.executeQuery();  //执行sql语句，将结果赋给ResultSet对象rs
+
+        String[][] last = new String[300][2];
+        int i = 0;
+        while(rs.next()){
+            last[i][0] = rs.getString(1);
+            last[i][1] = rs.getString(2);
+            i++;
+        }
+        return last[0];
+    }
 }

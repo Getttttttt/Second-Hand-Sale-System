@@ -9,7 +9,8 @@ import Typography from '@mui/material/Typography';
 import SendIcon from "@mui/icons-material/Send.js";
 import { Avatar, Space, Popover } from 'antd';
 import { useParams } from 'react-router-dom';
-import "../../../images/img.jpg"
+import img1 from "../../../images/img1.svg"
+import img2 from "../../../images/img2.svg"
 
 function Copyright(props) {
   return (
