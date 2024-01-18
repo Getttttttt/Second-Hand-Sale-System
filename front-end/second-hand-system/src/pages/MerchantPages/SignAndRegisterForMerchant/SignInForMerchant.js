@@ -197,7 +197,7 @@ export default function SignInForMerchant() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="/customer/validate/register" variant="body2">
+                <Link href="/merchant/validate/register" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

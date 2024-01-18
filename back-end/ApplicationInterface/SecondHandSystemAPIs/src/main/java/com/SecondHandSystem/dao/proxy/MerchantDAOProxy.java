@@ -32,6 +32,21 @@ public class MerchantDAOProxy implements IMerchantDAO{
     }
 
     @Override
+    public List<Merchant> searchByIdMerchant(String merchantId) throws Exception {
+        List<Merchant> all = null;
+        try{
+            all = this.dao.searchByIdMerchant(merchantId);
+        }
+        catch (Exception e){
+            throw e;
+        }
+        finally{
+            DatabaseConnection.release(((MerchantDAOImpl)dao).getStat(),((MerchantDAOImpl)dao).getConn());
+        }
+        return all;
+    }
+
+    @Override
     public List<Merchant> insertMerchant(String merchantId, String nickname, String password, String picUrl) throws Exception {
         List<Merchant> all = null;
         try{

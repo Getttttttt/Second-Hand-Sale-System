@@ -31,6 +31,21 @@ public class CustomerDAOProxy implements ICustomerDAO {
     }
 
     @Override
+    public List<Customer> searchByIdCustomer(String customerId) throws Exception {
+        List<Customer> all = null;
+        try{
+            all = this.dao.searchByIdCustomer(customerId);
+        }
+        catch (Exception e){
+            throw e;
+        }
+        finally{
+            DatabaseConnection.release(((CustomerDAOImpl)dao).getStat(),((CustomerDAOImpl)dao).getConn());
+        }
+        return all;
+    }
+
+    @Override
     public List<Customer> insertCustomer(String customerId, String nickname, String password, String phoneNumber, String address, String picUrl) throws Exception {
         List<Customer> all = null;
         try{

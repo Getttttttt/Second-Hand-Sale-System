@@ -14,7 +14,7 @@ public class CommunicationDAOProxy implements ICommunicationDAO {
 
     @Override
     public String[][] searchCommunication(String merchantId, String customerId) throws Exception {
-        String[][] communication = new String[300][2];
+        String[][] communication = new String[300][5];
         try{
             communication = this.dao.searchCommunication(merchantId,customerId);
         }
@@ -28,10 +28,10 @@ public class CommunicationDAOProxy implements ICommunicationDAO {
     }
 
     @Override
-    public String[][] addCommunication(String merchantId, String customerId, Date communicationTime, String content, String tag) throws Exception {
-        String[][] communication = new String[300][2];
+    public String[][] searchByCustomerId(String Id, String tag) throws Exception {
+        String[][] communication = new String[300][5];
         try{
-            communication = this.dao.addCommunication(merchantId,customerId,communicationTime,content,tag);
+            communication = this.dao.searchByCustomerId(Id,tag);
         }
         catch (Exception e){
             throw e;
@@ -41,4 +41,35 @@ public class CommunicationDAOProxy implements ICommunicationDAO {
         }
         return communication;
     }
+
+    @Override
+    public String[] searchLastMessage(String merchantId, String customerId) throws Exception {
+        String[] lastMessage = new String[2];
+        try{
+            lastMessage= this.dao.searchLastMessage(merchantId,customerId);
+        }
+        catch (Exception e){
+            throw e;
+        }
+        finally{
+            DatabaseConnection.release(((CommunicationDAOImpl)dao).getStat(),((CommunicationDAOImpl)dao).getConn());
+        }
+        return lastMessage;
+    }
+
+    @Override
+    public String addCommunication(String merchantId, String customerId, Date communicationTime, String content, String tag) throws Exception {
+        String result = null;
+        try{
+            result = this.dao.addCommunication(merchantId,customerId,communicationTime,content,tag);
+        }
+        catch (Exception e){
+            throw e;
+        }
+        finally{
+            DatabaseConnection.release(((CommunicationDAOImpl)dao).getStat(),((CommunicationDAOImpl)dao).getConn());
+        }
+        return result;
+    }
+
 }

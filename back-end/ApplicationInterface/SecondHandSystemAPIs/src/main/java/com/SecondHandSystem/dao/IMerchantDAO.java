@@ -8,6 +8,8 @@ import java.util.List;
 public interface IMerchantDAO {
     //查询商家
     public List<Merchant> searchMerchant(String merchantId,String password)throws Exception;
+    //根据id查询商家
+    public List<Merchant> searchByIdMerchant(String merchantId) throws Exception;
     //插入商家
     public List<Merchant> insertMerchant(String merchantId,String nickname,String password,String picUrl)throws Exception;
     //删除商家

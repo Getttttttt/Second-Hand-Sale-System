@@ -1,10 +1,11 @@
-package com.SecondHandSystem.controller;
+package com.SecondHandSystem.controller.Customer;
 
 import com.SecondHandSystem.dao.IOrderDAO;
 import com.SecondHandSystem.factory.DAOFactory;
 import com.SecondHandSystem.vo.Order;
-import org.json.JSONObject;
 import org.json.JSONArray;
+import org.json.JSONObject;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

@@ -3,6 +3,7 @@ package com.SecondHandSystem.test.test;
 import com.SecondHandSystem.dao.IMerchantDAO;
 import com.SecondHandSystem.dao.impl.MerchantDAOImpl;
 import com.SecondHandSystem.factory.DAOFactory;
+import com.SecondHandSystem.vo.Customer;
 import com.SecondHandSystem.vo.Merchant;
 
 import java.util.ArrayList;
@@ -36,8 +37,11 @@ public class TestMerchantDAO {
         System.out.println("start test update...");
         try {
             merchantDAOProxy = DAOFactory.getIMerchantDAOInstance();
+            System.out.println(1);
             List<Merchant> merchant = new ArrayList<>();
+            System.out.println(2);
             merchant = merchantDAOProxy.updateMerchant("21377223", "GETTTT", "get21377223", "A",20,3,"xxx");
+            System.out.println(merchant);
             for(Merchant m:merchant) {
                 System.out.println(m.getMerchantId());
                 System.out.println(m.getNickname());

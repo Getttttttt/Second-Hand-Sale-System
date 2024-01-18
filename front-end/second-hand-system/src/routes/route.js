@@ -52,11 +52,11 @@ export default [
         element: <BookBacket />
     },
     {
-        path: '/customer/chat',
+        path: '/customer/chat/:customerId',
         element: <CustomerChatToMerchantList />
     },
     {
-        path: '/customer/chat/merchant',
+        path: '/customer/chat/merchant/:mc',
         element: <ChatToSingleMerchant />
     },
     {
@@ -92,11 +92,11 @@ export default [
         element: <SignInForMerchant />
     },
     {
-        path: '/merchant/chat',
+        path: '/merchant/chat/:merchantId',
         element: <MerchantChatToCustomer />
     },
     {
-        path: '/merchant/chat/merchant',
+        path: '/merchant/chat/customer/:cm',
         element: <ChatToSingleCustomer />
     },
     {
