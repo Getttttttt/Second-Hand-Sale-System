@@ -5,7 +5,7 @@ let DetailData; // 定义一个变量来存储订单数据
 //let customerID = getCurrentCustomerID();
 customerID='123456'
 
-fetch('/customer/orderList?customerID=${customerID}')
+fetch(`/customer/orderList?customerID=${customerID}`)
     .then(function(response) {
         return response.json();
     })
