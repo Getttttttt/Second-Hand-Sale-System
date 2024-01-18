@@ -93,7 +93,7 @@ public class CommunicationDAOImpl implements ICommunicationDAO {
     }
 
     @Override
-    public String[][] addCommunication(String merchantId, String customerId, Date communicationTime, String content, String tag) throws Exception {
+    public String addCommunication(String merchantId, String customerId, Date communicationTime, String content, String tag) throws Exception {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String comTime = formatter.format(communicationTime);
         System.out.println(comTime);
@@ -104,13 +104,16 @@ public class CommunicationDAOImpl implements ICommunicationDAO {
         prestmt.setString(3, comTime);
         prestmt.setString(4, content);
         prestmt.setString(5, tag);
-        this.prestmt.execute();
-        return searchCommunication(merchantId,customerId);
+        boolean rs = this.prestmt.execute();
+        if(rs)
+            return "send success!";
+        else
+            return "send fail!";
     }
 
     @Override
     public String[] searchLastMessage(String merchantId,String customerId)throws Exception{
-        String sql = "SELECT 会话内容 FROM 沟通记录 WHERE 用户id='"+customerId+"' and 商家id ='"+merchantId+"' and 沟通时间 in (SELECT Max(沟通时间) FROM 沟通记录 WHERE 用户id='"+customerId+"' and 商家id ='"+merchantId+"')";
+        String sql = "SELECT top 1 会话内容,沟通时间 FROM 沟通记录 WHERE 用户id='"+customerId+"' and 商家id ='"+merchantId+"' ORDER BY 沟通时间 desc";
         System.out.println(sql);
         this.prestmt = this.conn.prepareStatement(sql);  //prestmt用于执行sql语句
         System.out.println(prestmt);

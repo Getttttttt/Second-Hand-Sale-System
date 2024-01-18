@@ -112,8 +112,93 @@ const ChatToSingleMerchant = () => {
   const merchantId = mc[0]
   const customerId = mc[1]
   //
+
+  const [chatHistory, setChatHistory] = React.useState([[]])
+
+  React.useEffect(() => {
+    const getChatHistory = async (event) => {
+      const jsonData = JSON.stringify({
+        customerId: customerId,
+        merchantId: merchantId
+      })
+      
+      try{
+        let myHeaders = new Headers({
+          'Content-Type': 'application/json'
+        });
+    
+        const response = await fetch('http://localhost:8080/SecondHandSystemAPIs_war_exploded/customer/chatHistory',{
+          method: 'POST',
+          headers: myHeaders,
+          body: jsonData,
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        //处理返回的数据
+        const responseData = await response.json();
+        console.log(responseData);
+        const merchantId = responseData.map(item => item.merchantId);
+        const nicknameM = responseData.map(item => item.nicknameM);
+        const customerId = responseData.map(item => item.customerId);
+        const nicknameC = responseData.map(item => item.nicknameC);
+        const message = responseData.map(item => item.message);
+        const from = responseData.map(item => item.from);
+        const imageM = responseData.map(item => item.imageM);
+        const imageC = responseData.map(item => item.imageC);
+        const combinedArray = merchantId.map((item, index) => {
+          return [
+            item,
+            nicknameM[index],
+            customerId[index],
+            nicknameC[index],
+            message[index],
+            from[index],
+            imageM[index],
+            imageC[index]
+          ];
+        });
+        console.log(combinedArray)
+        setChatHistory(combinedArray);
+      } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+      }
+    };
+    getChatHistory();
+  },[merchantId]);
+
+  const addCommunication = async ({customerId,merchantId,message,from}) => {
+    const jsonData = JSON.stringify({
+      customerId: customerId,
+      merchantId: merchantId,
+      message: message,
+      fromWho: from
+    })
+    
+    try{
+      let myHeaders = new Headers({
+        'Content-Type': 'application/json'
+      });
+  
+      const response = await fetch('http://localhost:8080/SecondHandSystemAPIs_war_exploded/customer/sendMessage',{
+        method: 'POST',
+        headers: myHeaders,
+        body: jsonData,
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      //处理返回的数据
+      const responseData = await response.json();
+      console.log(responseData);
+
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+    }
+  }
+
   const [inputValue, setInputValue] = useState('');
-  const [chatHistory, setChatHistory] = useState([
+  /*const [chatHistory, setChatHistory] = useState([
     [merchantId, 'get', customerId, 'rita', 'Hello!', "customer",  "../../../images/img.jpg", "../../../images/img.jpg"],
     [merchantId, 'get', customerId, 'rita', 'Hi, what can I do for you?', "merchant",  "../../../images/img.jpg", "../../../images/img.jpg"],
     [merchantId, 'get', customerId, 'rita', 'I want to know more about the book.', "customer",  "../../../images/img.jpg", "../../../images/img.jpg"],
@@ -126,11 +211,10 @@ const ChatToSingleMerchant = () => {
     [merchantId, 'get', customerId, 'rita', 'Hi, what can I do for you?', "merchant",  "../../../images/img.jpg", "../../../images/img.jpg"],
     [merchantId, 'get', customerId, 'rita', 'I want to know more about the book.', "customer",  "../../../images/img.jpg", "../../../images/img.jpg"],
     [merchantId, 'get', customerId, 'rita', 'I am glad to tell you.', "merchant", "../../../images/img.jpg", "../../../images/img.jpg"],
-  ]);
+  ]);*/
   const handleChange = (event) => {
     setInputValue(event.target.value);
   };
-
  
    var MERCHANTID = chatHistory[0][0]
    var NICKNAMEM = chatHistory[0][1]
@@ -169,6 +253,7 @@ const ChatToSingleMerchant = () => {
   
   const sendMessage = (newMessage) => {
     console.log("消息内容："+newMessage)
+    addCommunication(customerId,merchantId,newMessage,"customer");
     setInputValue('');
     const newChatHistory = [...chatHistory,[MERCHANTID, NICKNAMEM, CUSTOMERID, NICKNAMEC, newMessage, "customer", IMAGEM, IMAGEC]]
     setChatHistory(newChatHistory);
@@ -234,3 +319,5 @@ const ChatToSingleMerchant = () => {
 }
 
 export default ChatToSingleMerchant;
+
+

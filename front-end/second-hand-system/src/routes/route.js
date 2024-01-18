@@ -87,7 +87,7 @@ export default [
         element: <SignInForMerchant />
     },
     {
-        path: '/merchant/chat',
+        path: '/merchant/chat/:merchantId',
         element: <MerchantChatToCustomer />
     },
     {

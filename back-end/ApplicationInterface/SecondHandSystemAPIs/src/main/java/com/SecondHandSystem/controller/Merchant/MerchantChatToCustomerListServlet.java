@@ -1,7 +1,6 @@
-package com.SecondHandSystem.controller.Customer;
+package com.SecondHandSystem.controller.Merchant;
 
 import com.SecondHandSystem.dao.ICommunicationDAO;
-import com.SecondHandSystem.dao.ICustomerDAO;
 import com.SecondHandSystem.factory.DAOFactory;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,11 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
-@WebServlet("/customer/chatToMerchantList")
-public class CustomerChatToMerchantListServlet extends HttpServlet {
+@WebServlet("/merchant/chatToCustomerList")
+public class MerchantChatToCustomerListServlet extends HttpServlet {
     private void setAccessControlHeaders(HttpServletResponse response) {
         response.setHeader("Access-Control-Allow-Origin", "http://localhost:9001"); // 允许的来源，根据需要更改
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
@@ -54,36 +52,36 @@ public class CustomerChatToMerchantListServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
 
-        // 传入的customerId
-        String customerId = jsonObject.optString("customerId");
+        // 传入的merchantId
+        String merchantId = jsonObject.optString("merchantId");
 
         String[][] content = new String[300][5];
-        String[] allMerchantList = new String[300];
+        String[] allCustomerList = new String[5];
 
         try{
             int i=0;
             ICommunicationDAO communicationDAO = DAOFactory.getICommunicationDAOInstance();
-            content = communicationDAO.searchByCustomerId(customerId,"customer");
+            content = communicationDAO.searchByCustomerId(merchantId,"merchant");
             for(String[] c : content){
-                if((Arrays.asList(allMerchantList)).contains(c[3].trim())){
+                if((Arrays.asList(allCustomerList)).contains(c[3].trim())){
                     continue;
                 }
-                allMerchantList[i] = c[3].trim();
+                allCustomerList[i] = c[3].trim();
                 i++;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        JSONArray jsonArray = new JSONArray();
         try{
-            JSONArray jsonArray = new JSONArray();
-            for (String merchant : allMerchantList) {
+            for (String customer : allCustomerList) {
                 JSONObject json = new JSONObject();
-                System.out.println(merchant);
-                if (merchant == null) {
+                System.out.println(customer);
+                if (customer == null) {
                     continue;
                 }
-                //System.out.println(merchant);
-                json.put("merchantId",merchant);
+                json.put("customerId",customer);
                 //System.out.println(json);
                 //将JSON对象添加到JSON数组中
                 jsonArray.put(json);
@@ -124,5 +122,4 @@ public class CustomerChatToMerchantListServlet extends HttpServlet {
         setAccessControlHeaders(response);
         response.setStatus(HttpServletResponse.SC_OK);
     }
-
 }

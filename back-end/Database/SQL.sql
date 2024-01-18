@@ -1,13 +1,13 @@
 CREATE DATABASE secondhandsalesystem ON
 (
 NAME = secondhandsalesystem,
-FILENAME = 'D:\Project\SecondHandSystem\SecondHandDatabase\secondhandsalesystem.mdf',
+FILENAME = 'D:\javaweb\data\SecondHandDatabase\secondhandsalesystem.mdf',
 SIZE = 100MB, MAXSIZE = UNLIMITED, FILEGROWTH = 10MB
 )
 LOG ON
 (
 NAME = secondhandsalesystemlog,
-FILENAME = 'D:\Project\SecondHandSystem\SecondHandDatabase\secondhandsalesystemlog.ldf',
+FILENAME = 'D:\javaweb\data\SecondHandDatabase\secondhandsalesystemlog.ldf',
 SIZE = 100MB, MAXSIZE = UNLIMITED, FILEGROWTH = 10MB
 )
 GO
@@ -17,29 +17,23 @@ GO
 
 
 CREATE TABLE [订单] (
+  [订单ID] char(10) PRIMARY KEY,
   [用户ID] char(20) NOT NULL,
   [商品ID] char(10) NOT NULL,
+  [商家ID] char(20) NOT NULL,
   [交易时间] datetime2 NOT NULL,
   [交易价格] float NULL,
   [交易数量] int NULL,
   [交易状态] char(20) NULL,
   [评价等级] int NOT NULL,
-  [评价言论] char(20) NULL,
-  CONSTRAINT [_copy_9] PRIMARY KEY CLUSTERED ([用户ID], [商品ID])
-WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+  [评价言论] char(500) NULL
 )
 GO
 
 CREATE TABLE [沟通记录] (
-<<<<<<< HEAD
-  [商家id] char(10) NOT NULL,
-  [用户id] char(10) NOT NULL,
-  [沟通时间] datetime2 NOT NULL,
-=======
   [商家id] char(20) NOT NULL,
   [用户id] char(20) NOT NULL,
   [沟通时间] time NOT NULL,
->>>>>>> 2b257b07ac277810a72c4f392ba03848a0053873
   [会话内容] char(200) NULL,
   [标签] char(10) NOT NULL,
   CONSTRAINT [_copy_6] PRIMARY KEY CLUSTERED ([商家id], [用户id], [沟通时间])
@@ -129,6 +123,8 @@ GO
 ALTER TABLE [订单] ADD CONSTRAINT [_copy_1] FOREIGN KEY ([商品ID]) REFERENCES [图书] ([商品ID])
 GO
 ALTER TABLE [订单] ADD CONSTRAINT [_copy_8] FOREIGN KEY ([用户ID]) REFERENCES [用户] ([用户id])
+GO
+ALTER TABLE [订单] ADD CONSTRAINT [_copy_9] FOREIGN KEY ([商家ID]) REFERENCES [商家] ([商家id])
 GO
 ALTER TABLE [沟通记录] ADD CONSTRAINT [_copy_5] FOREIGN KEY ([用户id]) REFERENCES [用户] ([用户id])
 GO

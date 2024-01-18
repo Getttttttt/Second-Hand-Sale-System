@@ -1,8 +1,9 @@
-package com.SecondHandSystem.controller.Customer;
+package com.SecondHandSystem.controller.Merchant;
 
 import com.SecondHandSystem.dao.ICommunicationDAO;
 import com.SecondHandSystem.dao.ICustomerDAO;
 import com.SecondHandSystem.factory.DAOFactory;
+import com.SecondHandSystem.vo.Customer;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,18 +15,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
-@WebServlet("/customer/chatToMerchantList")
-public class CustomerChatToMerchantListServlet extends HttpServlet {
+@WebServlet("/merchant/lastMessage")
+public class MerchantLastMessageServlet extends HttpServlet {
     private void setAccessControlHeaders(HttpServletResponse response) {
         response.setHeader("Access-Control-Allow-Origin", "http://localhost:9001"); // 允许的来源，根据需要更改
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
         response.setHeader("Access-Control-Allow-Credentials", "true");
     }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -54,45 +54,44 @@ public class CustomerChatToMerchantListServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
 
-        // 传入的customerId
+        //传入的customerId和merchantId
         String customerId = jsonObject.optString("customerId");
+        String merchantID = jsonObject.optString("merchantId");
 
-        String[][] content = new String[300][5];
-        String[] allMerchantList = new String[300];
+        String[] last = new String[2];
+        List<Customer> C = new ArrayList<>();
+        String lastMessage = null;
+        String time = null;
+        String imageC = null;
+        String nicknameC = null;
 
         try{
-            int i=0;
             ICommunicationDAO communicationDAO = DAOFactory.getICommunicationDAOInstance();
-            content = communicationDAO.searchByCustomerId(customerId,"customer");
-            for(String[] c : content){
-                if((Arrays.asList(allMerchantList)).contains(c[3].trim())){
-                    continue;
-                }
-                allMerchantList[i] = c[3].trim();
-                i++;
+            ICustomerDAO customerDAO = DAOFactory.getICustomerDAOInstance();
+            last = communicationDAO.searchLastMessage(merchantID,customerId);
+            C = customerDAO.searchByIdCustomer(customerId);
+            lastMessage = last[0];
+            time = last[1];
+            for(Customer c: C){
+                imageC = c.getPicUrl();
+                nicknameC = c.getNickname();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         try{
+            JSONObject json = new JSONObject();
             JSONArray jsonArray = new JSONArray();
-            for (String merchant : allMerchantList) {
-                JSONObject json = new JSONObject();
-                System.out.println(merchant);
-                if (merchant == null) {
-                    continue;
-                }
-                //System.out.println(merchant);
-                json.put("merchantId",merchant);
-                //System.out.println(json);
-                //将JSON对象添加到JSON数组中
-                jsonArray.put(json);
-            }
+            json.put("lastMessage",lastMessage);
+            json.put("time",time);
+            json.put("imageM",imageC);
+            json.put("nicknameM",nicknameC);
+            jsonArray.put(json);
             System.out.println(jsonArray);
             // 将JSON数组转换为字符串
             String jsonString = jsonArray.toString();
             System.out.println(jsonString);
-
             // 设置响应类型和状态
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
@@ -124,5 +123,4 @@ public class CustomerChatToMerchantListServlet extends HttpServlet {
         setAccessControlHeaders(response);
         response.setStatus(HttpServletResponse.SC_OK);
     }
-
 }

@@ -53,6 +53,27 @@ public class MerchantDAOImpl implements IMerchantDAO {
     }
 
     @Override
+    public List<Merchant> searchByIdMerchant(String merchantId) throws Exception {
+        List<Merchant> all = new ArrayList<>(); //创建Merchant对象列表用于保存从数据库中查询到的信息
+        String sql = "SELECT * FROM 商家 WHERE 商家id='"+merchantId+"'";  //定义要实现的SQL语句
+        this.prestmt = this.conn.prepareStatement(sql);  //prestmt用于执行sql语句
+        ResultSet rs = this.prestmt.executeQuery();  //执行sql语句，将结果赋给ResultSet对象rs
+        Merchant merchant = null;
+        while(rs.next()){
+            merchant = new Merchant();
+            merchant.setMerchantId(rs.getString(1));
+            merchant.setNickname(rs.getString(2));
+            merchant.setPassword(rs.getString(3));
+            merchant.setTrustLevel(rs.getString(4));
+            merchant.setBooksOnsale(rs.getInt(5));
+            merchant.setLength(rs.getInt(6));
+            merchant.setPicUrl(rs.getString(7));
+            all.add(merchant);
+        }
+        return all;
+    }
+
+    @Override
     public List<Merchant> insertMerchant(String merchantId, String nickname, String password, String picUrl) throws Exception {
         List<Merchant> all = new ArrayList<>(); //创建Customer对象列表用于保存从数据库中查询到的信息
         String sql = "INSERT INTO 商家(商家id,昵称,登录密码,头像) VALUES (?,?,?,?)";  //定义要实现的SQL语句

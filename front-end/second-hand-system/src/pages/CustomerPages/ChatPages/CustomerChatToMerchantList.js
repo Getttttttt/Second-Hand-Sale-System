@@ -27,35 +27,44 @@ function Copyright(props) {
 
 export default function CustomerChatToMerchantList() {
   let { customerId } = useParams();
-  
-  const getMerchantList = async (event) => {
-    const jsonData = JSON.stringify({
-      customerId: customerId
-    })
-    
-    try{
-      let myHeaders = new Headers({
-        'Content-Type': 'application/json'
-      });
-  
-      const response = await fetch('http://localhost:8080/SecondHandSystemAPIs_war_exploded/customer/chatToMerchantList',{
-        method: 'POST',
-        headers: myHeaders,
-        body: jsonData,
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      //处理返回的数据
-      const responseData = await response.json();
-      console.log(responseData);
-      setAllMerchants(responseData);
-    } catch (error) {
-      console.error('There was a problem with the fetch operation:', error);
-    }
-  };
-
+  console.log(customerId)
   const [allMerchants, setAllMerchants] = React.useState([])
+
+  React.useEffect(() => {
+    const getMerchantList = async (event) => {
+      const jsonData = JSON.stringify({
+        customerId: customerId
+      })
+      console.log(jsonData)
+      
+      try{
+        let myHeaders = new Headers({
+          'Content-Type': 'application/json'
+        });
+        console.log(myHeaders)
+
+        const response = await fetch('http://localhost:8080/SecondHandSystemAPIs_war_exploded/customer/chatToMerchantList',{
+          method: 'POST',
+          headers: myHeaders,
+          body: jsonData,
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        //处理返回的数据
+        const responseData = await response.json();
+        console.log("back to js")
+        console.log(responseData)
+        const merchantIds = responseData.map(item => item.merchantId);
+        setAllMerchants(merchantIds);
+      } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+      }
+    };
+    getMerchantList();
+  }, [customerId]);
 
   function Each({merchantId}){    
     return <Page merchantId={merchantId} customerId={customerId} />;
@@ -63,8 +72,6 @@ export default function CustomerChatToMerchantList() {
 
   return (
     <Container>
-      {getMerchantList}
-
       {allMerchants.map((item, index) => {
         return(
           <React.Fragment key={index}><Each merchantId={item}/></React.Fragment>   
@@ -76,13 +83,50 @@ export default function CustomerChatToMerchantList() {
 
 
 function Page({merchantId,customerId}){
+  const [lastContent, setLastContent] = React.useState([])
+
+  React.useEffect(() => {
+    const getLastMessage = async (event) => {
+      const jsonData = JSON.stringify({
+        customerId: customerId,
+        merchantId: merchantId
+      })
+      
+      try{
+        let myHeaders = new Headers({
+          'Content-Type': 'application/json'
+        });
+    
+        const response = await fetch('http://localhost:8080/SecondHandSystemAPIs_war_exploded/customer/lastMessage',{
+          method: 'POST',
+          headers: myHeaders,
+          body: jsonData,
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        //处理返回的数据
+        const responseData = await response.json();
+        console.log(responseData);
+        setLastContent(responseData);
+        const lastMessage = responseData.map(item => item.lastMessage);
+        const time = responseData.map(item => item.time);
+        const imageM = responseData.map(item => item.imageM);
+        const nicknameM = responseData.map(item => item.nicknameM);
+        setLastContent([lastMessage,time,imageM,nicknameM]);
+      } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+      }
+    };
+    getLastMessage();
+    console.log(lastContent)
+  },[merchantId,customerId]);
+
   //查询
-  const imageM = "../../../images/img.jpg"
-  const imageC = "../../../images/img.jpg"
-  const NICKNAMEM = "nicknameM"
-  const NiCKNAMEC = "nicknameC"
-  const lastMessage = "hello"  //查询
-  const time = "2024-1-1 10:00:00"
+  const lastMessage = lastContent[0]  
+  const time = lastContent[1]
+  const imageM = lastContent[2]
+  const NICKNAMEM = lastContent[3]
   
   const [isDotVisible, setIsDotVisible] = React.useState(true);
   const handleLinkClick = (merchantId,customerId) => {

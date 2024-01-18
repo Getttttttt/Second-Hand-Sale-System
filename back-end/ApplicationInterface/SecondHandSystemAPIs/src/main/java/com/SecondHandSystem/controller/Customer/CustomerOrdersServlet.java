@@ -1,10 +1,11 @@
-package com.SecondHandSystem.controller;
+package com.SecondHandSystem.controller.Customer;
 
 import com.SecondHandSystem.dao.IOrderDAO;
 import com.SecondHandSystem.factory.DAOFactory;
 import com.SecondHandSystem.vo.Order;
-import org.json.JSONObject;
 import org.json.JSONArray;
+import org.json.JSONObject;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,10 +16,21 @@ import java.util.ArrayList;
 
 @WebServlet("/customer/orderList")
 public class CustomerOrdersServlet extends HttpServlet {
+    private void setAccessControlHeaders(HttpServletResponse response) {
+        response.setHeader("Access-Control-Allow-Origin", "http://localhost:9000"); // 允许的来源，根据需要更改
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+        response.setHeader("Access-Control-Allow-Credentials", "true");
+    }
+
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        setAccessControlHeaders(response);
+
         // 获取用户ID参数
         String customerID = request.getParameter("customerID");
+        System.out.println(customerID);
         try {
             IOrderDAO orderDAOProxy = DAOFactory.getIOrderDAOInstance();
             ArrayList<Order> orderList = orderDAOProxy.selectByCustomer(customerID);
@@ -47,8 +59,12 @@ public class CustomerOrdersServlet extends HttpServlet {
                 // 将JSON对象添加到JSON数组中
                 jsonArray.put(jsonObject);
             }
+            System.out.println(jsonArray);
             // 将JSON数组转换为字符串
             String jsonString = jsonArray.toString();
+
+            System.out.println(jsonString);
+
 
             // 设置响应内容类型和编码
             response.setContentType("application/json");
@@ -62,5 +78,14 @@ public class CustomerOrdersServlet extends HttpServlet {
         }
 
     }
+
+    @Override
+    protected void doOptions(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        setAccessControlHeaders(response);
+        response.setStatus(HttpServletResponse.SC_OK);
+    }
+
 
 }

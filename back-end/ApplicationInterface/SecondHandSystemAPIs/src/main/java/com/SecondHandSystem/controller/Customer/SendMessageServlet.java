@@ -1,9 +1,7 @@
 package com.SecondHandSystem.controller.Customer;
 
 import com.SecondHandSystem.dao.ICommunicationDAO;
-import com.SecondHandSystem.dao.ICustomerDAO;
 import com.SecondHandSystem.factory.DAOFactory;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -14,22 +12,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.Arrays;
+import java.util.Date;
 
-@WebServlet("/customer/chatToMerchantList")
-public class CustomerChatToMerchantListServlet extends HttpServlet {
+@WebServlet("/customer/sendMessage")
+public class SendMessageServlet extends HttpServlet {
     private void setAccessControlHeaders(HttpServletResponse response) {
         response.setHeader("Access-Control-Allow-Origin", "http://localhost:9001"); // 允许的来源，根据需要更改
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
         response.setHeader("Access-Control-Allow-Credentials", "true");
     }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         setAccessControlHeaders(response);
 
         // 处理请求数据
@@ -54,54 +49,42 @@ public class CustomerChatToMerchantListServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
 
-        // 传入的customerId
+        //传入的message、customerId、merchantId、fromWhom
         String customerId = jsonObject.optString("customerId");
+        String merchantId = jsonObject.optString("merchantId");
+        String message = jsonObject.optString("message");
+        String fromWho = jsonObject.optString("fromWho");
+        Date time = new Date();
 
-        String[][] content = new String[300][5];
-        String[] allMerchantList = new String[300];
-
-        try{
-            int i=0;
+        String result = null;
+        try {
+            System.out.println(time);
             ICommunicationDAO communicationDAO = DAOFactory.getICommunicationDAOInstance();
-            content = communicationDAO.searchByCustomerId(customerId,"customer");
-            for(String[] c : content){
-                if((Arrays.asList(allMerchantList)).contains(c[3].trim())){
-                    continue;
-                }
-                allMerchantList[i] = c[3].trim();
-                i++;
-            }
-        } catch (Exception e) {
+            result = communicationDAO.addCommunication(merchantId,customerId,time,message,fromWho);
+        } catch (Exception e){
             e.printStackTrace();
         }
-        try{
-            JSONArray jsonArray = new JSONArray();
-            for (String merchant : allMerchantList) {
-                JSONObject json = new JSONObject();
-                System.out.println(merchant);
-                if (merchant == null) {
-                    continue;
-                }
-                //System.out.println(merchant);
-                json.put("merchantId",merchant);
-                //System.out.println(json);
-                //将JSON对象添加到JSON数组中
-                jsonArray.put(json);
-            }
-            System.out.println(jsonArray);
-            // 将JSON数组转换为字符串
-            String jsonString = jsonArray.toString();
-            System.out.println(jsonString);
-
+        try {
+            JSONObject json = new JSONObject();
+            json.put("result",result);
+            String jsonString = json.toString();
             // 设置响应类型和状态
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().write(jsonString);
 
-        } catch(JSONException e) {
+        } catch (JSONException e){
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
+
+
+
+
+
+
+
     }
 
     @Override

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Box, Container } from "@mui/material";
+import { useParams } from 'react-router-dom';
 import Divider from '@mui/material/Divider';
 import Link from '@mui/material/Link';
 import List from '@mui/material/List';
@@ -24,9 +25,43 @@ function Copyright(props) {
   );
 }
 
-export default function MerchantChatToCustomer({ merchantId, allCustomer }) {
-  allCustomer=new Array("21377223","21377006","21377227","21377226")
-  merchantId = "21377223"
+export default function MerchantChatToCustomer() {
+  let { merchantId } = useParams();
+  const [allCustomer, setAllCustomer] = React.useState([])
+
+  React.useEffect(() => {
+    const getCustomerList = async (event) => {
+      const jsonData = JSON.stringify({
+        merchantId: merchantId
+      })
+      
+      try{
+        let myHeaders = new Headers({
+          'Content-Type': 'application/json'
+        });
+    
+        const response = await fetch('http://localhost:8080/SecondHandSystemAPIs_war_exploded/merchant/chatToCustomerList',{
+          method: 'POST',
+          headers: myHeaders,
+          body: jsonData,
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        //处理返回的数据
+        const responseData = await response.json();
+        console.log("back to js")
+        console.log(responseData)
+        const customerIds = responseData.map(item => item.customerId);
+        setAllCustomer(customerIds);
+      } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+      }
+    };
+    getCustomerList();
+  }, [merchantId]);
+
+
   function Each({customerId}){    
     return <Page merchantId={merchantId} customerId={customerId} />;
   }
@@ -43,14 +78,49 @@ export default function MerchantChatToCustomer({ merchantId, allCustomer }) {
 }
 
 function Page({merchantId,customerId}){
-  
+  const [lastContent, setLastContent] = React.useState([])
+  React.useEffect(() => {
+    const getLastMessage = async (event) => {
+      const jsonData = JSON.stringify({
+        customerId: customerId,
+        merchantId: merchantId
+      })
+      
+      try{
+        let myHeaders = new Headers({
+          'Content-Type': 'application/json'
+        });
+    
+        const response = await fetch('http://localhost:8080/SecondHandSystemAPIs_war_exploded/merchant/lastMessage',{
+          method: 'POST',
+          headers: myHeaders,
+          body: jsonData,
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+       //处理返回的数据
+       const responseData = await response.json();
+       console.log(responseData);
+       setLastContent(responseData);
+       const lastMessage = responseData.map(item => item.lastMessage);
+       const time = responseData.map(item => item.time);
+       const imageC = responseData.map(item => item.imageC);
+       const NICKNAMEC = responseData.map(item => item.NICKNAMEC);
+       setLastContent([lastMessage,time,imageC,NICKNAMEC]);
+     } catch (error) {
+       console.error('There was a problem with the fetch operation:', error);
+     }
+   };
+   getLastMessage();
+   console.log(lastContent)
+  },[merchantId,customerId]);
+
   //查询
-  const imageM = "../../../images/img.jpg"
-  const imageC = "../../../images/img.jpg"
-  const NICKNAMEM = "nicknameM"
-  const NiCKNAMEC = "nicknameC"
-  const lastMessage = "hello"  //查询
-  const time = "2024-1-1 10:00:00"
+  const lastMessage = lastContent[0]  
+  const time = lastContent[1]
+  const imageC = lastContent[2]
+  const NICKNAMEC = lastContent[3]
   
   const [isDotVisible, setIsDotVisible] = React.useState(true);
   const handleLinkClick = (merchantId,customerId) => {
@@ -75,7 +145,7 @@ function Page({merchantId,customerId}){
         
         <a href={`/merchant/chat/merchant/${ cm }`} style={{textDecoration: "none"}} onClick={() => handleLinkClick(merchantId,customerId)}>
         <ListItemText
-          primary={NiCKNAMEC}
+          primary={NICKNAMEC}
           secondary={
             <React.Fragment>
               <Typography

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container } from '@mui/material';
 import { Typography,  Box, TextField, Button  } from '@mui/material';
-import { MainData, DetailData } from './store';
+import { MainData, DetailData } from './CustomerListStore';
 import { useParams } from 'react-router-dom';
 import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
@@ -9,7 +9,6 @@ import RecommendIcon from '@mui/icons-material/Recommend';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Rating from '@mui/material/Rating';
-
 
 const SinglePurchasedBookEvaluation = () => {
   const { orderID } = useParams();
