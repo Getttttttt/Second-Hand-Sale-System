@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from '@mui/material';
-import { MainData, DetailData } from './store';
+import { MainData, DetailData } from './CustomerListStore';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { FaChevronDown } from 'react-icons/fa';

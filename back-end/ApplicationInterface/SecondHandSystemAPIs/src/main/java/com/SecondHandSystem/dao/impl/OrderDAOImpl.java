@@ -71,7 +71,7 @@ public class OrderDAOImpl implements IOrderDAO {
         rs= stat.executeQuery(sqlPictures);
         ArrayList<String> pictures=new ArrayList<>();
         while(rs.next()){
-            pictures.add(rs.getString("分类类型"));
+            pictures.add(rs.getString("商品图片展示URL"));
         }
         String[] strPictures= pictures.toArray(new String[pictures.size()]);
         sql="select * from 图书 where 商品ID = '"+order.getBookID()+"';";
@@ -93,7 +93,7 @@ public class OrderDAOImpl implements IOrderDAO {
     @Override
     public ArrayList<Order> selectByCustomer(String customerID) throws Exception {
         ArrayList<Order> list=new ArrayList<>();
-        String sql="select * from 订单 where 用户ID = "+customerID;
+        String sql="select * from 订单 where 用户ID = '"+customerID+"';";
         rs= stat.executeQuery(sql);
         while(rs.next()) {
             list.add(selectByOrder(rs.getString("订单ID")));

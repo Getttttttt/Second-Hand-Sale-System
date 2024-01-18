@@ -19,9 +19,14 @@ import SaledBookStatusPage from "../pages/MerchantPages/SaledBookList/SaledBookS
 import SingleSaledBookStatusPage from "../pages/MerchantPages/SaledBookList/SingleSaledBookStatusPage";
 import SaleBookFormPage from "../pages/MerchantPages/AddSaleBook/SaleBookFormPage";
 import SinglePurchasedBookEvaluation from "../pages/CustomerPages/PurchasedBookList/SinglePurchasedBookEvaluation"
+import { CustomerListStore } from "../pages/CustomerPages/PurchasedBookList/CustomerListStore";
 
 
 export default [
+    {
+        path:'test',
+        element:<CustomerListStore />
+    },
     {
         path: '/',
         element: <Navigate to='/home' />

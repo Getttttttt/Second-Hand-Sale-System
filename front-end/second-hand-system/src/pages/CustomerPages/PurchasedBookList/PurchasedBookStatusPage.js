@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Container, TextField } from "@mui/material";
 import Autocomplete from '@mui/material/Autocomplete';
-import { MainData, DetailData } from './store';
+import { MainData, DetailData } from './CustomerListStore';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';

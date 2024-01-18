@@ -8,6 +8,7 @@ import java.util.Date;
 public class TestCommunicationDAO {
     public static void main(String[] args){
         ICommunicationDAO communicationDAOProxy;
+        /*
         System.out.println("start test insert...");
         try {
             String[][] content = new String[300][3];
@@ -25,6 +26,7 @@ public class TestCommunicationDAO {
             ex.printStackTrace();
             System.out.println("insert error");
         }
+
         try {
             String[][] content = new String[300][3];
             communicationDAOProxy = DAOFactory.getICommunicationDAOInstance();
@@ -41,7 +43,7 @@ public class TestCommunicationDAO {
             ex.printStackTrace();
             System.out.println("insert error");
         }
-
+*/
         System.out.println("start test select...");
         try {
             String[][] content = new String[300][3];
