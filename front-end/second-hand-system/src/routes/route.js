@@ -91,7 +91,7 @@ export default [
         element: <MerchantChatToCustomer />
     },
     {
-        path: '/merchant/chat/merchant/:cm',
+        path: '/merchant/chat/customer/:cm',
         element: <ChatToSingleCustomer />
     },
     {

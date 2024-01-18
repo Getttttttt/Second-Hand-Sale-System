@@ -168,6 +168,7 @@ const ChatToSingleMerchant = () => {
   },[merchantId]);
 
   const addCommunication = async ({customerId,merchantId,message,from}) => {
+    console.log(customerId,merchantId,message,from)
     const jsonData = JSON.stringify({
       customerId: customerId,
       merchantId: merchantId,
@@ -253,7 +254,7 @@ const ChatToSingleMerchant = () => {
   
   const sendMessage = (newMessage) => {
     console.log("消息内容："+newMessage)
-    addCommunication(customerId,merchantId,newMessage,"customer");
+    addCommunication({customerId:customerId,merchantId:merchantId,message:newMessage,from:"customer"});
     setInputValue('');
     const newChatHistory = [...chatHistory,[MERCHANTID, NICKNAMEM, CUSTOMERID, NICKNAMEC, newMessage, "customer", IMAGEM, IMAGEC]]
     setChatHistory(newChatHistory);

@@ -105,7 +105,8 @@ public class CommunicationDAOImpl implements ICommunicationDAO {
         prestmt.setString(4, content);
         prestmt.setString(5, tag);
         boolean rs = this.prestmt.execute();
-        if(rs)
+        System.out.println(rs);
+        if(!rs)
             return "send success!";
         else
             return "send fail!";

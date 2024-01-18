@@ -117,7 +117,7 @@ const ChatToSingleCustomer = () => {
   const merchantId = cm[1]
   //
 
-  const [chatHistory, setChatHistory] = React.useState([])
+  const [chatHistory, setChatHistory] = React.useState([[]])
 
   React.useEffect(() => {
     const getChatHistory = async (event) => {
@@ -260,7 +260,7 @@ const ChatToSingleCustomer = () => {
  
  const sendMessage = (newMessage) => {
    console.log("消息内容："+newMessage)
-   addCommunication(customerId,merchantId,newMessage,"merchant");
+   addCommunication({customerId:customerId,merchantId:merchantId,message:newMessage,from:"merchant"});
    setInputValue('');
    const newChatHistory = [...chatHistory,[MERCHANTID, NICKNAMEM, CUSTOMERID, NICKNAMEC, newMessage, "merchant", IMAGEM, IMAGEC]]
    setChatHistory(newChatHistory);

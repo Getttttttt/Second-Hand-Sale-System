@@ -58,7 +58,7 @@ public class SendMessageServlet extends HttpServlet {
 
         String result = null;
         try {
-            System.out.println(time);
+            System.out.println(customerId);
             ICommunicationDAO communicationDAO = DAOFactory.getICommunicationDAOInstance();
             result = communicationDAO.addCommunication(merchantId,customerId,time,message,fromWho);
         } catch (Exception e){
@@ -78,13 +78,6 @@ public class SendMessageServlet extends HttpServlet {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-
-
-
-
-
-
-
     }
 
     @Override
