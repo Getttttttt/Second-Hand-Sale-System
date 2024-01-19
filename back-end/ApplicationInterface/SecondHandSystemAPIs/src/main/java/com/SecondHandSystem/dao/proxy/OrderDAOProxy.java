@@ -106,4 +106,7 @@ public class OrderDAOProxy implements IOrderDAO {
         }
         return list;
     }
+
+    public static interface IEvaluationDAO {
+    }
 }

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Container, TextField } from "@mui/material";
 import Autocomplete from '@mui/material/Autocomplete';
-import { MainData, DetailData } from './CustomerListStore';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
@@ -12,10 +11,14 @@ import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
+import { useParams } from 'react-router-dom';
 
-export default function PurchasedBookStatusPage() {
+
+export default function PurchasedBookStatusPage () {
+  const { customerID } = useParams();
   const [selectedStatus, setSelectedStatus] = React.useState("");
   const [selectedTime, setSelectedTime] = React.useState("");
+  const [DetailData, setDetailData] = React.useState([]);
   const currentDate = new Date();
   const options = [];
   for (let i = 0; i < 5; i++) {
@@ -24,11 +27,66 @@ export default function PurchasedBookStatusPage() {
     options.push(formattedDate);
   }
 
+  console.log(2)
+
+  const fetchData = async () => {
+    console.log(1);
+    try {
+      let myHeaders = new Headers({
+        'Content-Type': 'application/json'
+      });
+      console.log(3)
+
+      const response = await fetch(`http://localhost:8080/SecondHandSystemAPIs_war_exploded/customer/orderList?customerID=${customerID}`, {
+        method: 'GET',
+        headers: myHeaders
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      //处理返回的数据
+
+      console.log(1);
+
+      const Data = await response.json();
+      console.log(Data);
+      const DetailData = Data.map(item => ({
+        bookImages: item.bookImages[0].split(","),
+        bookISBN: item.bookISBN.trim(),
+        orderNum: item.orderNum,
+        orderStatus: item.orderStatus.trim(),
+        bookAuthor: item.bookAuthor.trim(),
+        bookPublishTime: item.bookPublishTime,
+        bookName: item.bookName.trim(),
+        bookID: item.bookID.trim(),
+        evaluation: item.evaluation.trim(),
+        MainData: item.MainData.trim(),
+        merchantNumber: item.merchantNumber.trim(),
+        bookSurfacePic: item.bookSurfacePic.trim(),
+        orderTime: item.orderTime,
+        bookLabels: item.bookLabels.map(label => label.trim()),
+        estimationScale: item.estimationScale,
+        orderPrice: item.orderPrice,
+        bookdegree: item.bookdegree.trim()
+      }));
+      console.log("back to js")
+      console.log(DetailData);
+      setDetailData(DetailData); // 将获取的数据存储在detailData中
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+    }
+  };
+
+  React.useEffect(() => {
+    fetchData();
+  }, []);
+
+
   const renderOrderItem = (order) => {
     return (
       <React.Fragment key={order.bookID}>
         <Typography variant="caption" display="block" gutterBottom sx={{ color: 'rgba(0, 0, 0, 0.6)', fontWeight: 'bold',backgroundColor: 'lightblue'}}>
-          订单号：{order.MainData} | 订单时间：{order.orderTime}
+          订单号：{order.MainData} | 订单时间：{order.orderTime} | 商家ID：{order.merchantNumber}
         </Typography>
         <ListItem alignItems="flex-start">
           <ListItemAvatar>
@@ -43,7 +101,7 @@ export default function PurchasedBookStatusPage() {
           <ListItemText
             primary={
               <Link
-                to={`/customer/purchased/${order.MainData}`}
+                to={`/customer/purchased/order/${order.MainData}`}
                 style={{
                   cursor: 'pointer',
                   color: 'black',
@@ -158,7 +216,7 @@ export default function PurchasedBookStatusPage() {
         />
       </div>
       <List>
-        {DetailData.filter((order) => {
+        {DetailData && DetailData.filter((order) => {
           if (selectedStatus && order.orderStatus !== selectedStatus) {
             return false;
           }

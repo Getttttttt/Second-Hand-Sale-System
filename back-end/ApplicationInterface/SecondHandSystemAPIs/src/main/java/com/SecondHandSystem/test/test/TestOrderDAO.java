@@ -9,14 +9,14 @@ public class TestOrderDAO {
     public static void main(String[] args) {
         IOrderDAO orderDAOProxy;
         Order order=new Order();
-        /*
+/*
         System.out.println("start test insert...");
         try{
             orderDAOProxy= DAOFactory.getIOrderDAOInstance();
             order.setOrderID("Od123456");
             order.setBookID("Bo123456");
-            order.setCustomerID("123456");
-            order.setMerchantID("123456");
+            order.setCustomerID("18810392015");
+            order.setMerchantID("18810392015");
             order.setTradingPrice(50);
             order.setTradingNum(1);
             order.setTradingStatus("正在进行");
@@ -33,8 +33,8 @@ public class TestOrderDAO {
             orderDAOProxy= DAOFactory.getIOrderDAOInstance();
             order.setOrderID("Od456789");
             order.setBookID("Bo456789");
-            order.setCustomerID("123456");
-            order.setMerchantID("123456");
+            order.setCustomerID("18810392015");
+            order.setMerchantID("18810392015");
             order.setTradingPrice(30);
             order.setTradingNum(1);
             order.setTradingStatus("已完成");
@@ -48,7 +48,7 @@ public class TestOrderDAO {
             System.out.println("insert error");
         }
 
-         */
+ */
         System.out.println("start test select1...");
         try{
             orderDAOProxy= DAOFactory.getIOrderDAOInstance();
@@ -61,7 +61,7 @@ public class TestOrderDAO {
         System.out.println("start test select2...");
         try{
             orderDAOProxy= DAOFactory.getIOrderDAOInstance();
-            ArrayList<Order> orders = orderDAOProxy.selectByCustomer("123456");
+            ArrayList<Order> orders = orderDAOProxy.selectByCustomer("18810392015");
             System.out.println(orders);
         }
         catch (Exception ex){

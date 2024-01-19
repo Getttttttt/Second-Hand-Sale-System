@@ -150,15 +150,44 @@ function formatPrice(price) {
   return formattedPrice;
 }
 
-const SinglePurchasedBookStatusPage = () => {
+export default function SinglePurchasedBookStatusPage (){
   const { orderID } = useParams();
+  console.log(orderID);
   const [order, setOrder] = React.useState(null);
   const [showImages, setShowImages] = React.useState(false);
 
+  const fetchData = async () => {
+    console.log(12);
+    try {
+      let myHeaders = new Headers({
+        'Content-Type': 'application/json'
+      });
+      console.log(3)
+
+      const response = await fetch(`http://localhost:8080/SecondHandSystemAPIs_war_exploded/orderDetail?orderID=${orderID}`, {
+        method: 'GET',
+        headers: myHeaders
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      //处理返回的数据
+
+      console.log(1);
+
+      const order = await response.json();
+      
+      console.log("back to js")
+      console.log(order);
+      setOrder(order); // 将获取的数据存储在detailData中
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+    }
+  };
+
   React.useEffect(() => {
-    const foundOrder = DetailData.find(item => item.MainData === orderID);
-    setOrder(foundOrder);
-  }, [orderID]);
+    fetchData();
+  }, []);
 
   if (!order) {
     return <div>Loading...</div>;
@@ -171,7 +200,7 @@ const SinglePurchasedBookStatusPage = () => {
   return (
     <Wrapper>
       <OrderInfo>
-        <p>订单号：{order.MainData}  | 订单时间：{order.orderTime}</p>
+        <p>订单号：{order.MainData}  | 商家ID：{order.merchantNumber} | 订单时间：{order.orderTime}</p>
       </OrderInfo>
       <BookInfo>
         <MediaCard>
@@ -233,7 +262,6 @@ const SinglePurchasedBookStatusPage = () => {
   );
 };
 
-export default SinglePurchasedBookStatusPage;
 
 
 

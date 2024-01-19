@@ -19,4 +19,7 @@ public class DAOFactory {
     public static IOrderDAO getIOrderDAOInstance()throws Exception{
         return new OrderDAOProxy();
     }
+    public static IEvaluationDAO getIEvaluationDAOInstance()throws Exception{
+        return new EvaluationDAOProxy();
+    }
 }

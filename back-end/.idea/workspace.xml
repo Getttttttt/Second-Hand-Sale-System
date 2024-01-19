@@ -7,13 +7,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="13d1a60f-7763-48e0-9cd0-faab570e403f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/controller/CustomerOrdersServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/controller/CustomerOrdersServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/controller/Customer/CustomerOrdersServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/controller/Customer/CustomerOrdersServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/dbc/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/dbc/DatabaseConnection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/test/test/TestCommunicationDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/test/test/TestCommunicationDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/second-hand-system/src/pages/CustomerPages/PurchasedBookList/PurchasedBookStatusPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/second-hand-system/src/pages/CustomerPages/PurchasedBookList/PurchasedBookStatusPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/second-hand-system/src/pages/CustomerPages/PurchasedBookList/SinglePurchasedBookEvaluation.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/second-hand-system/src/pages/CustomerPages/PurchasedBookList/SinglePurchasedBookEvaluation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/second-hand-system/src/pages/CustomerPages/PurchasedBookList/store.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/test/test/TestCustomerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/test/test/TestCustomerDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/test/test/TestMerchantDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/test/test/TestMerchantDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/test/test/TestOrderDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationInterface/SecondHandSystemAPIs/src/main/java/com/SecondHandSystem/test/test/TestOrderDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/second-hand-system/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/second-hand-system/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/second-hand-system/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/second-hand-system/package.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -63,10 +66,10 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/ApplicationInterface/SecondHandSystemAPIs" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="project.structure.side.proportion" value="0.31839082" />
     <property name="settings.editor.selected.configurable" value="preferences.updates" />
   </component>
   <component name="RecentsManager">
@@ -86,7 +89,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.TestCommunicationDAO">
+  <component name="RunManager" selected="Tomcat Server.Tomcat">
     <configuration name="TestBookDAO" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.SecondHandSystem.test.test.TestBookDAO" />
       <module name="SecondHandSystemAPIs" />
@@ -126,8 +129,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestOrderDAO" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.SecondHandSystem.test.test.TestOrderDAO" />
+    <configuration name="TestMerchantDAO" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.SecondHandSystem.test.test.TestMerchantDAO" />
       <module name="SecondHandSystemAPIs" />
       <extension name="coverage">
         <pattern>
@@ -139,15 +142,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SecondHandSystemApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+    <configuration name="TestOrderDAO" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.SecondHandSystem.test.test.TestOrderDAO" />
       <module name="SecondHandSystemAPIs" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.SecondHandSystem.*" />
+          <option name="PATTERN" value="com.SecondHandSystem.test.test.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.SecondHandSystem.SecondHandSystemApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -229,17 +232,17 @@
       <item itemvalue="Application.TestBookDAO" />
       <item itemvalue="Application.TestCustomerDAO" />
       <item itemvalue="Application.TestOrderDAO" />
-      <item itemvalue="Spring Boot.SecondHandSystemApplication" />
-      <item itemvalue="Tomcat Server.Tomcat" />
       <item itemvalue="Application.TestCommunicationDAO" />
+      <item itemvalue="Tomcat Server.Tomcat" />
+      <item itemvalue="Application.TestMerchantDAO" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.TestCommunicationDAO" />
         <item itemvalue="Application.TestOrderDAO" />
         <item itemvalue="Application.TestBookDAO" />
-        <item itemvalue="Spring Boot.SecondHandSystemApplication" />
+        <item itemvalue="Application.TestMerchantDAO" />
         <item itemvalue="Application.TestCustomerDAO" />
+        <item itemvalue="Application.TestCommunicationDAO" />
       </list>
     </recent_temporary>
   </component>
@@ -265,6 +268,7 @@
       <workItem from="1705461783437" duration="159000" />
       <workItem from="1705461979344" duration="7000" />
       <workItem from="1705494540486" duration="3782000" />
+      <workItem from="1705643806915" duration="3516000" />
     </task>
     <servers />
   </component>

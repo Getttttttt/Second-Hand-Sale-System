@@ -1,4 +1,4 @@
-package com.SecondHandSystem.controller.Customer;
+package com.SecondHandSystem.controller.Merchant;
 
 import com.SecondHandSystem.dao.IOrderDAO;
 import com.SecondHandSystem.factory.DAOFactory;
@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebServlet("/customer/orderList")
-public class CustomerOrdersServlet extends HttpServlet {
+@WebServlet("/merchant/orderList")
+public class MerchantOrdersServlet extends HttpServlet {
     private void setAccessControlHeaders(HttpServletResponse response) {
         response.setHeader("Access-Control-Allow-Origin", "http://localhost:9000"); // 允许的来源，根据需要更改
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
@@ -29,11 +29,11 @@ public class CustomerOrdersServlet extends HttpServlet {
         setAccessControlHeaders(response);
 
         // 获取用户ID参数
-        String customerID = request.getParameter("customerID");
-        System.out.println(customerID);
+        String merchantID = request.getParameter("merchantID");
+        System.out.println(merchantID);
         try {
             IOrderDAO orderDAOProxy = DAOFactory.getIOrderDAOInstance();
-            ArrayList<Order> orderList = orderDAOProxy.selectByCustomer(customerID);
+            ArrayList<Order> orderList = orderDAOProxy.selectByMerchant(merchantID);
 
             JSONArray jsonArray = new JSONArray();
             for (Order order : orderList) {
@@ -43,7 +43,7 @@ public class CustomerOrdersServlet extends HttpServlet {
                 jsonObject.put("MainData", order.getOrderID());
                 jsonObject.put("bookID", order.getBookID());
                 jsonObject.put("merchantNumber", order.getMerchantID());
-                jsonObject.put("customerNumber", order.getCustomerID());
+                jsonObject.put("customerID", order.getCustomerID());
                 jsonObject.put("bookName", order.getBookName());
                 jsonObject.put("orderPrice", order.getTradingPrice());
                 jsonObject.put("orderNum", order.getTradingNum());
