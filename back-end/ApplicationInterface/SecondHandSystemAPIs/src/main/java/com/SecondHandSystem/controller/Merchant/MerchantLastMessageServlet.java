@@ -21,7 +21,7 @@ import java.util.List;
 @WebServlet("/merchant/lastMessage")
 public class MerchantLastMessageServlet extends HttpServlet {
     private void setAccessControlHeaders(HttpServletResponse response) {
-        response.setHeader("Access-Control-Allow-Origin", "http://localhost:9001"); // 允许的来源，根据需要更改
+        response.setHeader("Access-Control-Allow-Origin", "http://localhost:9000"); // 允许的来源，根据需要更改
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
         response.setHeader("Access-Control-Allow-Credentials", "true");
@@ -85,8 +85,8 @@ public class MerchantLastMessageServlet extends HttpServlet {
             JSONArray jsonArray = new JSONArray();
             json.put("lastMessage",lastMessage);
             json.put("time",time.substring(0,19));
-            json.put("imageM",imageC);
-            json.put("nicknameM",nicknameC);
+            json.put("imageC",imageC);
+            json.put("nicknameC",nicknameC);
             jsonArray.put(json);
             System.out.println(jsonArray);
             // 将JSON数组转换为字符串

@@ -77,7 +77,7 @@ function ChatCanvas({merchantId, nicknameM, customerId, nicknameC, message, from
             <Typography variant="body1" style={{ height:"35px", whiteSpace: 'pre', borderRadius:"5px", backgroundColor: "#e3f2fd", display: "flex", alignItems: "center", justifyContent: "center" }}>{"  "+message+"  "}</Typography>
             <Typography variant="body1" style={{ whiteSpace: 'pre' }}>{"  "}</Typography>
             <Popover content={merchantId} title={nicknameM}>
-              <Avatar alt={merchantId+"'s photo"} src={imageM} />
+              <Avatar alt={merchantId+"'s photo"} src={img1} />
             </Popover>
           </React.Fragment>        
         </Box>
@@ -94,7 +94,7 @@ function ChatCanvas({merchantId, nicknameM, customerId, nicknameC, message, from
           }}>
           <React.Fragment>
             <Popover content={customerId} title={nicknameC}>
-              <Avatar alt={customerId+"'s photo"} src={imageC} />
+              <Avatar alt={customerId+"'s photo"} src={img2} />
             </Popover>
             <Typography variant="body1" style={{ whiteSpace: 'pre' }}>{"  "}</Typography>
             <Typography variant="body1" style={{height:"35px", whiteSpace: 'pre', borderRadius:"5px", backgroundColor: "#e3f2fd", display: "flex", alignItems: "center", justifyContent: "center"}}>{"  "+message+" "}</Typography>
@@ -113,9 +113,11 @@ function Each({merchantId,nicknameM,customerId,nicknameC,message,fromWho,imageM,
 
 const ChatToSingleCustomer = () => {
   let { cm } = useParams();
+  console.log(cm)
   cm = cm.split("&")
   const customerId = cm[0]
   const merchantId = cm[1]
+  console.log(customerId)
   //
 
   const [chatHistory, setChatHistory] = React.useState([[]])
