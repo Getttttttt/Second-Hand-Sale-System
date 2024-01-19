@@ -136,7 +136,7 @@ function mapString(inputString) {
 }
 
 
-function Home() {
+function Home({Children}) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -369,7 +369,7 @@ function Home() {
         </List>
       </Drawer>
       <Main open={open}>
-        
+        {Children}
       </Main>
     </Container>
   );
