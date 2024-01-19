@@ -7,6 +7,7 @@ import java.util.Date;
 
 public class TestCommunicationDAO {
     public static void main(String[] args) {
+<<<<<<< HEAD
         ICommunicationDAO communicationDAOProxy;
 
         /*
@@ -111,4 +112,7 @@ public class TestCommunicationDAO {
 
     }
 }
+=======
+>>>>>>> af7468d52395a8aff8faf409a1fc01f8520315b8
 
+    }}
