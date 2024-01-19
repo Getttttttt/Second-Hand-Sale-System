@@ -108,7 +108,7 @@ export default [
         element: <SingleSaledBookStatusPage />
     },
     {
-        path: '/merchant/addsalebook',
+        path: '/merchant/addsalebook/:merchantId',
         element: <SaleBookFormPage />
     },
     {

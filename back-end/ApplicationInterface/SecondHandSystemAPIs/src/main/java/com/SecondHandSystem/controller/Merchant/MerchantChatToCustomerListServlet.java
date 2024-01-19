@@ -18,7 +18,7 @@ import java.util.Arrays;
 @WebServlet("/merchant/chatToCustomerList")
 public class MerchantChatToCustomerListServlet extends HttpServlet {
     private void setAccessControlHeaders(HttpServletResponse response) {
-        response.setHeader("Access-Control-Allow-Origin", "http://localhost:9001"); // 允许的来源，根据需要更改
+        response.setHeader("Access-Control-Allow-Origin", "http://localhost:9000"); // 允许的来源，根据需要更改
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
         response.setHeader("Access-Control-Allow-Credentials", "true");
@@ -63,10 +63,10 @@ public class MerchantChatToCustomerListServlet extends HttpServlet {
             ICommunicationDAO communicationDAO = DAOFactory.getICommunicationDAOInstance();
             content = communicationDAO.searchByCustomerId(merchantId,"merchant");
             for(String[] c : content){
-                if((Arrays.asList(allCustomerList)).contains(c[3].trim())){
+                if((Arrays.asList(allCustomerList)).contains(c[4].trim())){
                     continue;
                 }
-                allCustomerList[i] = c[3].trim();
+                allCustomerList[i] = c[4].trim();
                 i++;
             }
         } catch (Exception e) {
