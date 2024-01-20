@@ -26,6 +26,19 @@ public class BookDAOProxy implements IBookDAO {
         }
         return flag;
     }
+
+    public ArrayList<Book> searchSpecificBooks(String searchContent) throws Exception{
+        ArrayList<Book> list=null;
+        try {
+            list=dao.searchSpecificBooks(searchContent);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw(e);
+        }finally{
+            DatabaseConnection.release(((BookDAOImpl)dao).getStat(),((BookDAOImpl)dao).getConn());
+        }
+        return list;
+    }
     //2.查询单个商品
     public Book select(String bookID) throws Exception{
         try {

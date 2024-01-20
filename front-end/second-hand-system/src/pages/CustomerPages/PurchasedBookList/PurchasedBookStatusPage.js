@@ -57,6 +57,7 @@ export default function PurchasedBookStatusPage () {
         orderStatus: item.orderStatus.trim(),
         bookAuthor: item.bookAuthor.trim(),
         bookPublishTime: item.bookPublishTime,
+        bookPublisher:item.bookPublisher.trim(),
         bookName: item.bookName.trim(),
         bookID: item.bookID.trim(),
         evaluation: item.evaluation.trim(),

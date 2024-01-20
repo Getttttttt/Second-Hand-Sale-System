@@ -1,9 +1,11 @@
-package com.SecondHandSystem.controller.Customer;
+package com.SecondHandSystem.controller.Book;
 
-import com.SecondHandSystem.dao.ICommunicationDAO;
+import com.SecondHandSystem.dao.IBookDAO;
 import com.SecondHandSystem.dao.IMerchantDAO;
 import com.SecondHandSystem.factory.DAOFactory;
+import com.SecondHandSystem.vo.Book;
 import com.SecondHandSystem.vo.Merchant;
+import com.SecondHandSystem.vo.Order;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,17 +20,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/customer/lastMessage")
-public class CustomerLastMessageServlet extends HttpServlet {
+@WebServlet("/books/searchByName")
+public class SearchBookByName extends HttpServlet {
     private void setAccessControlHeaders(HttpServletResponse response) {
         response.setHeader("Access-Control-Allow-Origin", "http://localhost:9000"); // 允许的来源，根据需要更改
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
         response.setHeader("Access-Control-Allow-Credentials", "true");
     }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+            throws ServletException, IOException {
 
         setAccessControlHeaders(response);
 
@@ -54,54 +57,58 @@ public class CustomerLastMessageServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
 
-        //传入的customerId和merchantId
-        String customerId = jsonObject.optString("customerId");
-        String merchantID = jsonObject.optString("merchantId");
+        // analysis variable
+        String searchContent = jsonObject.optString("searchContent");
 
-        String[] last = new String[2];
-        List<Merchant> M = new ArrayList<>();
-        String lastMessage = null;
-        String time = null;
-        String imageM = null;
-        String nicknameM = null;
+        String returnMessage;
 
-        try{
-            ICommunicationDAO communicationDAO = DAOFactory.getICommunicationDAOInstance();
-            IMerchantDAO merchantDAO = DAOFactory.getIMerchantDAOInstance();
-            last = communicationDAO.searchLastMessage(merchantID,customerId);
-            M = merchantDAO.searchByIdMerchant(merchantID);
-            lastMessage = last[0];
-            time = last[1];
-            for(Merchant m: M){
-                imageM = m.getPicUrl();
-                nicknameM = m.getNickname();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        try{
-            JSONObject json = new JSONObject();
+        try {
+            IBookDAO BookDAO = DAOFactory.getIBookDAOInstance();
+            ArrayList<Book> books;
+            books = BookDAO.searchSpecificBooks(searchContent);
             JSONArray jsonArray = new JSONArray();
-            json.put("lastMessage",lastMessage);
-            json.put("time",time.substring(0,19));
-            json.put("imageM",imageM);
-            json.put("nicknameM",nicknameM);
-            jsonArray.put(json);
-            System.out.println(jsonArray);
-            // 将JSON数组转换为字符串
+            for (Book book : books) {
+                // 创建JSON对象
+                JSONObject jsonObjectSingleBook = new JSONObject();
+                jsonObjectSingleBook.put("bookID", book.getBookID());
+                jsonObjectSingleBook.put("bookID", book.getBookPrice());
+                jsonObjectSingleBook.put("merchantNumber", book.getBookNum());
+                jsonObjectSingleBook.put("bookName", book.getBookName());
+                jsonObjectSingleBook.put("orderPrice", new JSONArray(book.getBookLabels()));
+                jsonObjectSingleBook.put("orderNum", book.getBookISBN());
+                jsonObjectSingleBook.put("orderStatus", book.getBookPublisher());
+                jsonObjectSingleBook.put("orderTime", book.getBookRealPics());
+                jsonObjectSingleBook.put("bookSurfacePic", book.getBookSurfacePic());
+                jsonObjectSingleBook.put("bookAuthor", book.getAuthor());
+                jsonObjectSingleBook.put("bookISBN", book.getBookISBN());
+                jsonObjectSingleBook.put("bookPublisher", book.getBookPublisher());
+                jsonObjectSingleBook.put("bookPublishTime", book.getDiscount());
+                jsonObjectSingleBook.put("bookdegree", book.getDegree());
+                jsonObjectSingleBook.put("estimationScale", book.getPublicationTime());
+                jsonObjectSingleBook.put("evaluation", book.getShelfTime());
+                // 将JSON对象添加到JSON数组中
+                jsonArray.put(jsonObjectSingleBook);
+            }
+            if (books.size() != 0)
+                returnMessage = "Search Successful";
+            else
+                returnMessage = "Error";
             String jsonString = jsonArray.toString();
+
             System.out.println(jsonString);
+
             // 设置响应类型和状态
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.setStatus(HttpServletResponse.SC_OK);
+            JSONObject json = new JSONObject();
             response.getWriter().write(jsonString);
 
-        } catch(JSONException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            returnMessage = "Search failure: "+e.toString();
         }
     }
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -123,5 +130,4 @@ public class CustomerLastMessageServlet extends HttpServlet {
         setAccessControlHeaders(response);
         response.setStatus(HttpServletResponse.SC_OK);
     }
-
 }

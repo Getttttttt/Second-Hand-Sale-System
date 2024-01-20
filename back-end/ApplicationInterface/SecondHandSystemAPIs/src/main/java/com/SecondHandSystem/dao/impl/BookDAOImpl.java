@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 public class BookDAOImpl implements IBookDAO {
     private Connection conn;
@@ -48,6 +49,18 @@ public class BookDAOImpl implements IBookDAO {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public ArrayList<Book> searchSpecificBooks(String searchContent) throws Exception {
+        String sqlLabel="select * from 图书 where 商品名称 like '%"+searchContent+"%';";
+        rs= stat.executeQuery(sqlLabel);
+        ArrayList<Book> books = new ArrayList<>();
+        while(rs.next()){
+            String bookID = rs.getString("商品ID");
+            books.add(this.select(bookID));
+        }
+        return books;
     }
 
     @Override

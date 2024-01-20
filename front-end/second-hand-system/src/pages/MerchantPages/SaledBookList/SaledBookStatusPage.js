@@ -60,6 +60,7 @@ export default function SaledBookStatusPage() {
         orderStatus: item.orderStatus.trim(),
         bookAuthor: item.bookAuthor.trim(),
         bookPublishTime: item.bookPublishTime,
+        bookPublisher:item.bookPublisher,
         bookName: item.bookName.trim(),
         bookID: item.bookID.trim(),
         evaluation: item.evaluation.trim(),

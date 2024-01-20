@@ -107,7 +107,7 @@ function Page({merchantId,customerId}){
        const lastMessage = responseData.map(item => item.lastMessage);
        const time = responseData.map(item => item.time);
        const imageC = responseData.map(item => item.imageC);
-       const NICKNAMEC = responseData.map(item => item.NICKNAMEC);
+       const NICKNAMEC = responseData.map(item => item.nicknameC);
        setLastContent([lastMessage,time,imageC,NICKNAMEC]);
      } catch (error) {
        console.error('There was a problem with the fetch operation:', error);
@@ -124,9 +124,9 @@ function Page({merchantId,customerId}){
   const NICKNAMEC = lastContent[3]
   
   const [isDotVisible, setIsDotVisible] = React.useState(true);
-  const handleLinkClick = (merchantId,customerId) => {
+  const handleLinkClick = () => {
     setIsDotVisible(false);
-    ChatToSingleCustomer(merchantId,customerId);
+    ChatToSingleCustomer();
   };
   
   const cm = customerId+"&"+merchantId
@@ -139,28 +139,38 @@ function Page({merchantId,customerId}){
         <ListItemAvatar>
           <Space size={24}>
             <Badge dot invisible={isDotVisible ? undefined : "false"}>
-              <Avatar alt={customerId+"'s photo"} src={imageC} />
+              <Avatar alt={customerId+"'s photo"} src={img2} />
             </Badge>
           </Space>
         </ListItemAvatar>
         
-        <a href={`/merchant/chat/merchant/${ cm }`} style={{textDecoration: "none"}} onClick={() => handleLinkClick(merchantId,customerId)}>
+        <a href={`/merchant/chat/customer/${ cm }`} style={{textDecoration: "none"}} onClick={() => handleLinkClick()}>
         <ListItemText
-          primary={NICKNAMEC}
+          primary=
+          {
+            <Typography 
+              sx={{ display: 'inline', fontSize: "18px", fontFamily: "Arial", fontWeight: "bold" }}
+              component="span"
+              variant="body2"
+              color="text.primary"
+            >
+              {NICKNAMEC}
+            </Typography>
+          }
           secondary={
             <React.Fragment>
               <Typography
-                sx={{ display: 'inline' }}
+                sx={{ display: 'inline', fontSize:"14px"}}
                 component="span"
                 variant="body2"
-                color="text.primary"
+                color="blue"
               >
                 {customerId}
               </Typography>
-              {" — "+lastMessage+"    "+time}
+              {" — "+lastMessage}
+              {"    "+time}
             </React.Fragment>
-          }
-        />
+          }/>
         </a>
       </ListItem>
       <Divider variant="inset" component="li" />

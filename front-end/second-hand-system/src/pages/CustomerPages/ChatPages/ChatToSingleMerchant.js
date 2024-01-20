@@ -75,7 +75,7 @@ function ChatCanvas({merchantId, nicknameM, customerId, nicknameC, message, from
             <Typography variant="body1" style={{ height:"35px", whiteSpace: 'pre', borderRadius:"5px", backgroundColor: "#e3f2fd", display: "flex", alignItems: "center", justifyContent: "center" }}>{"  "+message+"  "}</Typography>
             <Typography variant="body1" style={{ whiteSpace: 'pre' }}>{"  "}</Typography>
             <Popover content={customerId} title={nicknameC}>
-              <Avatar alt={merchantId+"'s photo"} src={imageC} />
+              <Avatar alt={merchantId+"'s photo"} src={img2} />
             </Popover>
           </React.Fragment>        
         </Box>
@@ -92,7 +92,7 @@ function ChatCanvas({merchantId, nicknameM, customerId, nicknameC, message, from
           }}>
           <React.Fragment>
             <Popover content={merchantId} title={nicknameM}>
-              <Avatar alt={merchantId+"'s photo"} src={imageM} />
+              <Avatar alt={merchantId+"'s photo"} src={img1} />
             </Popover>
             <Typography variant="body1" style={{ whiteSpace: 'pre' }}>{"  "}</Typography>
             <Typography variant="body1" style={{height:"35px", whiteSpace: 'pre', borderRadius:"5px", backgroundColor: "#e3f2fd", display: "flex", alignItems: "center", justifyContent: "center"}}>{"  "+message+" "}</Typography>

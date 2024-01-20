@@ -131,9 +131,9 @@ function Page({merchantId,customerId}){
   const NICKNAMEM = lastContent[3]
   
   const [isDotVisible, setIsDotVisible] = React.useState(true);
-  const handleLinkClick = (merchantId,customerId) => {
+  const handleLinkClick = () => {
     setIsDotVisible(false);
-    ChatToSingleMerchant(merchantId,customerId);
+    ChatToSingleMerchant();
   };
   
   const mc = merchantId+"&"+customerId
@@ -141,16 +141,15 @@ function Page({merchantId,customerId}){
   <Container>
      <List sx={{marginLeft:20, width: '100%', maxWidth: 800, bgcolor: 'background.paper' }}>
       <ListItem alignItems="flex-start">
-        
         <ListItemAvatar>
           <Space size={24}>
             <Badge dot invisible={isDotVisible ? undefined : "false"}>
-              <img src={imageM}/>
+              <Avatar alt={merchantId+"'s photo"} src={img1}/>
             </Badge>
           </Space>
         </ListItemAvatar>
         
-        <a href={`/customer/chat/merchant/${ mc }`} style={{textDecoration: "none"}} onClick={() => handleLinkClick(merchantId,customerId)}>
+        <a href={`/customer/chat/merchant/${ mc }`} style={{textDecoration: "none"}} onClick={() => handleLinkClick()}>
         <ListItemText
           primary=
           {
