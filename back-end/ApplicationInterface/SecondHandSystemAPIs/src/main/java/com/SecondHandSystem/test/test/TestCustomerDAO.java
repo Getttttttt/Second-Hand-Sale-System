@@ -16,7 +16,7 @@ public class TestCustomerDAO {
         System.out.println("start test insert...");
         try{
             customerDAOProxy=DAOFactory.getICustomerDAOInstance();
-            customerDAOProxy.insertCustomer("21377225","Rita","2003216","18510248567","buaa-13-645" ,"xxx");
+            customerDAOProxy.insertCustomer("18810392015","Rita","2003216","18510248567","buaa-13-645" ,"xxx");
             System.out.println("insert success");
         }
         catch (Exception ex){

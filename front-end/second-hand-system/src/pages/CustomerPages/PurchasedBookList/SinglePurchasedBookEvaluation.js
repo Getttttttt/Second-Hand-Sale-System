@@ -1,7 +1,6 @@
 import React from 'react';
 import { Container } from '@mui/material';
 import { Typography,  Box, TextField, Button  } from '@mui/material';
-import { MainData, DetailData } from './CustomerListStore';
 import { useParams } from 'react-router-dom';
 import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
@@ -9,17 +8,48 @@ import RecommendIcon from '@mui/icons-material/Recommend';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Rating from '@mui/material/Rating';
+import Alert from '@mui/material/Alert';
+
 
 const SinglePurchasedBookEvaluation = () => {
   const { orderID } = useParams();
   const [order, setOrder] = React.useState(null);
   const [rating, setRating] = React.useState(0);
   const [evaluation, setEvaluation] = React.useState('');
+  const [submitResult, setSubmitResult] = React.useState(null);
   
+  const fetchData = async () => {
+    console.log(12);
+    try {
+      let myHeaders = new Headers({
+        'Content-Type': 'application/json'
+      });
+      console.log(3)
+
+      const response = await fetch(`http://localhost:8080/SecondHandSystemAPIs_war_exploded/evaluationDetail?orderID=${orderID}`, {
+        method: 'GET',
+        headers: myHeaders
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      //处理返回的数据
+
+      console.log(1);
+
+      const order = await response.json();
+      
+      console.log("back to js")
+      console.log(order);
+      setOrder(order); // 将获取的数据存储在detailData中
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+    }
+  };
+
   React.useEffect(() => {
-    const foundOrder = DetailData.find(item => item.MainData === orderID);
-    setOrder(foundOrder);
-  }, [orderID]);
+    fetchData();
+  }, []);
 
   if (!order) {
     return <div>订单未找到</div>;
@@ -31,10 +61,36 @@ const SinglePurchasedBookEvaluation = () => {
   const handleEvaluationChange = (event) => {
     setEvaluation(event.target.value);
   };
-  const handleSubmit = () => {
-    // 在这里处理提交逻辑
-    console.log('评价等级：', rating);
-    console.log('评价内容：', evaluation);
+
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/SecondHandSystemAPIs_war_exploded/evaluationInsert', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          orderID: order.MainData,
+          rating: rating,
+          evaluation: evaluation
+        })
+      });
+  
+      if (response.ok) {
+        setSubmitResult(true); // 提交成功
+      } else {
+        setSubmitResult(false); // 提交失败
+      }
+      {submitResult === true && (
+        <Alert severity="success">评论提交成功</Alert>
+      )}
+      {submitResult === false && (
+        <Alert severity="error">评论提交失败</Alert>
+      )}
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+      setSubmitResult(false); // 提交失败
+    }
   };
 
   if (order.estimationScale === -1) {

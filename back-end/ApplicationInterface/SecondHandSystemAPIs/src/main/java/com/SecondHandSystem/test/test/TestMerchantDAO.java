@@ -12,11 +12,11 @@ import java.util.List;
 public class TestMerchantDAO {
     public static void main(String[] args) {
         IMerchantDAO merchantDAOProxy;
-/*
+
         System.out.println("start test insert...");
         try {
             merchantDAOProxy = DAOFactory.getIMerchantDAOInstance();
-            merchantDAOProxy.insertMerchant("21377006", "mly", "mly21377006", "xxx");
+            merchantDAOProxy.insertMerchant("18810392015", "mly", "mly21377006", "xxx");
 
             System.out.println("insert success");
         } catch (Exception ex) {
@@ -33,7 +33,7 @@ public class TestMerchantDAO {
             ex.printStackTrace();
             System.out.println("delete error");
         }
-*/
+
         System.out.println("start test update...");
         try {
             merchantDAOProxy = DAOFactory.getIMerchantDAOInstance();

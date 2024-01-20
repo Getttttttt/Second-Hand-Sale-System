@@ -18,15 +18,11 @@ import ChatToSingleCustomer from "../pages/MerchantPages/ChatPages/ChatToSingleC
 import SaledBookStatusPage from "../pages/MerchantPages/SaledBookList/SaledBookStatusPage";
 import SingleSaledBookStatusPage from "../pages/MerchantPages/SaledBookList/SingleSaledBookStatusPage";
 import SaleBookFormPage from "../pages/MerchantPages/AddSaleBook/SaleBookFormPage";
-import SinglePurchasedBookEvaluation from "../pages/CustomerPages/PurchasedBookList/SinglePurchasedBookEvaluation"
-import { CustomerListStore } from "../pages/CustomerPages/PurchasedBookList/CustomerListStore";
+import SinglePurchasedBookEvaluation from "../pages/CustomerPages/PurchasedBookList/SinglePurchasedBookEvaluation";
+import SingleSaledBookEvaluation from "../pages/MerchantPages/SaledBookList/SingleSaledBookEvaluation"
 
 
 export default [
-    {
-        path:'test',
-        element:<CustomerListStore />
-    },
     {
         path: '/',
         element: <Navigate to='/home' />
@@ -48,7 +44,7 @@ export default [
         element: <SignInForCustomer />
     },
     {
-        path: '/customer/bookbacket',
+        path: '/customer/bookbacket/:customerID',
         element: <BookBacket />
     },
     {
@@ -60,11 +56,11 @@ export default [
         element: <ChatToSingleMerchant />
     },
     {
-        path: '/customer/purchased',
+        path: '/customer/purchased/:customerID',
         element: <PurchasedBookStatusPage />
     },
     {
-        path: '/customer/purchased/:orderID',
+        path: '/customer/purchased/order/:orderID',
         element: <SinglePurchasedBookStatusPage />
     },
     {
@@ -100,15 +96,19 @@ export default [
         element: <ChatToSingleCustomer />
     },
     {
-        path: '/merchant/saled',
+        path: '/merchant/saled/:merchantID',
         element: <SaledBookStatusPage />
     },
     {
-        path: '/merchant/saled/book',
+        path: '/merchant/saled/book/:orderID',
         element: <SingleSaledBookStatusPage />
     },
     {
-        path: '/merchant/addsalebook/:merchantId',
+        path: '/merchant/saled/evaluation/:orderID',
+        element: <SingleSaledBookEvaluation />
+    },
+    {
+        path: '/merchant/addsalebook',
         element: <SaleBookFormPage />
     },
     {

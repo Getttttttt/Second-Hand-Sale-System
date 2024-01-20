@@ -76,7 +76,7 @@ public class BookDAOImpl implements IBookDAO {
         rs= stat.executeQuery(sqlPictures);
         ArrayList<String> pictures=new ArrayList<>();
         while(rs.next()){
-            pictures.add(rs.getString("分类类型"));
+            pictures.add(rs.getString("商品图片展示URL"));
         }
         String[] strPictures= pictures.toArray(new String[pictures.size()]);
         String sql="select * from 图书 where 商品ID = '"+bookID+"';";
@@ -129,7 +129,7 @@ public class BookDAOImpl implements IBookDAO {
                 +"',商品封面='" +book.getBookSurfacePic()
                 +"',新旧程度='" +book.getDegree()
                 +"',上架时间='" +shelfTime+"' "
-                +"where 商品ID="+book.getBookID();
+                +"where 商品ID='"+book.getBookID()+"';";
         i = stat.executeUpdate(sql);
         if(i>0){
             return true;
