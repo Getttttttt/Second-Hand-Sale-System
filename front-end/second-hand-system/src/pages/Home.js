@@ -32,12 +32,12 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 
-const drawerWidth = 240;
+const drawerWidth = 180;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     flexGrow: 1,
-    padding: theme.spacing(3),
+    padding: theme.spacing(4),
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -136,7 +136,7 @@ function mapString(inputString) {
 }
 
 
-function Home({Children}) {
+function Home({children}) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -176,7 +176,7 @@ function Home({Children}) {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = (event) => {
+  const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
@@ -369,7 +369,8 @@ function Home({Children}) {
         </List>
       </Drawer>
       <Main open={open}>
-        {Children}
+        <DrawerHeader />
+          {children}
       </Main>
     </Container>
   );

@@ -31,11 +31,11 @@ const ExpandMore = styled((props) => {
 
 export default function SearchOutcomeDisplay() {
   return (
-  <Container>
-    <Home>
+  <Home>
+    <Container>
       <SingleBook />
-    </Home>
-  </Container>);
+    </Container>
+  </Home>);
 }
 
 function SingleBook(params) {
