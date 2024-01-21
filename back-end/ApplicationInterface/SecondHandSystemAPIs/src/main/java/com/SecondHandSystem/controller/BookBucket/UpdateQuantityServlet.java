@@ -24,11 +24,11 @@ public class UpdateQuantityServlet extends HttpServlet {
         // 从请求参数中获取评价数据
         String customerID = request.getParameter("customerID");
         String bookID= request.getParameter("bookID");
-        int derta = Integer.parseInt(request.getParameter("derta"));
+        int num = Integer.parseInt(request.getParameter("num"));
         ICustomerDAO customerDAOProxy = null;
         try {
             customerDAOProxy = DAOFactory.getICustomerDAOInstance();
-            boolean result = customerDAOProxy.updateBookBucket(customerID,bookID,derta);
+            boolean result = customerDAOProxy.updateBookBucket(customerID,bookID,num);
             String jsonString;
             if(result==true){
                 jsonString="success";

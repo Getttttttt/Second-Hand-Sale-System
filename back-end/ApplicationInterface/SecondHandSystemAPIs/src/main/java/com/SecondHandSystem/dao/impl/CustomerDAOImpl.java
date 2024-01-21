@@ -138,7 +138,7 @@ public class CustomerDAOImpl implements ICustomerDAO {
 
     @Override
     public boolean updateBookBucket(String customerId,String bookId, int number)throws Exception{
-        String sql = "UPDATE 购物车 SET 加购数量=加购数量+"+number+" WHERE 用户id='"+customerId+"' and 商品id='"+bookId+"'";
+        String sql = "UPDATE 购物车 SET 加购数量="+number+" WHERE 用户id='"+customerId+"' and 商品id='"+bookId+"'";
         this.prestmt = this.conn.prepareStatement(sql);  //prestmt用于执行sql语句
         boolean result = this.prestmt.execute();
         return result;
@@ -147,6 +147,7 @@ public class CustomerDAOImpl implements ICustomerDAO {
     @Override
     public boolean deleteBookBucket(String customerId,String bookId)throws Exception{
         String sql = "DELETE FROM 购物车 WHERE 用户id='"+customerId+"' and 商品id='"+bookId+"'";
+        System.out.println(sql);
         this.prestmt = this.conn.prepareStatement(sql);  //prestmt用于执行sql语句
         boolean result = this.prestmt.execute();
         return result;

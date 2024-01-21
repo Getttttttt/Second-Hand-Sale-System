@@ -19,8 +19,8 @@ import SaledBookStatusPage from "../pages/MerchantPages/SaledBookList/SaledBookS
 import SingleSaledBookStatusPage from "../pages/MerchantPages/SaledBookList/SingleSaledBookStatusPage";
 import SaleBookFormPage from "../pages/MerchantPages/AddSaleBook/SaleBookFormPage";
 import SinglePurchasedBookEvaluation from "../pages/CustomerPages/PurchasedBookList/SinglePurchasedBookEvaluation";
-import SingleSaledBookEvaluation from "../pages/MerchantPages/SaledBookList/SingleSaledBookEvaluation"
-
+import SingleSaledBookEvaluation from "../pages/MerchantPages/SaledBookList/SingleSaledBookEvaluation";
+import PaymentPage from "../pages/BookPages/PaymentPage"
 
 export default [
     {
@@ -72,8 +72,12 @@ export default [
         element: <SearchOutcomeDisplay />
     },
     {
-        path: '/books/singlebook',
+        path: '/books/singlebook/:bookID',
         element: <SingleBookDispley />
+    },
+    {
+        path: '/books/payment/:status',
+        element: <PaymentPage />
     },
     {
         path: '/merchant',

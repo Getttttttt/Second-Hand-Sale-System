@@ -6,12 +6,15 @@ import com.SecondHandSystem.dao.IOrderDAO;
 import com.SecondHandSystem.factory.DAOFactory;
 import com.SecondHandSystem.vo.Book;
 import com.SecondHandSystem.vo.Order;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.Date;
@@ -28,10 +31,30 @@ public class PaymentByOneServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         setAccessControlHeaders(response); // 设置跨域访问控制头部
+
+        StringBuilder requestBody = new StringBuilder();
+        String line;
+        try (BufferedReader reader = request.getReader()) {
+            while ((line = reader.readLine()) != null) {
+                requestBody.append(line).append('\n');
+            }
+        }
+
+        // 打印接收到的数据
+        System.out.println("Received data: " + requestBody.toString());
+
+        String jsonData = requestBody.toString();
+
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject(jsonData);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
         // 从请求参数中获取评价数据
-        String customerID = request.getParameter("customerID");
-        String bookID= request.getParameter("bookID");
-        int num = Integer.parseInt(request.getParameter("num"));
+        String customerID = jsonObject.optString("customerID");
+        String bookID= jsonObject.optString("bookID");
+        int num = Integer.parseInt(jsonObject.optString("userNum"));
         Order order = new Order();
         try {
             IBookDAO bookDAOProxy = DAOFactory.getIBookDAOInstance();
@@ -65,7 +88,7 @@ public class PaymentByOneServlet extends HttpServlet {
             IOrderDAO orderDAOProxy = DAOFactory.getIOrderDAOInstance();
             boolean result = orderDAOProxy.insert(order);
             String jsonString;
-            if(result==true){
+            if(result){
                 jsonString="success";
             }
             else{
