@@ -1,8 +1,7 @@
-package com.SecondHandSystem.controller.order;
+package com.SecondHandSystem.controller.BookBucket;
 
-import com.SecondHandSystem.dao.IEvaluationDAO;
+import com.SecondHandSystem.dao.ICustomerDAO;
 import com.SecondHandSystem.factory.DAOFactory;
-import com.SecondHandSystem.vo.Order;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,22 +10,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/deleteEvaluation")
-public class DeleteEvaluationServlet extends HttpServlet {
+@WebServlet("/BookBacket/insertBacketBook")
+public class InsertBookServlet extends HttpServlet {
     private void setAccessControlHeaders(HttpServletResponse response) {
         response.setHeader("Access-Control-Allow-Origin", "http://localhost:9000"); // 允许的来源，根据需要更改
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
         response.setHeader("Access-Control-Allow-Credentials", "true");
     }
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        setAccessControlHeaders(response);
-        String orderID = request.getParameter("orderID");
-        IEvaluationDAO evaluationDAOProxy = null;
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        setAccessControlHeaders(response); // 设置跨域访问控制头部
+        // 从请求参数中获取评价数据
+        String customerID = request.getParameter("customerID");
+        String bookID= request.getParameter("bookID");
+        int num = Integer.parseInt(request.getParameter("num"));
+        System.out.println(bookID);
+        ICustomerDAO customerDAOProxy = null;
         try {
-            evaluationDAOProxy = DAOFactory.getIEvaluationDAOInstance();
-            boolean result = evaluationDAOProxy.delete(orderID);
+            customerDAOProxy = DAOFactory.getICustomerDAOInstance();
+            boolean result = customerDAOProxy.insertBookBucket(customerID,bookID,num);
             String jsonString;
             if(result==true){
                 jsonString="success";

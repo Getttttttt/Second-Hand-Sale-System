@@ -18,6 +18,7 @@ public class Book {
     private String degree;//degree of new/old
     private Date shelfTime;
 
+
     public String getBookID() {
         return bookID;
     }

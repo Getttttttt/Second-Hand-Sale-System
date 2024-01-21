@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/books/searchByName")
-public class SearchBookByName extends HttpServlet {
+public class SearchBookByNameServlet extends HttpServlet {
     private void setAccessControlHeaders(HttpServletResponse response) {
         response.setHeader("Access-Control-Allow-Origin", "http://localhost:9000"); // 允许的来源，根据需要更改
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");

@@ -140,4 +140,19 @@ public class MerchantDAOProxy implements IMerchantDAO{
         }
         return bookOnsale;
     }
+
+    @Override
+    public String searchMerchantID(String bookID) throws Exception {
+        String merchantID=null;
+        try{
+            merchantID = this.dao.searchMerchantID(bookID);
+        }
+        catch (Exception e){
+            throw e;
+        }
+        finally{
+            DatabaseConnection.release(((MerchantDAOImpl)dao).getStat(),((MerchantDAOImpl)dao).getConn());
+        }
+        return merchantID;
+    }
 }

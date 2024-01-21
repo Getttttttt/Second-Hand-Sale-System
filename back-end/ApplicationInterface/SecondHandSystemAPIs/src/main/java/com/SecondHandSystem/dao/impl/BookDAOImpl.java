@@ -90,6 +90,7 @@ public class BookDAOImpl implements IBookDAO {
             book.setBookNum(rs.getInt("库存数量"));
             book.setAuthor(rs.getString("作者名称"));
             book.setBookISBN(rs.getString("ISBN"));
+            book.setBookPublisher(rs.getString("出版社"));
             book.setPublicationTime(rs.getDate("出版时间"));
             book.setBookSurfacePic(rs.getString("商品封面"));
             book.setDegree(rs.getString("新旧程度"));

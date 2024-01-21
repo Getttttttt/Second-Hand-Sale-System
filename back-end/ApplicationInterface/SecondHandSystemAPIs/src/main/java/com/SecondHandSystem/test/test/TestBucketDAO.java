@@ -9,6 +9,7 @@ import java.util.List;
 
 public class TestBucketDAO {
     public static void main(String[] args) {
+        /*
         ICustomerDAO customerDAOProxy;
 
         System.out.println("start test insert...");
@@ -82,5 +83,8 @@ public class TestBucketDAO {
             ex.printStackTrace();
             System.out.println("update error");
         }
+
+         */
     }
 }
+
