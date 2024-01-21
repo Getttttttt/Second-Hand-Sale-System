@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/books/searchByName")
-public class SearchBookByName extends HttpServlet {
+public class SearchBookByNameServlet extends HttpServlet {
     private void setAccessControlHeaders(HttpServletResponse response) {
         response.setHeader("Access-Control-Allow-Origin", "http://localhost:9000"); // 允许的来源，根据需要更改
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
@@ -71,21 +71,20 @@ public class SearchBookByName extends HttpServlet {
                 // 创建JSON对象
                 JSONObject jsonObjectSingleBook = new JSONObject();
                 jsonObjectSingleBook.put("bookID", book.getBookID());
-                jsonObjectSingleBook.put("bookID", book.getBookPrice());
-                jsonObjectSingleBook.put("merchantNumber", book.getBookNum());
+                jsonObjectSingleBook.put("bookPrice", book.getBookPrice());
+                jsonObjectSingleBook.put("bookNumber", book.getBookNum());
                 jsonObjectSingleBook.put("bookName", book.getBookName());
-                jsonObjectSingleBook.put("orderPrice", new JSONArray(book.getBookLabels()));
-                jsonObjectSingleBook.put("orderNum", book.getBookISBN());
-                jsonObjectSingleBook.put("orderStatus", book.getBookPublisher());
-                jsonObjectSingleBook.put("orderTime", book.getBookRealPics());
-                jsonObjectSingleBook.put("bookSurfacePic", book.getBookSurfacePic());
-                jsonObjectSingleBook.put("bookAuthor", book.getAuthor());
+                jsonObjectSingleBook.put("bookLabels", new JSONArray(book.getBookLabels()));
                 jsonObjectSingleBook.put("bookISBN", book.getBookISBN());
                 jsonObjectSingleBook.put("bookPublisher", book.getBookPublisher());
-                jsonObjectSingleBook.put("bookPublishTime", book.getDiscount());
-                jsonObjectSingleBook.put("bookdegree", book.getDegree());
-                jsonObjectSingleBook.put("estimationScale", book.getPublicationTime());
-                jsonObjectSingleBook.put("evaluation", book.getShelfTime());
+                jsonObjectSingleBook.put("bookRealPics", book.getBookRealPics());
+                jsonObjectSingleBook.put("bookSurfacePic", book.getBookSurfacePic());
+                jsonObjectSingleBook.put("bookAuthor", book.getAuthor());
+                jsonObjectSingleBook.put("bookPublisher", book.getBookPublisher());
+                jsonObjectSingleBook.put("bookDiscount", book.getDiscount());
+                jsonObjectSingleBook.put("bookDegree", book.getDegree());
+                jsonObjectSingleBook.put("bookPublicationTime", book.getPublicationTime());
+                jsonObjectSingleBook.put("bookShelfTime", book.getShelfTime());
                 // 将JSON对象添加到JSON数组中
                 jsonArray.put(jsonObjectSingleBook);
             }

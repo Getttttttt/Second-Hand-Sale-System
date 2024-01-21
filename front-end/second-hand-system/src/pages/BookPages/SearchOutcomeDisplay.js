@@ -16,6 +16,28 @@ import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Home from '../Home';
+import List from '@mui/material/List';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
+import Stack from '@mui/material/Stack';
+import { Carousel } from 'antd';
+import Grid from '@mui/material/Unstable_Grid2';
+import { Radio, Space, Tabs } from 'antd';
+
+const color = red[600];
+
+const tabNames = ['全部','历史', '政治', '法律', '文学', '科普', '小说', '艺术', '经济', '哲学', '其他'];
+
+const contentStyle = {
+  height: '160px',
+  color: '#fff',
+  lineHeight: '160px',
+  textAlign: 'center',
+  background: '#364d79',
+};
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -28,21 +50,139 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
+const fetchData = async (searchContent,detailBooks,setDetailBooks) => {
+
+    const jsonData = JSON.stringify({
+      searchContent: searchContent,
+    });
+    console.log(1);
+    try {
+      let myHeaders = new Headers({
+        'Content-Type': 'application/json'
+      });
+      console.log(3)
+  
+      const response = await fetch(`http://localhost:8080/SecondHandSystemAPIs_war_exploded/books/searchByName`, {
+        method: 'POST',
+        headers: myHeaders,
+        body: jsonData,
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      //处理返回的数据
+  
+      console.log(1);
+  
+      const Books = await response.json();
+      console.log(Books);
+      const detailBooks = Books.map(item => ({
+        bookName : item.bookName.trim(),
+        bookPrice: item.bookPrice,
+        bookDiscount: item.bookDiscount,
+        bookSurfacePic: item.bookSurfacePic.trim(),
+      }));
+
+      detailBooks.forEach(book => {
+        book.bookName = truncateString(book.bookName, 16);
+      });
+
+      console.log("back to js")
+      console.log(detailBooks);
+      setDetailBooks(detailBooks); // 将获取的数据存储在detailData中
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+    }
+  };
+
+const handleTabClick = (key) => {
+  console.log('点击的标签:', key);
+};
 
 export default function SearchOutcomeDisplay() {
+  const [detailBooks, setDetailBooks] = React.useState([]);
+
+  const [searchContent,setSearchContent] = React.useState("");
+  const [tabPosition, setTabPosition] = React.useState('left');
+  const changeTabPosition = (e) => {
+    setTabPosition(e.target.value);
+  };
+  
+  React.useEffect(() => {
+    fetchData(searchContent,detailBooks,setDetailBooks);
+  }, []);
+  
   return (
   <Home>
     <Container>
-      <SingleBook />
+      <Stack
+        direction="row"
+        justifyContent="flex-start"
+        alignItems="flex-start"
+        spacing={2}
+      >
+        <Stack
+          direction="column"
+          justifyContent="center"
+          alignItems="flex-start"
+          spacing={2}
+        >
+          <Tabs
+            tabPosition={tabPosition}
+            items={tabNames.map((name, index) => {
+              return {
+                label: name,
+                id: name,
+                key: String(index + 1),
+              };
+            })}
+            onTabClick={handleTabClick}
+          />
+        </Stack>
+        <Stack
+          direction="column"
+          justifyContent="flex-start"
+          alignItems="baseline"
+          spacing={2}
+        >
+          <Container>
+            <Carousel autoplay>
+            <div>
+              <h3 style={contentStyle}>1</h3>
+            </div>
+            <div>
+              <h3 style={contentStyle}>2</h3>
+            </div>
+            <div>
+              <h3 style={contentStyle}>3</h3>
+            </div>
+            <div>
+              <h3 style={contentStyle}>4</h3>
+            </div>
+            </Carousel>
+          </Container>
+            <Container>
+            <Grid Container  spacing={2}>
+              <List>
+                {detailBooks.map((book) => <SingleBook key={book.bookName} book={book} />)}
+              </List>
+            </Grid>
+          </Container>
+        </Stack>
+      </Stack>
     </Container>
   </Home>);
 }
 
-function SingleBook(params) {
-  const [expanded, setExpanded] = React.useState(false);
+const SingleBook = ({book}) => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+  const handleExpandClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
   console.log(1)
@@ -51,76 +191,79 @@ function SingleBook(params) {
     <CardHeader
       avatar={
         <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-          R
+          B
         </Avatar>
       }
       action={
-        <IconButton aria-label="settings">
-          <MoreVertIcon />
-        </IconButton>
+        <>
+          <IconButton aria-label="settings" onClick={handleExpandClick}>
+            <MoreVertIcon />
+          </IconButton>
+          <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <MenuItem onClick={() => {
+              handleClose();
+              // 添加第一个选项的事件处理逻辑
+            }}>
+              <ErrorOutlineIcon/> 举报
+            </MenuItem>
+            <MenuItem onClick={() => {
+              handleClose();
+              // 添加第二个选项的事件处理逻辑
+            }}>
+              <ProductionQuantityLimitsIcon />不感兴趣
+            </MenuItem>
+          </Menu>
+        </>
       }
-      title="Shrimp and Chorizo Paella"
-      subheader="September 14, 2016"
+      title={book.bookName}
+      titleTypographyProps={{ sx: { fontSize: '1.5rem' } }}
+      /*subheader="September 14, 2016"*/
     />
-    {/*
     <CardMedia
       component="img"
       height="194"
-      image="/static/images/cards/paella.jpg"
-      alt="Paella dish"
+      image={book.bookSurfacePic}
+      alt="Book Surface Picture"
     />
-    */}
     <CardContent>
-      <Typography variant="body2" color="text.secondary">
-        This impressive paella is a perfect party dish and a fun meal to cook
-        together with your guests. Add 1 cup of frozen peas along with the mussels,
-        if you like.
-      </Typography>
+      <Stack
+        direction="row"
+        justifyContent="flex-start"
+        alignItems="flex-start"
+        spacing={2}
+      >
+        <Typography variant="h5" color={color}>
+          ¥{(parseFloat(book.bookPrice) * (1 - parseFloat(book.bookDiscount))).toFixed(2)}
+        </Typography>
+        <Typography variant="subtitle1" color="text.secondary" style={{ textDecoration: 'line-through', marginLeft: '8px' }}>
+          ¥{book.bookPrice}
+        </Typography>
+      </Stack>
     </CardContent>
     <CardActions disableSpacing>
       <IconButton aria-label="add to favorites">
-        <FavoriteIcon />
+        <AddShoppingCartIcon />
       </IconButton>
       <IconButton aria-label="share">
         <ShareIcon />
       </IconButton>
-      <ExpandMore
-        expand={expanded}
-        onClick={handleExpandClick}
-        aria-expanded={expanded}
-        aria-label="show more"
-      >
-        <ExpandMoreIcon />
-      </ExpandMore>
     </CardActions>
-    <Collapse in={expanded} timeout="auto" unmountOnExit>
-      <CardContent>
-        <Typography paragraph>Method:</Typography>
-        <Typography paragraph>
-          Heat 1/2 cup of the broth in a pot until simmering, add saffron and set
-          aside for 10 minutes.
-        </Typography>
-        <Typography paragraph>
-          Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over
-          medium-high heat. Add chicken, shrimp and chorizo, and cook, stirring
-          occasionally until lightly browned, 6 to 8 minutes. Transfer shrimp to a
-          large plate and set aside, leaving chicken and chorizo in the pan. Add
-          pimentón, bay leaves, garlic, tomatoes, onion, salt and pepper, and cook,
-          stirring often until thickened and fragrant, about 10 minutes. Add
-          saffron broth and remaining 4 1/2 cups chicken broth; bring to a boil.
-        </Typography>
-        <Typography paragraph>
-          Add rice and stir very gently to distribute. Top with artichokes and
-          peppers, and cook without stirring, until most of the liquid is absorbed,
-          15 to 18 minutes. Reduce heat to medium-low, add reserved shrimp and
-          mussels, tucking them down into the rice, and cook again without
-          stirring, until mussels have opened and rice is just tender, 5 to 7
-          minutes more. (Discard any mussels that don&apos;t open.)
-        </Typography>
-        <Typography>
-          Set aside off of the heat to let rest for 10 minutes, and then serve.
-        </Typography>
-      </CardContent>
-    </Collapse>
   </Card>)
+}
+
+function truncateString(str, maxLength) {
+  // 检查字符串长度是否大于最大长度
+  if (str.length > maxLength) {
+    // 如果是，截取字符串并添加省略号
+    return str.slice(0, maxLength) + '…';
+  } else {
+    // 如果不是，返回原字符串
+    return str;
+  }
 }
