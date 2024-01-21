@@ -16,6 +16,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Alert from '@mui/material/Alert';
 import { Carousel } from 'antd';
 import axios from 'axios';
+import Home from '../Home';
 
 
 const Wrapper = styled.div`
@@ -269,6 +270,7 @@ export default function SingleBookDispley() {
   }
 
   return (
+    <Home>
     <Wrapper>
       <OrderInfo>
         <p>商品ID：{book.bookID}  | 商家ID：{book.merchantID} </p>
@@ -278,7 +280,7 @@ export default function SingleBookDispley() {
           <Carousel autoplay dots>
             {images.map((image, index) => (
               <div key={index}>
-                <img src={image} alt={`Image ${index + 1}`} style={contentStyle} />
+                <img src={"http://localhost:8080/SecondHandSystemAPIs_war_exploded/image/"+image} alt={`Image ${index + 1}`} style={contentStyle} />
               </div>
             ))}
           </Carousel>
@@ -357,5 +359,6 @@ export default function SingleBookDispley() {
         </BookDetails>
       </BookInfo>
     </Wrapper>
+    </Home>
   );
 };

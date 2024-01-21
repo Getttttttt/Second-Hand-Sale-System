@@ -19,8 +19,7 @@ import SaledBookStatusPage from "../pages/MerchantPages/SaledBookList/SaledBookS
 import SingleSaledBookStatusPage from "../pages/MerchantPages/SaledBookList/SingleSaledBookStatusPage";
 import SaleBookFormPage from "../pages/MerchantPages/AddSaleBook/SaleBookFormPage";
 import SinglePurchasedBookEvaluation from "../pages/CustomerPages/PurchasedBookList/SinglePurchasedBookEvaluation"
-
-
+import PaymentPage from "../pages/BookPages/PaymentPage";
 export default [
     {
         path: '/',
@@ -43,7 +42,7 @@ export default [
         element: <SignInForCustomer />
     },
     {
-        path: '/customer/bookbacket',
+        path: '/customer/bookbacket/:costomerID',
         element: <BookBacket />
     },
     {
@@ -55,7 +54,7 @@ export default [
         element: <ChatToSingleMerchant />
     },
     {
-        path: '/customer/purchased',
+        path: '/customer/purchased/:customerID',
         element: <PurchasedBookStatusPage />
     },
     {
@@ -71,7 +70,7 @@ export default [
         element: <SearchOutcomeDisplay />
     },
     {
-        path: '/books/singlebook',
+        path: '/books/singlebook/:bookID',
         element: <SingleBookDispley />
     },
     {
@@ -95,7 +94,7 @@ export default [
         element: <ChatToSingleCustomer />
     },
     {
-        path: '/merchant/saled',
+        path: '/merchant/saled/:merchantId',
         element: <SaledBookStatusPage />
     },
     {
@@ -109,5 +108,9 @@ export default [
     {
         path: '*',
         element: <Navigate to='/home' />
+    },
+    {
+        path: '/books/payment/:status',
+        element: <PaymentPage />
     },
 ]

@@ -18,9 +18,9 @@ public interface ICustomerDAO {
     //查询购物车
     public String[][] searchBookBucket(String customerId)throws Exception;
     //添加购物车
-    public String[][] insertBookBucket(String customerId,String bookId, int number)throws Exception;
+    public boolean insertBookBucket(String customerId,String bookId, int number)throws Exception;
     //更新购物车
-    public String[][] updateBookBucket(String customerId,String bookId, int number)throws Exception;
+    public boolean updateBookBucket(String customerId,String bookId, int number)throws Exception;
     //删除购物车
-    public String[][] deleteBookBucket(String customerId,String bookId)throws Exception;
+    public boolean deleteBookBucket(String customerId,String bookId)throws Exception;
 }

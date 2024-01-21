@@ -31,6 +31,11 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import ChatIcon from '@mui/icons-material/Chat';
+import GradingIcon from '@mui/icons-material/Grading';
 
 const drawerWidth = 180;
 
@@ -150,9 +155,9 @@ function Home({children}) {
 
   const signInData = useSelector((state) => state.signInData);
 
-  const pages = ['Home', 'Customer', 'Merchant'];
+  const pages = ['主页', '客户中心', '商家中心'];
 
-  const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+  const settings = ['资料', '账号', '面板', '退出'];
 
   /*
   if (signInData.customerID !== '') {
@@ -164,7 +169,7 @@ function Home({children}) {
   else {
     settings = ['Customer Sign In', ' Customer Register', 'Dashboard', 'Logout'];
   }*/
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   console.log(signInData)
@@ -197,6 +202,46 @@ function Home({children}) {
     if (event.key === 'Enter') {
       handleSearch();
     }
+  };
+
+  const handleClickCustomerRegister = () => {
+    navigate('/customer/validate/register');
+  };
+
+  const handleClickCustomerSignIn = () => {
+    navigate('/customer/validate/signin');
+  };
+
+  const handleClickMerchantRegister = () => {
+    navigate('/merchant/validate/register');
+  };
+
+  const handleClickMerchantSignIn = () => {
+    navigate('/merchant/validate/signin');
+  };
+
+  const handleClickCustomerShoppingBucket = () => {
+    navigate('/customer/bookbacket/'+signInData.customerID);
+  };
+
+  const handleClickCustomerChatting = () => {
+    navigate('/customer/chat/'+signInData.customerID);
+  };
+
+  const handleClickCustomerOrderList = () => {
+    navigate('/customer/purchased/'+signInData.customerID);
+  };
+
+  const handleClickMerchantAddBook = () => {
+    navigate('/merchant/addsalebook/'+signInData.merchantID);
+  };
+
+  const handleClickMerchantChatting = () => {
+    navigate('/merchant/chat/'+signInData.merchantID);
+  };
+
+  const handleClickMerchantOrderList = () => {
+    navigate('/merchant/saled/'+signInData.merchantID);
   };
 
   return (
@@ -299,7 +344,7 @@ function Home({children}) {
                   <SearchIcon />
                 </SearchIconWrapper>
                 <StyledInputBase
-                  placeholder="Search…"
+                  placeholder="搜索书籍……"
                   inputProps={{ 'aria-label': 'search' }}
                   value={searchTerm}
                   onChange={handleInputChange}
@@ -361,31 +406,99 @@ function Home({children}) {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
+        {signInData.customerID !== "" ?
+        (<List>
+            <ListItem key="购物车" disablePadding>
+              <ListItemButton onClick={handleClickCustomerShoppingBucket}>
                 <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  <AddShoppingCartIcon />
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText primary="购物车" />
               </ListItemButton>
             </ListItem>
-          ))}
-        </List>
+            <ListItem key="商家沟通" disablePadding>
+              <ListItemButton onClick={handleClickCustomerChatting}>
+                <ListItemIcon>
+                  <ChatIcon/>
+                </ListItemIcon>
+                <ListItemText primary="商家沟通" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem key="订单记录" disablePadding>
+              <ListItemButton onClick={handleClickCustomerOrderList}>
+                <ListItemIcon>
+                  <GradingIcon/>
+                </ListItemIcon>
+                <ListItemText primary="订单记录" />
+              </ListItemButton>
+            </ListItem>
+        </List>) :
+        (<List>
+          <ListItem key="客户登录" disablePadding>
+            <ListItemButton onClick={handleClickCustomerSignIn}>
+              <ListItemIcon>
+                <AssignmentIcon />
+              </ListItemIcon>
+              <ListItemText primary="客户登录" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem key="客户注册" disablePadding>
+            <ListItemButton onClick={handleClickCustomerRegister}>
+              <ListItemIcon>
+                <AppRegistrationIcon />
+              </ListItemIcon>
+              <ListItemText primary="客户注册" />
+            </ListItemButton>
+          </ListItem>
+      </List>)
+        }
         <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
+        {signInData.merchantID !== "" ?
+        (<List>
+            <ListItem key="添加商品" disablePadding>
+              <ListItemButton onClick={handleClickMerchantAddBook}>
                 <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  <AddShoppingCartIcon />
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText primary="添加商品" />
               </ListItemButton>
             </ListItem>
-          ))}
-        </List>
+            <ListItem key="客户沟通" disablePadding>
+              <ListItemButton onClick={handleClickMerchantChatting}>
+                <ListItemIcon>
+                  <ChatIcon/>
+                </ListItemIcon>
+                <ListItemText primary="客户沟通" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem key="订单记录" disablePadding>
+              <ListItemButton onClick={handleClickMerchantOrderList}>
+                <ListItemIcon>
+                  <GradingIcon/>
+                </ListItemIcon>
+                <ListItemText primary="订单记录" />
+              </ListItemButton>
+            </ListItem>
+        </List>) :
+        (<List>
+          <ListItem key="商家登录" disablePadding>
+            <ListItemButton onClick={handleClickMerchantSignIn}>
+              <ListItemIcon>
+                <AssignmentIcon />
+              </ListItemIcon>
+              <ListItemText primary="商家登录" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem key="商家注册" disablePadding>
+            <ListItemButton onClick={handleClickMerchantRegister}>
+              <ListItemIcon>
+                <AppRegistrationIcon />
+              </ListItemIcon>
+              <ListItemText primary="商家注册" />
+            </ListItemButton>
+          </ListItem>
+      </List>)
+        }
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
@@ -395,4 +508,6 @@ function Home({children}) {
   );
 }
   
+
+
 export default Home;

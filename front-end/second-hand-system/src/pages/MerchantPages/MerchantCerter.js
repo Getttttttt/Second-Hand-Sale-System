@@ -21,6 +21,7 @@ import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import {Alert} from '@mui/material';
+import Home from '../Home';
 
 
 function Copyright(props) {
@@ -50,7 +51,7 @@ export default function MerchantCenter() {
     event.preventDefault();
   };
 
-  const [avatarImage, setAvatarImage] = React.useState("/image\/870d3733-bad7-4b87-a61e-8e0c94b75443_img1.jpg");
+  const [avatarImage, setAvatarImage] = React.useState("/image\//image\/defaultM.jpg");
   const [nickname, setNickname] = React.useState('');  
   const [password, setPassword] = React.useState(''); 
   const [level, setLevel] = React.useState(''); 
@@ -212,6 +213,7 @@ export default function MerchantCenter() {
 
 
   return (
+    <Home>
     <ThemeProvider theme={defaultTheme}>
       {console.log(merchantId)}
       <Container component="main" maxWidth="xs">
@@ -360,5 +362,6 @@ export default function MerchantCenter() {
         <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
+    </Home>
   );
 }

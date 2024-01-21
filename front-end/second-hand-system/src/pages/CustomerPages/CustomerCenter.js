@@ -21,14 +21,14 @@ import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import {Alert} from '@mui/material';
-
+import Home from '../Home';
 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        Java Get
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -50,7 +50,7 @@ export default function CustomerCenter() {
     event.preventDefault();
   };
 
-  const [avatarImage, setAvatarImage] = React.useState('/image\/870d3733-bad7-4b87-a61e-8e0c94b75443_img1.jpg');
+  const [avatarImage, setAvatarImage] = React.useState('image/defaultC.jpg');
   const [nickname, setNickname] = React.useState('');  
   const [telephone, setTelephone] = React.useState(''); 
   const [address, setAddress] = React.useState(''); 
@@ -208,6 +208,7 @@ export default function CustomerCenter() {
 
   
   return (
+    <Home>
     <ThemeProvider theme={defaultTheme}>
       {console.log(nickname)}
       <Container component="main" maxWidth="xs">
@@ -253,6 +254,7 @@ export default function CustomerCenter() {
           <Typography component="h1" variant="h5">
             个人信息
           </Typography>
+          {console.log(avatarImage)}
           <Box component="form" noValidate onSubmit={handleUpdateInformation} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
@@ -343,6 +345,7 @@ export default function CustomerCenter() {
         <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
+    </Home>
   );
 
 

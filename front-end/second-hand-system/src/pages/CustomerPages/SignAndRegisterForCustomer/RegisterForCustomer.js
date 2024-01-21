@@ -23,13 +23,14 @@ import {Alert} from '@mui/material';
 import {AlertTitle} from '@mui/material';
 import { Height } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import Home from '../../Home';
 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        Java Get
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -107,6 +108,7 @@ export default function RegisterForCustomer() {
   };
 
   return (
+    <Home>
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -136,7 +138,7 @@ export default function RegisterForCustomer() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up as Customer
+            注册成为客户
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
@@ -145,9 +147,9 @@ export default function RegisterForCustomer() {
                   required
                   fullWidth
                   id="nickname"
-                  label="Nickname"
+                  label="昵称"
                   name="nickname"
-                  autoComplete="nickname"
+                  autoComplete="昵称"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -155,7 +157,7 @@ export default function RegisterForCustomer() {
                 required
                   fullWidth
                   id="telephone number"
-                  label="Telephone Number"
+                  label="手机号码"
                   name="telephone"
                   autoComplete="telephone"
                 />
@@ -164,7 +166,7 @@ export default function RegisterForCustomer() {
                 <TextField
                   fullWidth
                   id="delivery address"
-                  label="Delivery Address"
+                  label="配送地址"
                   name="address"
                   autoComplete="address"
                 />
@@ -189,14 +191,14 @@ export default function RegisterForCustomer() {
                       </InputAdornment>
                     }
                     name='password'
-                    label="Password"
+                    label="密码"
                   />
                 </FormControl>
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
                   control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
+                  label="我希望收到邮件通知"
                 />
               </Grid>
             </Grid>
@@ -206,12 +208,12 @@ export default function RegisterForCustomer() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              注册
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/customer/validate/signin" variant="body2">
-                  Already have an account? Sign in
+                  已经有了账号? 去登陆
                 </Link>
               </Grid>
             </Grid>
@@ -220,5 +222,6 @@ export default function RegisterForCustomer() {
         <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
+    </Home>
   );
 }

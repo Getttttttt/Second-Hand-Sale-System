@@ -21,7 +21,7 @@ import java.util.List;
 @WebServlet("/customer/personalPage")
 public class CustomerPersonalPageServlet extends HttpServlet {
     private void setAccessControlHeaders(HttpServletResponse response) {
-        response.setHeader("Access-Control-Allow-Origin", "http://localhost:9001"); // 允许的来源，根据需要更改
+        response.setHeader("Access-Control-Allow-Origin", "http://localhost:9000"); // 允许的来源，根据需要更改
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
         response.setHeader("Access-Control-Allow-Credentials", "true");
@@ -78,10 +78,10 @@ public class CustomerPersonalPageServlet extends HttpServlet {
             json.put("address",customer.getAddress().trim());
             json.put("password",customer.getPassword().trim());
             if(customer.getPicUrl()!=null){
-                json.put("avatarImage",customer.getPicUrl().trim());
+                json.put("url",customer.getPicUrl().trim());
             }
             else{
-                json.put("avatarImage","/image/870d3733-bad7-4b87-a61e-8e0c94b75443_img1.jpg");
+                json.put("url","/image/defaultC.jpg");
             }
 
             // 将JSON数组转换为字符串

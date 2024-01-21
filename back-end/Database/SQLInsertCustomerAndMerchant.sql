@@ -1,0 +1,13 @@
+use secondhandsalesystem
+GO
+
+SELECT * FROM 用户
+INSERT INTO 用户 VALUES('18510248567','gjl','rita21377225','18510248567','学院路37号13-645',null)
+INSERT INTO 用户 VALUES('15209565589','get','get21377223','15209565589','学院路37号15-xxx',null)
+INSERT INTO 用户 VALUES('18810392015','jyh','jyh21377xxx','18810392015','学院路37号13-642',null)
+
+SELECT * FROM 商家
+INSERT INTO 商家 VALUES('13661205976','rita','rita123','S',30,5,null)
+INSERT INTO 商家 VALUES('13051070515','anqi','anqi456','A',16,3,null)
+INSERT INTO 商家 VALUES('13565433579','misswu','wj000','B',10,3,null)
+GO

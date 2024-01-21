@@ -20,7 +20,7 @@ import java.util.List;
 public class MerchantPersonalPageServlet extends HttpServlet {
 
     private void setAccessControlHeaders(HttpServletResponse response) {
-        response.setHeader("Access-Control-Allow-Origin", "http://localhost:9001"); // 允许的来源，根据需要更改
+        response.setHeader("Access-Control-Allow-Origin", "http://localhost:9000"); // 允许的来源，根据需要更改
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
         response.setHeader("Access-Control-Allow-Credentials", "true");
@@ -76,8 +76,12 @@ public class MerchantPersonalPageServlet extends HttpServlet {
             json.put("number", merchant.getNumOfBooksOnsale());
             json.put("level",merchant.getTrustLevel().trim());
             json.put("time",merchant.getLength());
-            json.put("avatarImage",merchant.getPicUrl().trim());
-            System.out.println("地址 "+merchant.getLength());
+            if(merchant.getPicUrl()!=null){
+                json.put("url",merchant.getPicUrl().trim());
+            }
+            else{
+                json.put("url","/image/defaultC.jpg");
+            }
             // 将JSON数组转换为字符串
             String jsonString = json.toString();
             System.out.println(jsonString);

@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 public interface IMerchantDAO {
+    public String searchMerchantID(String bookID) throws Exception;
     //查询商家
     public List<Merchant> searchMerchant(String merchantId,String password)throws Exception;
     //根据id查询商家

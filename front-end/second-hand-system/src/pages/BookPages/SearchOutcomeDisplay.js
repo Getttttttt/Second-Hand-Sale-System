@@ -28,6 +28,7 @@ import { Carousel } from 'antd';
 import Grid from '@mui/material/Unstable_Grid2';
 import { Radio, Space, Tabs } from 'antd';
 
+const urlData = ["http://localhost:8080/SecondHandSystemAPIs_war_exploded/image/img1.png","http://localhost:8080/SecondHandSystemAPIs_war_exploded/image/img2.png","http://localhost:8080/SecondHandSystemAPIs_war_exploded/image/img3.png","http://localhost:8080/SecondHandSystemAPIs_war_exploded/image/img4.png"]
 
 const color = red[600];
 
@@ -149,16 +150,16 @@ export default function SearchOutcomeDisplay() {
           <Container>
             <Carousel autoplay>
             <div>
-              <h3 style={contentStyle}>1</h3>
+              <img src={urlData[0]} />
             </div>
             <div>
-              <h3 style={contentStyle}>2</h3>
+              <img src={urlData[1]} />
             </div>
             <div>
-              <h3 style={contentStyle}>3</h3>
+              <img src={urlData[2]} />
             </div>
             <div>
-              <h3 style={contentStyle}>4</h3>
+              <img src={urlData[3]} />
             </div>
             </Carousel>
           </Container>
@@ -235,7 +236,7 @@ const SingleBook = ({book}) => {
     <CardMedia
       component="img"
       height="194"
-      image={book.bookSurfacePic}
+      image={"http://localhost:8080/SecondHandSystemAPIs_war_exploded/image/"+book.bookSurfacePic}
       alt="Book Surface Picture"
     />
     <CardContent>

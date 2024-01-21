@@ -14,6 +14,20 @@ public class CustomerDAOProxy implements ICustomerDAO {
         this.dao = new CustomerDAOImpl(DatabaseConnection.getConnection());  //创建ProductDAOImpl的实例dao，与数据库建立连接
     }
 
+    @Override
+    public List<Customer> insertCustomer(String customerId, String nickname, String password, String phoneNumber, String address, String picUrl) throws Exception {
+        List<Customer> all = null;
+        try{
+            all = this.dao.insertCustomer(customerId,nickname,password,phoneNumber,address,picUrl);
+        }
+        catch (Exception e){
+            throw e;
+        }
+        finally{
+            DatabaseConnection.release(((CustomerDAOImpl)dao).getStat(),((CustomerDAOImpl)dao).getConn());
+        }
+        return all;
+    }
     //实现ICustomerDAO接口的方法
     @Override
     public List<Customer> searchCustomer(String customerId, String password) throws Exception {
@@ -46,10 +60,10 @@ public class CustomerDAOProxy implements ICustomerDAO {
     }
 
     @Override
-    public List<Customer> insertCustomer(String customerId, String nickname, String password, String phoneNumber, String address, String picUrl) throws Exception {
-        List<Customer> all = null;
+    public boolean insertBookBucket(String customerId, String bookId, int number) throws Exception {
+        boolean result=false;
         try{
-            all = this.dao.insertCustomer(customerId,nickname,password,phoneNumber,address,picUrl);
+            result = this.dao.insertBookBucket(customerId,bookId,number);
         }
         catch (Exception e){
             throw e;
@@ -57,8 +71,9 @@ public class CustomerDAOProxy implements ICustomerDAO {
         finally{
             DatabaseConnection.release(((CustomerDAOImpl)dao).getStat(),((CustomerDAOImpl)dao).getConn());
         }
-        return all;
+        return result;
     }
+
 
     @Override
     public List<Customer> deleteCustomer(String customerId) throws Exception {
@@ -106,10 +121,10 @@ public class CustomerDAOProxy implements ICustomerDAO {
     }
 
     @Override
-    public String[][] insertBookBucket(String customerId, String bookId, int number) throws Exception {
-        String[][] bookBuckets = new String[300][2];
+    public boolean updateBookBucket(String customerId, String bookId, int number) throws Exception {
+        boolean result=false;
         try{
-            bookBuckets = this.dao.insertBookBucket(customerId,bookId,number);
+            result = this.dao.updateBookBucket(customerId,bookId,number);
         }
         catch (Exception e){
             throw e;
@@ -117,14 +132,14 @@ public class CustomerDAOProxy implements ICustomerDAO {
         finally{
             DatabaseConnection.release(((CustomerDAOImpl)dao).getStat(),((CustomerDAOImpl)dao).getConn());
         }
-        return bookBuckets;
+        return result;
     }
 
     @Override
-    public String[][] updateBookBucket(String customerId, String bookId, int number) throws Exception {
-        String[][] bookBuckets = new String[300][2];
+    public boolean deleteBookBucket(String customerId, String bookId) throws Exception {
+        boolean result=false;
         try{
-            bookBuckets = this.dao.updateBookBucket(customerId,bookId,number);
+            result = this.dao.deleteBookBucket(customerId,bookId);
         }
         catch (Exception e){
             throw e;
@@ -132,21 +147,6 @@ public class CustomerDAOProxy implements ICustomerDAO {
         finally{
             DatabaseConnection.release(((CustomerDAOImpl)dao).getStat(),((CustomerDAOImpl)dao).getConn());
         }
-        return bookBuckets;
-    }
-
-    @Override
-    public String[][] deleteBookBucket(String customerId, String bookId) throws Exception {
-        String[][] bookBuckets = new String[300][2];
-        try{
-            bookBuckets = this.dao.deleteBookBucket(customerId,bookId);
-        }
-        catch (Exception e){
-            throw e;
-        }
-        finally{
-            DatabaseConnection.release(((CustomerDAOImpl)dao).getStat(),((CustomerDAOImpl)dao).getConn());
-        }
-        return bookBuckets;
+        return result;
     }
 }

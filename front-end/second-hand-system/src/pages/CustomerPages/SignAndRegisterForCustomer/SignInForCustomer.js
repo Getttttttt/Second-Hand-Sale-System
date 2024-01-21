@@ -25,13 +25,14 @@ import {Alert} from '@mui/material';
 import {AlertTitle} from '@mui/material';
 import { Height } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import Home from '../../Home';
 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        Java Get
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -85,7 +86,7 @@ export default function SignInForCustomer() {
         dispatch(updateSignInData({ customerID: data.get('telephone') }));
         setShowSuccessMessage(true);
         setTimeout(() => {
-          navigate('/customer');
+          navigate(`/customer/${signInData.customerID}`);
         }, 2000);
       }
 
@@ -114,6 +115,7 @@ export default function SignInForCustomer() {
   };
 
   return (
+    <Home>
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -143,7 +145,7 @@ export default function SignInForCustomer() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in as Customer
+            客户登录
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
@@ -151,13 +153,13 @@ export default function SignInForCustomer() {
               required
               fullWidth
               id="telephone"
-              label="Telephone Number"
+              label="手机号码"
               name="telephone"
               autoComplete="telephone"
               autoFocus
             />
             <FormControl fullWidth variant="outlined">
-                  <InputLabel htmlFor="outlined-adornment-password" required>Password</InputLabel>
+                  <InputLabel htmlFor="outlined-adornment-password" required>密码</InputLabel>
                   <OutlinedInput
                     id="outlined-adornment-password"
                     type={showPassword ? 'text' : 'password'}
@@ -175,12 +177,12 @@ export default function SignInForCustomer() {
                       </InputAdornment>
                     }
                     name='password'
-                    label="Password"
+                    label="password"
                   />
                 </FormControl>
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
+              label="记住账号"
             />
             <Button
               type="submit"
@@ -188,17 +190,17 @@ export default function SignInForCustomer() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              登录
             </Button>
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
-                  Forgot password?
+                  忘记密码？
                 </Link>
               </Grid>
               <Grid item>
                 <Link href="/customer/validate/register" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                  {"没有账号?现在注册"}
                 </Link>
               </Grid>
             </Grid>
@@ -207,5 +209,6 @@ export default function SignInForCustomer() {
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
+    </Home>
   );
 }

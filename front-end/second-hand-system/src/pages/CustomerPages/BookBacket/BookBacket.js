@@ -8,6 +8,7 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Home from '../../Home';
 
 
 export default function BookBacket() {
@@ -269,6 +270,7 @@ export default function BookBacket() {
   };
 
   return (
+    <Home>
     <div>
       <div className="cart-header" style={cartHeaderStyle}>
         <h2 style={{ display: 'flex', alignItems: 'center' }}>
@@ -322,5 +324,6 @@ export default function BookBacket() {
     </div>
   </div>
 </div>
+</Home>
   );
 }

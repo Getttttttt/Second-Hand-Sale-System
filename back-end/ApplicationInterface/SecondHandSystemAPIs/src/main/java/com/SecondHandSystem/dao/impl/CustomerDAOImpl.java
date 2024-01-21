@@ -131,29 +131,30 @@ public class CustomerDAOImpl implements ICustomerDAO {
     }
 
     @Override
-    public String[][] insertBookBucket(String customerId,String bookId, int number)throws Exception{
+    public boolean insertBookBucket(String customerId,String bookId, int number)throws Exception{
         String sql = "INSERT INTO 购物车 VALUES(?,?,?) ";  //定义要实现的SQL语句
         this.prestmt = this.conn.prepareStatement(sql);  //prestmt用于执行sql语句
         prestmt.setString(1,customerId);
         prestmt.setString(2,bookId);
         prestmt.setInt(3,number);
-        this.prestmt.execute();
-        return searchBookBucket(customerId);
+        boolean result = this.prestmt.execute();
+        return result;
     }
 
     @Override
-    public String[][] updateBookBucket(String customerId,String bookId, int number)throws Exception{
+    public boolean updateBookBucket(String customerId,String bookId, int number)throws Exception{
         String sql = "UPDATE 购物车 SET 加购数量="+number+" WHERE 用户id='"+customerId+"' and 商品id='"+bookId+"'";
         this.prestmt = this.conn.prepareStatement(sql);  //prestmt用于执行sql语句
-        this.prestmt.execute();
-        return searchBookBucket(customerId);
+        boolean result = this.prestmt.execute();
+        return result;
     }
 
     @Override
-    public String[][] deleteBookBucket(String customerId,String bookId)throws Exception{
+    public boolean deleteBookBucket(String customerId,String bookId)throws Exception{
         String sql = "DELETE FROM 购物车 WHERE 用户id='"+customerId+"' and 商品id='"+bookId+"'";
+        System.out.println(sql);
         this.prestmt = this.conn.prepareStatement(sql);  //prestmt用于执行sql语句
-        this.prestmt.execute();
-        return searchBookBucket(customerId);
+        boolean result = this.prestmt.execute();
+        return result;
     }
 }

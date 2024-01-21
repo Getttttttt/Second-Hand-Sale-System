@@ -23,6 +23,7 @@ import {Alert} from '@mui/material';
 import {AlertTitle} from '@mui/material';
 import { Height } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import Home from '../../Home';
 
 function Copyright(props) {
   return (
@@ -106,6 +107,7 @@ export default function RegisterForMerchant() {
   };
 
   return (
+    <Home>
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -127,15 +129,15 @@ export default function RegisterForMerchant() {
             }}
           >
             {showSuccessMessage && 
-              <Alert severity="success">Page'll navigate to Sign In after 2s</Alert>}
+              <Alert severity="success">页面将在2s后跳转</Alert>}
             {showFailureMessage && 
-              <Alert severity="error">Please try again</Alert>}
+              <Alert severity="error">请稍后再试</Alert>}
           </Box>
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up as Merchant
+            注册成为商家
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
@@ -144,7 +146,7 @@ export default function RegisterForMerchant() {
                   required
                   fullWidth
                   id="nickname"
-                  label="Nickname"
+                  label="昵称"
                   name="nickname"
                   autoComplete="nickname"
                 />
@@ -154,14 +156,14 @@ export default function RegisterForMerchant() {
                 required
                   fullWidth
                   id="telephone number"
-                  label="Telephone Number"
+                  label="手机号码"
                   name="telephone"
                   autoComplete="telephone"
                 />
               </Grid>
               <Grid item xs={12}>
                 <FormControl fullWidth variant="outlined">
-                  <InputLabel htmlFor="outlined-adornment-password" required>Password</InputLabel>
+                  <InputLabel htmlFor="outlined-adornment-password" required>密码</InputLabel>
                   <OutlinedInput
                     id="outlined-adornment-password"
                     type={showPassword ? 'text' : 'password'}
@@ -186,7 +188,7 @@ export default function RegisterForMerchant() {
               <Grid item xs={12}>
                 <FormControlLabel
                   control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
+                  label="我希望收到邮件提醒"
                 />
               </Grid>
             </Grid>
@@ -196,12 +198,12 @@ export default function RegisterForMerchant() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              注册
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/merchant/validate/signin" variant="body2">
-                  Already have an account? Sign in
+                  已经有了账号？现在登录
                 </Link>
               </Grid>
             </Grid>
@@ -210,5 +212,6 @@ export default function RegisterForMerchant() {
         <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
+    </Home>
   );
 }
