@@ -125,6 +125,7 @@ public class CustomerDAOImpl implements ICustomerDAO {
             bucket[0] = rs.getString(2);
             bucket[1] = rs.getString(3);
             buckets[i] = bucket;
+            System.out.println(bucket[0]);
             i++;
         }
         return buckets;

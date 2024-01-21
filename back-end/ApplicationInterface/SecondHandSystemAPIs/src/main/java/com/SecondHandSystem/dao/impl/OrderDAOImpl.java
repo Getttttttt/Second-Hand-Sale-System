@@ -110,6 +110,7 @@ public class OrderDAOImpl implements IOrderDAO {
     public ArrayList<Order> selectByMerchant(String merchantID) throws Exception {
         ArrayList<Order> list=new ArrayList<>();
         String sql="select * from 订单 where 商家ID ='"+merchantID+"';";
+        System.out.println(sql);
         rs= stat.executeQuery(sql);
         ArrayList<String> orderIDs=new ArrayList<>();
         while(rs.next()) {

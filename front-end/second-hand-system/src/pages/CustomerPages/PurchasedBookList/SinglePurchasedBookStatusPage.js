@@ -198,7 +198,7 @@ export default function SinglePurchasedBookStatusPage (){
       </OrderInfo>
       <BookInfo>
         <MediaCard>
-          <BookCover src={order.bookSurfacePic} alt="封面" />
+          <BookCover src={"http://localhost:8080/SecondHandSystemAPIs_war_exploded/image/"+order.bookSurfacePic} alt="封面" />
         </MediaCard>
         <BookDetails>
           <BookTitle>{order.bookName}</BookTitle>
@@ -238,7 +238,7 @@ export default function SinglePurchasedBookStatusPage (){
           <QuantityValue>×{order.orderNum}</QuantityValue>
         </QuantityWrapper>
       </PriceAndQuantity>
-      <ViewDetailsButton onClick={toggleImages} style={{ backgroundColor: showImages ? 'lightblue' : 'lightblue' }}>
+      <ViewDetailsButton onClick={"http://localhost:8080/SecondHandSystemAPIs_war_exploded/image/"+toggleImages} style={{ backgroundColor: showImages ? 'lightblue' : 'lightblue' }}>
         {showImages ? '收起详情' : '查看书籍图片详情'}
         {showImages ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
       </ViewDetailsButton>

@@ -197,7 +197,7 @@ export default function SingleSaledBookStatusPage() {
       </OrderInfo>
       <BookInfo>
         <MediaCard>
-          <BookCover src={order.bookSurfacePic} alt="封面" />
+          <BookCover src={"http://localhost:8080/SecondHandSystemAPIs_war_exploded/image/"+order.bookSurfacePic} alt="封面" />
         </MediaCard>
         <BookDetails>
           <BookTitle>{order.bookName}</BookTitle>

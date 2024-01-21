@@ -17,6 +17,7 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 
 export default function SaledBookStatusPage() {
   const { merchantID } = useParams();
+  console.log("First print MerchantID"+merchantID);
   const [selectedStatus, setSelectedStatus] = React.useState("");
   const [selectedTime, setSelectedTime] = React.useState("");
   const [DetailData, setDetailData] = React.useState([]);
@@ -38,7 +39,7 @@ export default function SaledBookStatusPage() {
       let myHeaders = new Headers({
         'Content-Type': 'application/json'
       });
-      console.log(3)
+      console.log("merchant ID is"+merchantID)
 
       const response = await fetch(`http://localhost:8080/SecondHandSystemAPIs_war_exploded/merchant/orderList?merchantID=${merchantID}`, {
         method: 'GET',
@@ -55,23 +56,23 @@ export default function SaledBookStatusPage() {
       console.log(Data);
       const DetailData = Data.map(item => ({
         bookImages: item.bookImages[0].split(","),
-        bookISBN: item.bookISBN.trim(),
+        bookISBN: item.bookISBN,
         orderNum: item.orderNum,
-        orderStatus: item.orderStatus.trim(),
-        bookAuthor: item.bookAuthor.trim(),
+        orderStatus: item.orderStatus,
+        bookAuthor: item.bookAuthor,
         bookPublishTime: item.bookPublishTime,
         bookPublisher:item.bookPublisher,
-        bookName: item.bookName.trim(),
-        bookID: item.bookID.trim(),
-        evaluation: item.evaluation.trim(),
-        MainData: item.MainData.trim(),
-        customerID: item.customerID.trim(),
-        bookSurfacePic: item.bookSurfacePic.trim(),
+        bookName: item.bookName,
+        bookID: item.bookID,
+        evaluation: item.evaluation,
+        MainData: item.MainData,
+        customerID: item.customerID,
+        bookSurfacePic: item.bookSurfacePic,
         orderTime: item.orderTime,
-        bookLabels: item.bookLabels.map(label => label.trim()),
+        bookLabels: item.bookLabels.map(label => label),
         estimationScale: item.estimationScale,
         orderPrice: item.orderPrice,
-        bookdegree: item.bookdegree.trim()
+        bookdegree: item.bookdegree
       }));
       console.log("back to js")
       console.log(DetailData);
@@ -122,7 +123,7 @@ export default function SaledBookStatusPage() {
           <ListItemAvatar>
             <Avatar 
               alt={order.bookName}
-              src={order.bookSurfacePic}
+              src={"http://localhost:8080/SecondHandSystemAPIs_war_exploded/image/"+order.bookSurfacePic}
               variant="square"
               sx={{ width: 80, height: 100 , marginRight: '20px' }}
             >

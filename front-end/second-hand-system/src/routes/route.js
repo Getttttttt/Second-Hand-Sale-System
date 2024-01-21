@@ -42,7 +42,7 @@ export default [
         element: <SignInForCustomer />
     },
     {
-        path: '/customer/bookbacket/:costomerID',
+        path: '/customer/bookbacket/:customerID',
         element: <BookBacket />
     },
     {
@@ -58,7 +58,7 @@ export default [
         element: <PurchasedBookStatusPage />
     },
     {
-        path: '/customer/purchased/:orderID',
+        path: '/customer/purchased/book/:orderID',
         element: <SinglePurchasedBookStatusPage />
     },
     {
@@ -94,11 +94,11 @@ export default [
         element: <ChatToSingleCustomer />
     },
     {
-        path: '/merchant/saled/:merchantId',
+        path: '/merchant/saled/:merchantID',
         element: <SaledBookStatusPage />
     },
     {
-        path: '/merchant/saled/book',
+        path: '/merchant/saled/book/:orderID',
         element: <SingleSaledBookStatusPage />
     },
     {

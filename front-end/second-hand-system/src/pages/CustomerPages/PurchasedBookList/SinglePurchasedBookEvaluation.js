@@ -123,7 +123,7 @@ const SinglePurchasedBookEvaluation = () => {
             <div style={{ display: 'flex' }}>
               <div style={{ marginRight: '1rem' }}>
                 <div style={{ width: '180px', height: '240px', border: '0.5px solid', display: 'flex', alignItems: 'center', justifyContent: 'center' ,marginLeft: '3rem', marginTop: '1rem'}}>
-                  <img src={order.bookSurfacePic} alt="商品封面" style={{ maxWidth: '100%', maxHeight: '100%' }} />
+                  <img src={"http://localhost:8080/SecondHandSystemAPIs_war_exploded/image/"+order.bookSurfacePic} alt="商品封面" style={{ maxWidth: '100%', maxHeight: '100%' }} />
                 </div>
                 <Typography variant="h6" component="div" sx={{ fontWeight: 'bold', color: 'black', fontSize: '1rem' , wordBreak: 'break-word', marginTop: '1.5rem'}}>
                   {order.bookName}

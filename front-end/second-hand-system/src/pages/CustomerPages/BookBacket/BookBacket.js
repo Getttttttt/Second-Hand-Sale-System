@@ -8,11 +8,11 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Home from '../../Home';
 
 
 export default function BookBacket() {
   const { customerID } = useParams();
+  console.log("Customer ID first print "+customerID);
   const [cartItems, setCartItems] = React.useState([]);
   const [selectedItems, setSelectedItems] = React.useState([]);
   const [totalPrice, setTotalPrice] = React.useState(0);
@@ -164,12 +164,13 @@ export default function BookBacket() {
       let myHeaders = new Headers({
         'Content-Type': 'application/json'
       });
-      console.log(3)
+      console.log("CustomerID is "+customerID)
 
       const response = await fetch(`http://localhost:8080/SecondHandSystemAPIs_war_exploded/BookBacket/booklist?customerID=${customerID}`, {
         method: 'GET',
         headers: myHeaders
       });
+      console.log(3)
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -177,18 +178,18 @@ export default function BookBacket() {
       
       const data = await response.json();
 
-      console.log(data);
+      console.log("result "+data);
       
       const cartItems = data.map((item) => ({
-        bookISBN: item.bookISBN.trim(),
+        bookISBN: item.bookISBN,
         bookNum: item.bookNum,
-        bookAuthor: item.bookAuthor.trim(),
-        bookName: item.bookName.trim(),
-        bookID: item.bookID.trim(),
-        merchantID: item.merchantID.trim(),
-        bookSurfacePic: item.bookSurfacePic.trim(),
+        bookAuthor: item.bookAuthor,
+        bookName: item.bookName,
+        bookID: item.bookID,
+        merchantID: item.merchantID,
+        bookSurfacePic: "http://localhost:8080/SecondHandSystemAPIs_war_exploded/image/"+item.bookSurfacePic,
         bookPrice: item.bookPrice,
-        bookdegree: item.bookdegree.trim(),
+        bookdegree: item.bookdegree,
       }));
       setCartItems(cartItems);
     } catch (error) {
@@ -270,7 +271,6 @@ export default function BookBacket() {
   };
 
   return (
-    <Home>
     <div>
       <div className="cart-header" style={cartHeaderStyle}>
         <h2 style={{ display: 'flex', alignItems: 'center' }}>
@@ -281,6 +281,8 @@ export default function BookBacket() {
       <div className="cart" >
       {cartItems.map((item) => (
         <Card variant="outlined" key={item.bookID} style={cartItemStyle}>
+          {console.log("here "+item.bookSurfacePic)}
+
           <div style={cartItemHeaderStyle}>
             <p style={merchantIDStyle}>商家ID: {item.merchantID} | 商品ID: {item.bookID}</p>
           </div>
@@ -324,6 +326,5 @@ export default function BookBacket() {
     </div>
   </div>
 </div>
-</Home>
   );
 }

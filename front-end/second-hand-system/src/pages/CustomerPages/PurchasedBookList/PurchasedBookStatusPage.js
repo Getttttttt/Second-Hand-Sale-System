@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import { useParams } from 'react-router-dom';
-
+import Home from '../../Home';
 
 export default function PurchasedBookStatusPage () {
   const { customerID } = useParams();
@@ -52,23 +52,23 @@ export default function PurchasedBookStatusPage () {
       console.log(Data);
       const DetailData = Data.map(item => ({
         bookImages: item.bookImages[0].split(","),
-        bookISBN: item.bookISBN.trim(),
+        bookISBN: item.bookISBN,
         orderNum: item.orderNum,
-        orderStatus: item.orderStatus.trim(),
-        bookAuthor: item.bookAuthor.trim(),
+        orderStatus: item.orderStatus,
+        bookAuthor: item.bookAuthor,
         bookPublishTime: item.bookPublishTime,
-        bookPublisher:item.bookPublisher.trim(),
-        bookName: item.bookName.trim(),
-        bookID: item.bookID.trim(),
-        evaluation: item.evaluation.trim(),
-        MainData: item.MainData.trim(),
-        merchantNumber: item.merchantNumber.trim(),
-        bookSurfacePic: item.bookSurfacePic.trim(),
+        bookPublisher:item.bookPublisher,
+        bookName: item.bookName,
+        bookID: item.bookID,
+        evaluation: item.evaluation,
+        MainData: item.MainData,
+        merchantNumber: item.merchantNumber,
+        bookSurfacePic: item.bookSurfacePic,
         orderTime: item.orderTime,
-        bookLabels: item.bookLabels.map(label => label.trim()),
+        bookLabels: item.bookLabels,
         estimationScale: item.estimationScale,
         orderPrice: item.orderPrice,
-        bookdegree: item.bookdegree.trim()
+        bookdegree: item.bookdegree
       }));
       console.log("back to js")
       console.log(DetailData);
@@ -93,7 +93,7 @@ export default function PurchasedBookStatusPage () {
           <ListItemAvatar>
             <Avatar 
               alt={order.bookName}
-              src={order.bookSurfacePic}
+              src={"http://localhost:8080/SecondHandSystemAPIs_war_exploded/image/"+order.bookSurfacePic}
               variant="square"
               sx={{ width: 80, height: 100 , marginRight: '20px' }}
             >
@@ -189,6 +189,7 @@ export default function PurchasedBookStatusPage () {
   };
 
   return (
+    <Home>
     <Container>
       <br/>
       <div style={{ display: "flex", gap: "100px" }}>
@@ -228,6 +229,7 @@ export default function PurchasedBookStatusPage () {
         }).map((order) => renderOrderItem(order))}
       </List>
     </Container>
+    </Home>
   );
 }
 

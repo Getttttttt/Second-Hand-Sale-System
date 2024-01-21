@@ -124,7 +124,7 @@ const ChatToSingleMerchant = () => {
       
       try{
         let myHeaders = new Headers({
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json; charset=UTF-8'
         });
     
         const response = await fetch('http://localhost:8080/SecondHandSystemAPIs_war_exploded/customer/chatHistory',{
@@ -178,7 +178,7 @@ const ChatToSingleMerchant = () => {
     
     try{
       let myHeaders = new Headers({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json; charset=UTF-8'
       });
   
       const response = await fetch('http://localhost:8080/SecondHandSystemAPIs_war_exploded/customer/sendMessage',{
