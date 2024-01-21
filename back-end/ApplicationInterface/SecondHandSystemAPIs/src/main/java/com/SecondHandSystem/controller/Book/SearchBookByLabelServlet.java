@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 @WebServlet("/books/searchByLabel")
 public class SearchBookByLabelServlet extends HttpServlet {
@@ -55,14 +56,18 @@ public class SearchBookByLabelServlet extends HttpServlet {
         }
 
         // analysis variable
-        String searchContent = jsonObject.optString("searchLabel");
+        String searchLabel = jsonObject.optString("searchLabel");
 
         String returnMessage;
 
         try {
             IBookDAO BookDAO = DAOFactory.getIBookDAOInstance();
             ArrayList<Book> books;
-            books = BookDAO.searchSpecificBooks(searchContent);
+            if (Objects.equals(searchLabel, "全部")){
+                books = BookDAO.searchSpecificBooks("");
+            } else {
+                books = BookDAO.searchSpecificLabelBooks(searchLabel);
+            }
             JSONArray jsonArray = new JSONArray();
             for (Book book : books) {
                 // 创建JSON对象

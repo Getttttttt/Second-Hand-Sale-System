@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
+import {Box} from '@mui/material';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -26,6 +27,7 @@ import Stack from '@mui/material/Stack';
 import { Carousel } from 'antd';
 import Grid from '@mui/material/Unstable_Grid2';
 import { Radio, Space, Tabs } from 'antd';
+
 
 const color = red[600];
 
@@ -160,12 +162,18 @@ export default function SearchOutcomeDisplay() {
             </div>
             </Carousel>
           </Container>
-            <Container>
-            <Grid Container  spacing={2}>
-              <List>
-                {detailBooks.map((book) => <SingleBook key={book.bookName} book={book} />)}
-              </List>
-            </Grid>
+          <Container>
+          <Box
+            sx={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: 3 // 这个属性可以调整按钮之间的间距
+            }}>
+              {detailBooks.map((book) =>
+              (
+                <SingleBook key={book.bookName} book={book} />)
+              )}
+            </Box>
           </Container>
         </Stack>
       </Stack>
@@ -186,7 +194,7 @@ const SingleBook = ({book}) => {
 
   console.log(1)
   return (
-  <Card sx={{ maxWidth: 345 }}>
+  <Card sx={{ maxWidth: 345,minWidth: 290 }}>
     <CardHeader
       avatar={
         <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">

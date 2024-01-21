@@ -183,6 +183,22 @@ function Home({children}) {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const [searchTerm, setSearchTerm] = React.useState('');
+  const handleInputChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleSearch = () => {
+    console.log('搜索内容:', searchTerm);
+    // 在这里添加搜索的逻辑
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
   return (
     <Container maxWidth="String" >
       <AppBar position="fixed" open={open}>
@@ -279,12 +295,15 @@ function Home({children}) {
             </Box>
             <Box sx={{ flexGrow: 0 }}>
               <Search>
-                <SearchIconWrapper>
+                <SearchIconWrapper onClick={handleSearch}>
                   <SearchIcon />
                 </SearchIconWrapper>
                 <StyledInputBase
                   placeholder="Search…"
                   inputProps={{ 'aria-label': 'search' }}
+                  value={searchTerm}
+                  onChange={handleInputChange}
+                  onKeyPress={handleKeyPress}
                 />
               </Search>
             </Box>
