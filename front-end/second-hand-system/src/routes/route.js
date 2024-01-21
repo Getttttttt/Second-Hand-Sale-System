@@ -18,9 +18,8 @@ import ChatToSingleCustomer from "../pages/MerchantPages/ChatPages/ChatToSingleC
 import SaledBookStatusPage from "../pages/MerchantPages/SaledBookList/SaledBookStatusPage";
 import SingleSaledBookStatusPage from "../pages/MerchantPages/SaledBookList/SingleSaledBookStatusPage";
 import SaleBookFormPage from "../pages/MerchantPages/AddSaleBook/SaleBookFormPage";
-import SinglePurchasedBookEvaluation from "../pages/CustomerPages/PurchasedBookList/SinglePurchasedBookEvaluation";
-import SingleSaledBookEvaluation from "../pages/MerchantPages/SaledBookList/SingleSaledBookEvaluation";
-import PaymentPage from "../pages/BookPages/PaymentPage"
+import SinglePurchasedBookEvaluation from "../pages/CustomerPages/PurchasedBookList/SinglePurchasedBookEvaluation"
+
 
 export default [
     {
@@ -32,7 +31,7 @@ export default [
         element: <Home />
     },
     {
-        path: '/customer',
+        path: '/customer/:customerId',
         element: <CustomerCenter />
     },
     {
@@ -44,7 +43,7 @@ export default [
         element: <SignInForCustomer />
     },
     {
-        path: '/customer/bookbacket/:customerID',
+        path: '/customer/bookbacket',
         element: <BookBacket />
     },
     {
@@ -56,11 +55,11 @@ export default [
         element: <ChatToSingleMerchant />
     },
     {
-        path: '/customer/purchased/:customerID',
+        path: '/customer/purchased',
         element: <PurchasedBookStatusPage />
     },
     {
-        path: '/customer/purchased/order/:orderID',
+        path: '/customer/purchased/:orderID',
         element: <SinglePurchasedBookStatusPage />
     },
     {
@@ -72,15 +71,11 @@ export default [
         element: <SearchOutcomeDisplay />
     },
     {
-        path: '/books/singlebook/:bookID',
+        path: '/books/singlebook',
         element: <SingleBookDispley />
     },
     {
-        path: '/books/payment/:status',
-        element: <PaymentPage />
-    },
-    {
-        path: '/merchant',
+        path: '/merchant/:merchantId',
         element: <MerchantCenter />
     },
     {
@@ -100,19 +95,15 @@ export default [
         element: <ChatToSingleCustomer />
     },
     {
-        path: '/merchant/saled/:merchantID',
+        path: '/merchant/saled',
         element: <SaledBookStatusPage />
     },
     {
-        path: '/merchant/saled/book/:orderID',
+        path: '/merchant/saled/book',
         element: <SingleSaledBookStatusPage />
     },
     {
-        path: '/merchant/saled/evaluation/:orderID',
-        element: <SingleSaledBookEvaluation />
-    },
-    {
-        path: '/merchant/addsalebook',
+        path: '/merchant/addsalebook/:merchantId',
         element: <SaleBookFormPage />
     },
     {

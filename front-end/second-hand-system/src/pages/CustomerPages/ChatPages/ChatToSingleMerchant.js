@@ -75,7 +75,7 @@ function ChatCanvas({merchantId, nicknameM, customerId, nicknameC, message, from
             <Typography variant="body1" style={{ height:"35px", whiteSpace: 'pre', borderRadius:"5px", backgroundColor: "#e3f2fd", display: "flex", alignItems: "center", justifyContent: "center" }}>{"  "+message+"  "}</Typography>
             <Typography variant="body1" style={{ whiteSpace: 'pre' }}>{"  "}</Typography>
             <Popover content={customerId} title={nicknameC}>
-              <Avatar alt={merchantId+"'s photo"} src={img2} />
+              <Avatar alt={merchantId+"'s photo"} src={"http://localhost:8080/SecondHandSystemAPIs_war_exploded"+imageC} />
             </Popover>
           </React.Fragment>        
         </Box>
@@ -92,7 +92,7 @@ function ChatCanvas({merchantId, nicknameM, customerId, nicknameC, message, from
           }}>
           <React.Fragment>
             <Popover content={merchantId} title={nicknameM}>
-              <Avatar alt={merchantId+"'s photo"} src={img1} />
+              <Avatar alt={merchantId+"'s photo"} src={"http://localhost:8080/SecondHandSystemAPIs_war_exploded"+imageM} />
             </Popover>
             <Typography variant="body1" style={{ whiteSpace: 'pre' }}>{"  "}</Typography>
             <Typography variant="body1" style={{height:"35px", whiteSpace: 'pre', borderRadius:"5px", backgroundColor: "#e3f2fd", display: "flex", alignItems: "center", justifyContent: "center"}}>{"  "+message+" "}</Typography>
@@ -199,22 +199,19 @@ const ChatToSingleMerchant = () => {
   }
 
   const [inputValue, setInputValue] = useState('');
-  /*const [chatHistory, setChatHistory] = useState([
-    [merchantId, 'get', customerId, 'rita', 'Hello!', "customer",  "../../../images/img.jpg", "../../../images/img.jpg"],
-    [merchantId, 'get', customerId, 'rita', 'Hi, what can I do for you?', "merchant",  "../../../images/img.jpg", "../../../images/img.jpg"],
-    [merchantId, 'get', customerId, 'rita', 'I want to know more about the book.', "customer",  "../../../images/img.jpg", "../../../images/img.jpg"],
-    [merchantId, 'get', customerId, 'rita', 'I am glad to tell you.', "merchant", "../../../images/img.jpg", "../../../images/img.jpg"],
-    [merchantId, 'get', customerId, 'rita', 'Hello!', "customer",  "../../../images/img.jpg", "../../../images/img.jpg"],
-    [merchantId, 'get', customerId, 'rita', 'Hi, what can I do for you?', "merchant",  "../../../images/img.jpg", "../../../images/img.jpg"],
-    [merchantId, 'get', customerId, 'rita', 'I want to know more about the book.', "customer",  "../../../images/img.jpg", "../../../images/img.jpg"],
-    [merchantId, 'get', customerId, 'rita', 'I am glad to tell you.', "merchant", "../../../images/img.jpg", "../../../images/img.jpg"],
-    [merchantId, 'get', customerId, 'rita', 'Hello!', "customer",  "../../../images/img.jpg", "../../../images/img.jpg"],
-    [merchantId, 'get', customerId, 'rita', 'Hi, what can I do for you?', "merchant",  "../../../images/img.jpg", "../../../images/img.jpg"],
-    [merchantId, 'get', customerId, 'rita', 'I want to know more about the book.', "customer",  "../../../images/img.jpg", "../../../images/img.jpg"],
-    [merchantId, 'get', customerId, 'rita', 'I am glad to tell you.', "merchant", "../../../images/img.jpg", "../../../images/img.jpg"],
-  ]);*/
+  
   const handleChange = (event) => {
     setInputValue(event.target.value);
+  };
+
+  const handleKeyDown = (event) => {
+    // 如果按下的是 Enter 键 (keyCode 为 13)
+    if (event.key === 'Enter') {
+      // 阻止默认行为（防止在输入框内换行）
+      event.preventDefault();
+      // 调用发送消息的函数
+      sendMessage(inputValue);
+    }
   };
  
    var MERCHANTID = chatHistory[0][0]
@@ -300,6 +297,7 @@ const ChatToSingleMerchant = () => {
             type="text"
             value={inputValue}
             onChange={handleChange}
+            onKeyDown={handleKeyDown}
             placeholder="Type your message..."
           />
           <Button 

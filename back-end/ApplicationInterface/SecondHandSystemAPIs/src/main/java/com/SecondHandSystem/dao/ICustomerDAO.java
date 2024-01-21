@@ -14,13 +14,13 @@ public interface ICustomerDAO {
     //删除用户
     public List<Customer> deleteCustomer(String customerId)throws Exception;
     //更新用户信息
-    public List<Customer> updateCustomer(String customerId,String nickname,String password,String phoneNumber,String address,String picUrl)throws Exception;
+    public String updateCustomer(String customerId,String nickname,String password,String phoneNumber,String address,String picUrl)throws Exception;
     //查询购物车
     public String[][] searchBookBucket(String customerId)throws Exception;
     //添加购物车
-    public boolean insertBookBucket(String customerId,String bookId, int number)throws Exception;
+    public String[][] insertBookBucket(String customerId,String bookId, int number)throws Exception;
     //更新购物车
-    public boolean updateBookBucket(String customerId,String bookId, int number)throws Exception;
-    //删除购物车中的一个商品
-    public boolean deleteBookBucket(String customerId,String bookId)throws Exception;
+    public String[][] updateBookBucket(String customerId,String bookId, int number)throws Exception;
+    //删除购物车
+    public String[][] deleteBookBucket(String customerId,String bookId)throws Exception;
 }

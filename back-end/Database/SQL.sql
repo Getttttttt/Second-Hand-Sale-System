@@ -1,13 +1,13 @@
 CREATE DATABASE secondhandsalesystem ON
 (
 NAME = secondhandsalesystem,
-FILENAME = 'D:\javaweb\data\SecondHandDatabase\secondhandsalesystem.mdf',
+FILENAME = 'D:\Project\SecondHandSystem\SecondHandDatabase\secondhandsalesystem.mdf',
 SIZE = 100MB, MAXSIZE = UNLIMITED, FILEGROWTH = 10MB
 )
 LOG ON
 (
 NAME = secondhandsalesystemlog,
-FILENAME = 'D:\javaweb\data\SecondHandDatabase\secondhandsalesystemlog.ldf',
+FILENAME = 'D:\Project\SecondHandSystem\SecondHandDatabase\secondhandsalesystemlog.ldf',
 SIZE = 100MB, MAXSIZE = UNLIMITED, FILEGROWTH = 10MB
 )
 GO
@@ -17,9 +17,9 @@ GO
 
 
 CREATE TABLE [订单] (
-  [订单ID] char(10) PRIMARY KEY,
+  [订单ID] char(20) PRIMARY KEY,
   [用户ID] char(20) NOT NULL,
-  [商品ID] char(10) NOT NULL,
+  [商品ID] char(20) NOT NULL,
   [商家ID] char(20) NOT NULL,
   [交易时间] datetime2 NOT NULL,
   [交易价格] float NULL,
@@ -33,7 +33,7 @@ GO
 CREATE TABLE [沟通记录] (
   [商家id] char(20) NOT NULL,
   [用户id] char(20) NOT NULL,
-  [沟通时间] time NOT NULL,
+  [沟通时间] datetime NOT NULL,
   [会话内容] char(200) NULL,
   [标签] char(10) NOT NULL,
   CONSTRAINT [_copy_6] PRIMARY KEY CLUSTERED ([商家id], [用户id], [沟通时间])
@@ -55,7 +55,7 @@ WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW
 GO
 
 CREATE TABLE [售卖书籍] (
-  [商品id] char(10) NOT NULL,
+  [商品id] char(20) NOT NULL,
   [商家id] char(20) NOT NULL,
   [库存数量] int NULL,
   [上架时间] char(20) NULL,
@@ -66,7 +66,7 @@ WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW
 GO
 
 CREATE TABLE [图书] (
-  [商品ID] char(10) NOT NULL,
+  [商品ID] char(20) NOT NULL,
   [商品名称] char(100) NOT NULL,
   [商品价格] float NULL,
   [商品折扣] float NULL,
@@ -84,7 +84,7 @@ WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW
 GO
 
 CREATE TABLE [图书分类] (
-  [商品ID] char(10) NOT NULL,
+  [商品ID] char(20) NOT NULL,
   [分类类型] char(20) NOT NULL,
   CONSTRAINT [_copy_14] PRIMARY KEY CLUSTERED ([商品ID], [分类类型])
 WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
@@ -92,7 +92,7 @@ WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW
 GO
 
 CREATE TABLE [图书示例图片] (
-  [商品ID] char(10) NOT NULL,
+  [商品ID] char(20) NOT NULL,
   [商品图片展示URL] char(100) NOT NULL,
   CONSTRAINT [_copy_13] PRIMARY KEY CLUSTERED ([商品ID], [商品图片展示URL])
 WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
@@ -113,7 +113,7 @@ GO
 
 CREATE TABLE [购物车] (
   [用户id] char(20) NOT NULL,
-  [商品id] char(10) NOT NULL,
+  [商品id] char(20) NOT NULL,
   [加购数量] int NULL,
   CONSTRAINT [_copy_10] PRIMARY KEY CLUSTERED ([用户id], [商品id])
 WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)

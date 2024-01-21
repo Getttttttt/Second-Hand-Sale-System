@@ -96,8 +96,8 @@ public class MerchantDAOImpl implements IMerchantDAO {
     }
 
     @Override
-    public List<Merchant> updateMerchant(String merchantId,String nickname,String password,String truthLevel,int numbOfBookOnsale,int length,String picUrl) throws Exception {
-        System.out.println("11111111");
+    public String updateMerchant(String merchantId,String nickname,String password,String truthLevel,int numbOfBookOnsale,int length,String picUrl) throws Exception {
+
         String sql = "UPDATE 商家 SET 昵称=?,登录密码=?,信用等级=?,在售书籍数量=?,开店时长=?,头像=? WHERE 商家id='"+merchantId+"'";  //定义要实现的SQL语句
         this.prestmt = this.conn.prepareStatement(sql);  //prestmt用于执行sql语句
         prestmt.setString(1,nickname);
@@ -106,9 +106,13 @@ public class MerchantDAOImpl implements IMerchantDAO {
         prestmt.setInt(4,numbOfBookOnsale);
         prestmt.setInt(5,length);
         prestmt.setString(6,picUrl);
-        int i = this.prestmt.executeUpdate(sql);  //执行sql语句
-        System.out.println(i);
-        return searchMerchant(merchantId,password);
+        boolean rs = this.prestmt.execute();  //执行sql语句，将结果赋给ResultSet对象rs
+        if(!rs){
+            return "Update Successful";
+        }
+        else {
+            return "Update Fail";
+        }
     }
 
     @Override
@@ -133,7 +137,7 @@ public class MerchantDAOImpl implements IMerchantDAO {
     }
 
     @Override
-    public String[][] insertBookOnsale(String merchantId, String bookId, int number, Date time, String newold) throws Exception {
+    public String insertBookOnsale(String merchantId, String bookId, int number, Date time, String newold) throws Exception {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String shelfTime = formatter.format(time);
         String sql = "INSERT INTO 售卖书籍(商品id,商家id,库存数量,上架时间,新旧程度) VALUES(?,?,?,?,?)";
@@ -143,39 +147,42 @@ public class MerchantDAOImpl implements IMerchantDAO {
         prestmt.setInt(3,number);
         prestmt.setString(4, shelfTime);
         prestmt.setString(5,newold);
-        this.prestmt.execute();
-        return searchBookOnsale(merchantId);
+        boolean rs = this.prestmt.execute();
+        if(!rs){
+            return "Success!";
+        }
+        else{
+            return "Fail!";
+        }
     }
 
     @Override
-    public String[][] updateBookOnsale(String merchantId, String bookId, int number, Date time, String newold) throws Exception {
+    public String updateBookOnsale(String merchantId, String bookId, int number, Date time, String newold) throws Exception {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String shelfTime = formatter.format(time);
         String sql = "UPDATE 售卖书籍 SET 库存数量="+number+", 上架时间='"+shelfTime+"', 新旧程度='"+newold+"' WHERE 商品id='"+bookId+"' and 商家id='"+merchantId+"'";
         this.prestmt = this.conn.prepareStatement(sql);  //prestmt用于执行sql语句
         this.prestmt.execute();
-        return searchBookOnsale(merchantId);
+        boolean rs = this.prestmt.execute();
+        if(!rs){
+            return "Success!";
+        }
+        else{
+            return "Fail!";
+        }
     }
 
     @Override
-    public String[][] deleteBookOnsale(String merchantId, String bookId) throws Exception {
+    public String deleteBookOnsale(String merchantId, String bookId) throws Exception {
         String sql = "DELETE FROM 售卖书籍 WHERE 商家id='"+merchantId+"' and 商品id='"+bookId+"'";
         this.prestmt = this.conn.prepareStatement(sql);  //prestmt用于执行sql语句
-        this.prestmt.execute();
-        return new String[0][];
-    }
-
-    @Override
-    public String searchMerchantID(String bookID) throws Exception {
-        String sql = "SELECT * FROM 售卖书籍 WHERE 商品id='"+bookID.trim()+"';";
-        System.out.println(sql);
-        String merchantID="";
-        this.prestmt = this.conn.prepareStatement(sql);  //prestmt用于执行sql语句
-        ResultSet rs = this.prestmt.executeQuery();
-        while(rs.next()){
-            merchantID=rs.getString("商家id");
+        boolean rs = this.prestmt.execute();
+        if(!rs){
+            return "Success!";
         }
-        return merchantID;
+        else{
+            return "Fail!";
+        }
     }
 
 

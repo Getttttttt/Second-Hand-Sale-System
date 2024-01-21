@@ -1,14 +1,8 @@
 import React from 'react';
 import { Container } from '@mui/material';
-import { MainData, DetailData } from './CustomerListStore';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { FaChevronDown } from 'react-icons/fa';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';

@@ -77,7 +77,7 @@ function ChatCanvas({merchantId, nicknameM, customerId, nicknameC, message, from
             <Typography variant="body1" style={{ height:"35px", whiteSpace: 'pre', borderRadius:"5px", backgroundColor: "#e3f2fd", display: "flex", alignItems: "center", justifyContent: "center" }}>{"  "+message+"  "}</Typography>
             <Typography variant="body1" style={{ whiteSpace: 'pre' }}>{"  "}</Typography>
             <Popover content={merchantId} title={nicknameM}>
-              <Avatar alt={merchantId+"'s photo"} src={img1} />
+              <Avatar alt={merchantId+"'s photo"} src={"http://localhost:8080/SecondHandSystemAPIs_war_exploded"+imageM} />
             </Popover>
           </React.Fragment>        
         </Box>
@@ -94,7 +94,7 @@ function ChatCanvas({merchantId, nicknameM, customerId, nicknameC, message, from
           }}>
           <React.Fragment>
             <Popover content={customerId} title={nicknameC}>
-              <Avatar alt={customerId+"'s photo"} src={img2} />
+              <Avatar alt={customerId+"'s photo"} src={"http://localhost:8080/SecondHandSystemAPIs_war_exploded"+imageC} />
             </Popover>
             <Typography variant="body1" style={{ whiteSpace: 'pre' }}>{"  "}</Typography>
             <Typography variant="body1" style={{height:"35px", whiteSpace: 'pre', borderRadius:"5px", backgroundColor: "#e3f2fd", display: "flex", alignItems: "center", justifyContent: "center"}}>{"  "+message+" "}</Typography>
@@ -225,6 +225,16 @@ const ChatToSingleCustomer = () => {
     setInputValue(event.target.value);
   };
 
+  const handleKeyDown = (event) => {
+    // 如果按下的是 Enter 键 (keyCode 为 13)
+    if (event.key === 'Enter') {
+      // 阻止默认行为（防止在输入框内换行）
+      event.preventDefault();
+      // 调用发送消息的函数
+      sendMessage(inputValue);
+    }
+  };
+
  
   var MERCHANTID = chatHistory[0][0]
   var NICKNAMEM = chatHistory[0][1]
@@ -309,6 +319,7 @@ const ChatToSingleCustomer = () => {
             type="text"
             value={inputValue}
             onChange={handleChange}
+            onKeyDown={handleKeyDown}
             placeholder="Type your message..."
           />
           <Button 
@@ -316,7 +327,9 @@ const ChatToSingleCustomer = () => {
             onClick={() => sendMessage(inputValue)} 
             endIcon={<SendIcon />}
             size="small"
-            sx={{ mt: 5, mb: 5, backgroundColor: "#2979ff", color: "#ffffff"}}>Send</Button>
+            sx={{ mt: 5, mb: 5, backgroundColor: "#2979ff", color: "#ffffff"}}>
+            Send
+          </Button>
         </Space>
       </Box >
       <Box style={{marginBottom: 2, backgroundColor: '#FFFFFF'}}>

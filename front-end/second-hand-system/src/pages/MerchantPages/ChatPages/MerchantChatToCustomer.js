@@ -10,8 +10,6 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Typography from '@mui/material/Typography';
 import { Avatar, Badge, Space } from 'antd';
 import ChatToSingleCustomer from './ChatToSingleCustomer';
-import img1 from "../../../images/img1.svg"
-import img2 from "../../../images/img2.svg"
 
 function Copyright(props) {
   return (
@@ -139,7 +137,7 @@ function Page({merchantId,customerId}){
         <ListItemAvatar>
           <Space size={24}>
             <Badge dot invisible={isDotVisible ? undefined : "false"}>
-              <Avatar alt={customerId+"'s photo"} src={img2} />
+              <Avatar alt={customerId+"'s photo"} src={"http://localhost:8080/SecondHandSystemAPIs_war_exploded"+imageC} />
             </Badge>
           </Space>
         </ListItemAvatar>
