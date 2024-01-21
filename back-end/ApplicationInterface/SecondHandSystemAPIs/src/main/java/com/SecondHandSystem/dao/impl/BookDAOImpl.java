@@ -53,32 +53,12 @@ public class BookDAOImpl implements IBookDAO {
 
     @Override
     public ArrayList<Book> searchSpecificBooks(String searchContent) throws Exception {
-        String sqlName="select * from 图书 where 商品名称 like '%"+searchContent+"%';";
-        rs= stat.executeQuery(sqlName);
-        ArrayList<String> booksIds = new ArrayList<>();
-        ArrayList<Book> books = new ArrayList<>();
-        while(rs.next()){
-            String bookID = rs.getString("商品ID");
-            booksIds.add(bookID);
-        }
-        for (String element : booksIds) {
-            books.add(this.select(element));
-        }
-        return books;
-    }
-
-    public ArrayList<Book> searchSpecificLabelBooks(String searchLabel) throws Exception{
-        String sqlLabel="select distinct 商品ID from 图书分类 where 分类类型 = '"+searchLabel+"';";
+        String sqlLabel="select * from 图书 where 商品名称 like '%"+searchContent+"%';";
         rs= stat.executeQuery(sqlLabel);
-        System.out.println(sqlLabel);
-        ArrayList<String> booksIds = new ArrayList<>();
         ArrayList<Book> books = new ArrayList<>();
         while(rs.next()){
             String bookID = rs.getString("商品ID");
-            booksIds.add(bookID);
-        }
-        for (String element : booksIds) {
-            books.add(this.select(element));
+            books.add(this.select(bookID));
         }
         return books;
     }
@@ -110,6 +90,7 @@ public class BookDAOImpl implements IBookDAO {
             book.setBookNum(rs.getInt("库存数量"));
             book.setAuthor(rs.getString("作者名称"));
             book.setBookISBN(rs.getString("ISBN"));
+            book.setBookPublisher(rs.getString("出版社"));
             book.setPublicationTime(rs.getDate("出版时间"));
             book.setBookSurfacePic(rs.getString("商品封面"));
             book.setDegree(rs.getString("新旧程度"));

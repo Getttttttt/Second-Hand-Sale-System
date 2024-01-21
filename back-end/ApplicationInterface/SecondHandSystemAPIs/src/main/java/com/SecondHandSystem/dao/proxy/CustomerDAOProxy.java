@@ -106,10 +106,10 @@ public class CustomerDAOProxy implements ICustomerDAO {
     }
 
     @Override
-    public String[][] insertBookBucket(String customerId, String bookId, int number) throws Exception {
-        String[][] bookBuckets = new String[300][2];
+    public boolean insertBookBucket(String customerId, String bookId, int number) throws Exception {
+        boolean result=false;
         try{
-            bookBuckets = this.dao.insertBookBucket(customerId,bookId,number);
+            result = this.dao.insertBookBucket(customerId,bookId,number);
         }
         catch (Exception e){
             throw e;
@@ -117,14 +117,14 @@ public class CustomerDAOProxy implements ICustomerDAO {
         finally{
             DatabaseConnection.release(((CustomerDAOImpl)dao).getStat(),((CustomerDAOImpl)dao).getConn());
         }
-        return bookBuckets;
+        return result;
     }
 
     @Override
-    public String[][] updateBookBucket(String customerId, String bookId, int number) throws Exception {
-        String[][] bookBuckets = new String[300][2];
+    public boolean updateBookBucket(String customerId, String bookId, int number) throws Exception {
+        boolean result=false;
         try{
-            bookBuckets = this.dao.updateBookBucket(customerId,bookId,number);
+            result = this.dao.updateBookBucket(customerId,bookId,number);
         }
         catch (Exception e){
             throw e;
@@ -132,14 +132,14 @@ public class CustomerDAOProxy implements ICustomerDAO {
         finally{
             DatabaseConnection.release(((CustomerDAOImpl)dao).getStat(),((CustomerDAOImpl)dao).getConn());
         }
-        return bookBuckets;
+        return result;
     }
 
     @Override
-    public String[][] deleteBookBucket(String customerId, String bookId) throws Exception {
-        String[][] bookBuckets = new String[300][2];
+    public boolean deleteBookBucket(String customerId, String bookId) throws Exception {
+        boolean result=false;
         try{
-            bookBuckets = this.dao.deleteBookBucket(customerId,bookId);
+            result = this.dao.deleteBookBucket(customerId,bookId);
         }
         catch (Exception e){
             throw e;
@@ -147,6 +147,6 @@ public class CustomerDAOProxy implements ICustomerDAO {
         finally{
             DatabaseConnection.release(((CustomerDAOImpl)dao).getStat(),((CustomerDAOImpl)dao).getConn());
         }
-        return bookBuckets;
+        return result;
     }
 }

@@ -165,5 +165,18 @@ public class MerchantDAOImpl implements IMerchantDAO {
         return new String[0][];
     }
 
+    @Override
+    public String searchMerchantID(String bookID) throws Exception {
+        String sql = "SELECT * FROM 售卖书籍 WHERE 商品id='"+bookID.trim()+"';";
+        System.out.println(sql);
+        String merchantID="";
+        this.prestmt = this.conn.prepareStatement(sql);  //prestmt用于执行sql语句
+        ResultSet rs = this.prestmt.executeQuery();
+        while(rs.next()){
+            merchantID=rs.getString("商家id");
+        }
+        return merchantID;
+    }
+
 
 }

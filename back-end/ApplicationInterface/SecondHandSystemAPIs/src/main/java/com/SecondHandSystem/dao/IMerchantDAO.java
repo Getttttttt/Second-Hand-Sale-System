@@ -24,4 +24,6 @@ public interface IMerchantDAO {
     public String[][] updateBookOnsale(String merchantId,String bookId,int number,Date time,String newold)throws Exception;
     //删除在售书籍
     public String[][] deleteBookOnsale(String merchantId,String bookId)throws Exception;
+    //查找书籍的商家
+    public String searchMerchantID(String bookID) throws Exception;
 }

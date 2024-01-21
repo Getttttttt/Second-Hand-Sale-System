@@ -3,7 +3,6 @@
   <component name="Encoding" native2AsciiForPropertiesFiles="true" defaultCharsetForPropertiesFiles="UTF-8">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/SecondHandSystem/controller/Customer/ChatHistoryServlet.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/SecondHandSystem/test/test/TestBookDAO.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/SecondHandSystem/test/test/TestCustomerDAO.java" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
