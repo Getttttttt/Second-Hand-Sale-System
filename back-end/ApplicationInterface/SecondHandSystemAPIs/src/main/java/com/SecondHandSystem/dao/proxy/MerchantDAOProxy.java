@@ -77,8 +77,18 @@ public class MerchantDAOProxy implements IMerchantDAO{
     }
 
     @Override
-    public List<Merchant> updateMerchant(String merchantId, String nickname, String password, String truthLevel, int numbOfBookOnsale, int length, String picUrl) throws Exception {
-        return null;
+    public String updateMerchant(String merchantId, String nickname, String password, String truthLevel, int numbOfBookOnsale, int length, String picUrl) throws Exception {
+        String rs = null;
+        try{
+            rs = this.dao.updateMerchant(merchantId,nickname,password,truthLevel,numbOfBookOnsale,length,picUrl);
+        }
+        catch (Exception e){
+            throw e;
+        }
+        finally{
+            DatabaseConnection.release(((MerchantDAOImpl)dao).getStat(),((MerchantDAOImpl)dao).getConn());
+        }
+        return rs;
     }
 
     @Override
@@ -97,8 +107,8 @@ public class MerchantDAOProxy implements IMerchantDAO{
     }
 
     @Override
-    public String[][] insertBookOnsale(String merchantId, String bookId, int number, Date time, String newold) throws Exception {
-        String[][] bookOnsale = new String[300][2];
+    public String insertBookOnsale(String merchantId, String bookId, int number, Date time, String newold) throws Exception {
+        String bookOnsale = null;
         try{
             bookOnsale = this.dao.insertBookOnsale(merchantId,bookId,number,time,newold);
         }
@@ -112,8 +122,8 @@ public class MerchantDAOProxy implements IMerchantDAO{
     }
 
     @Override
-    public String[][] updateBookOnsale(String merchantId, String bookId, int number, Date time, String newold) throws Exception {
-        String[][] bookOnsale = new String[300][2];
+    public String updateBookOnsale(String merchantId, String bookId, int number, Date time, String newold) throws Exception {
+        String bookOnsale = null;
         try{
             bookOnsale = this.dao.updateBookOnsale(merchantId,bookId,number,time,newold);
         }
@@ -127,8 +137,8 @@ public class MerchantDAOProxy implements IMerchantDAO{
     }
 
     @Override
-    public String[][] deleteBookOnsale(String merchantId, String bookId) throws Exception {
-        String[][] bookOnsale = new String[300][2];
+    public String deleteBookOnsale(String merchantId, String bookId) throws Exception {
+        String bookOnsale = null;
         try{
             bookOnsale = this.dao.deleteBookOnsale(merchantId,bookId);
         }

@@ -1,7 +1,9 @@
 package com.SecondHandSystem.controller.Customer;
 
-import com.SecondHandSystem.dao.ICommunicationDAO;
+import com.SecondHandSystem.dao.ICustomerDAO;
 import com.SecondHandSystem.factory.DAOFactory;
+import com.SecondHandSystem.vo.Customer;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -12,19 +14,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Date;
+import java.util.List;
 
-@WebServlet("/customer/sendMessage")
-public class SendMessageServlet extends HttpServlet {
+@WebServlet("/customer/updateInformation")
+public class CustomerUpdateInformationServlet extends HttpServlet {
     private void setAccessControlHeaders(HttpServletResponse response) {
         response.setHeader("Access-Control-Allow-Origin", "http://localhost:9001"); // 允许的来源，根据需要更改
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
         response.setHeader("Access-Control-Allow-Credentials", "true");
     }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         setAccessControlHeaders(response);
 
         // 处理请求数据
@@ -49,33 +53,39 @@ public class SendMessageServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
 
-        //传入的message、customerId、merchantId、fromWhom
+        // 传入的customerId,nickname,telephone,address,password,image
         String customerId = jsonObject.optString("customerId");
-        String merchantId = jsonObject.optString("merchantId");
-        String message = jsonObject.optString("message");
-        String fromWho = jsonObject.optString("fromWho");
-        Date time = new Date();
+        String nickname = jsonObject.optString("nickname");
+        String telephone = jsonObject.optString("telephone");
+        String address = jsonObject.optString("address");
+        String password = jsonObject.optString("password");
+        String image = jsonObject.optString("image");
+        System.out.println(customerId);
 
-        String result = null;
-        try {
-            System.out.println(customerId);
-            ICommunicationDAO communicationDAO = DAOFactory.getICommunicationDAOInstance();
-            result = communicationDAO.addCommunication(merchantId,customerId,time,message,fromWho);
-        } catch (Exception e){
+        String rs = null;
+
+        try{
+            ICustomerDAO customerDAO = DAOFactory.getICustomerDAOInstance();
+            rs = customerDAO.updateCustomer(customerId,nickname,password,telephone,address,image);
+            System.out.println(rs);
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        try {
+
+        try{
             JSONObject json = new JSONObject();
-            json.put("result",result);
+            json.put("result",rs);
+            // 将JSON对象转换为字符串
             String jsonString = json.toString();
+            System.out.println(jsonString);
+
             // 设置响应类型和状态
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().write(jsonString);
 
-        } catch (JSONException e){
-            e.printStackTrace();
+        } catch(JSONException e) {
             throw new RuntimeException(e);
         }
     }
@@ -100,5 +110,6 @@ public class SendMessageServlet extends HttpServlet {
         setAccessControlHeaders(response);
         response.setStatus(HttpServletResponse.SC_OK);
     }
+
 
 }

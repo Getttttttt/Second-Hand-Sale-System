@@ -1,6 +1,7 @@
-package com.SecondHandSystem.controller.Customer;
+package com.SecondHandSystem.controller.Merchant;
 
-import com.SecondHandSystem.dao.ICommunicationDAO;
+import com.SecondHandSystem.dao.IBookDAO;
+import com.SecondHandSystem.dao.IMerchantDAO;
 import com.SecondHandSystem.factory.DAOFactory;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,10 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Date;
 
-@WebServlet("/customer/sendMessage")
-public class SendMessageServlet extends HttpServlet {
+@WebServlet("/merchant/deleteBook")
+public class MerchantDeleteBookServlet extends HttpServlet {
     private void setAccessControlHeaders(HttpServletResponse response) {
         response.setHeader("Access-Control-Allow-Origin", "http://localhost:9001"); // 允许的来源，根据需要更改
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
@@ -49,22 +49,32 @@ public class SendMessageServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
 
-        //传入的message、customerId、merchantId、fromWhom
-        String customerId = jsonObject.optString("customerId");
+        //传入的merchantId,bookId
         String merchantId = jsonObject.optString("merchantId");
-        String message = jsonObject.optString("message");
-        String fromWho = jsonObject.optString("fromWho");
-        Date time = new Date();
+        String bookId = jsonObject.optString("bookId");
 
+
+        String rsSale = null;
+        boolean  rsBook = false;
         String result = null;
+
         try {
-            System.out.println(customerId);
-            ICommunicationDAO communicationDAO = DAOFactory.getICommunicationDAOInstance();
-            result = communicationDAO.addCommunication(merchantId,customerId,time,message,fromWho);
+            System.out.println(merchantId);
+            System.out.println(bookId);
+            IMerchantDAO merchantDAO = DAOFactory.getIMerchantDAOInstance();
+            IBookDAO bookDAO = DAOFactory.getIBookDAOInstance();
+            rsSale = merchantDAO.deleteBookOnsale(merchantId,bookId);
+            rsBook = bookDAO.delete(bookId);
+            if(rsSale=="Success!" && rsBook){
+                result = "Success!";
+            }
+            else{
+                result = "Fail!";
+            }
         } catch (Exception e){
             e.printStackTrace();
         }
-        try {
+        try{
             JSONObject json = new JSONObject();
             json.put("result",result);
             String jsonString = json.toString();
@@ -73,11 +83,11 @@ public class SendMessageServlet extends HttpServlet {
             response.setCharacterEncoding("UTF-8");
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().write(jsonString);
-
         } catch (JSONException e){
             e.printStackTrace();
             throw new RuntimeException(e);
         }
+
     }
 
     @Override
@@ -100,5 +110,6 @@ public class SendMessageServlet extends HttpServlet {
         setAccessControlHeaders(response);
         response.setStatus(HttpServletResponse.SC_OK);
     }
+
 
 }

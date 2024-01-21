@@ -1,7 +1,9 @@
 package com.SecondHandSystem.controller.Merchant;
 
-import com.SecondHandSystem.dao.ICommunicationDAO;
+import com.SecondHandSystem.dao.IBookDAO;
+import com.SecondHandSystem.dao.IMerchantDAO;
 import com.SecondHandSystem.factory.DAOFactory;
+import com.SecondHandSystem.vo.Book;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,21 +15,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.Date;
 
-@WebServlet("/merchant/chatToCustomerList")
-public class MerchantChatToCustomerListServlet extends HttpServlet {
+@WebServlet("/merchant/searchBook")
+public class MerchantSearchBookServlet extends HttpServlet {
     private void setAccessControlHeaders(HttpServletResponse response) {
         response.setHeader("Access-Control-Allow-Origin", "http://localhost:9001"); // 允许的来源，根据需要更改
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
         response.setHeader("Access-Control-Allow-Credentials", "true");
     }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         setAccessControlHeaders(response);
 
         // 处理请求数据
@@ -52,41 +52,80 @@ public class MerchantChatToCustomerListServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
 
-        // 传入的merchantId
+        //传入的merchantId
         String merchantId = jsonObject.optString("merchantId");
 
-        String[][] content = new String[300][5];
-        String[] allCustomerList = new String[5];
+        String[][] bookList = new String[300][5];
+        String[][] bookInformation = new String[300][9];
+        String bookId = null;
+        int quantity = 0;
+        String timeOnShelf = null;
+        String condition = null;
+        double price = 0;
+        double discount = 0;
+        String bookName = null;
+        String bookImage = null;
 
-        try{
-            int i=0;
-            ICommunicationDAO communicationDAO = DAOFactory.getICommunicationDAOInstance();
-            content = communicationDAO.searchByCustomerId(merchantId,"merchant");
-            for(String[] c : content){
-                if((Arrays.asList(allCustomerList)).contains(c[4].trim())){
-                    continue;
+
+        int i = 0;
+        try {
+            IMerchantDAO merchantDAO = DAOFactory.getIMerchantDAOInstance();
+            bookList = merchantDAO.searchBookOnsale(merchantId);
+            for (String[] book : bookList) {
+                if (book[0] != null) {
+                    IBookDAO bookDAO = DAOFactory.getIBookDAOInstance();
+                    bookId = book[0];
+                    quantity = Integer.parseInt(book[2]);
+                    timeOnShelf = book[3];
+                    condition = book[4];
+                    Book b = new Book();
+                    b = bookDAO.select(book[0]);
+                    bookName = b.getBookName();
+                    price = b.getBookPrice();
+                    discount = b.getDiscount();
+                    bookImage = b.getBookSurfacePic();
+                    bookInformation[i][0] = bookId;
+                    bookInformation[i][1] = bookName;
+                    bookInformation[i][2] = String.valueOf(price);
+                    bookInformation[i][3] = String.valueOf(discount);
+                    bookInformation[i][4] = String.valueOf(quantity);
+                    bookInformation[i][5] = condition;
+                    System.out.println(condition);
+                    bookInformation[i][6] = timeOnShelf;
+                    bookInformation[i][7] = bookImage;
+                    bookInformation[i][8] = merchantId;
+                    i++;
                 }
-                allCustomerList[i] = c[4].trim();
-                i++;
             }
+
         } catch (Exception e) {
+            System.out.println("catch");
             e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
-        JSONArray jsonArray = new JSONArray();
-        try{
-            for (String customer : allCustomerList) {
-                JSONObject json = new JSONObject();
-                System.out.println(customer);
-                if (customer == null) {
-                    continue;
+        try {
+            JSONArray jsonArray = new JSONArray();
+            int j = 0;
+            for (String[] bi : bookInformation) {
+                if (bi[0] != null && j < i) {
+                    JSONObject json = new JSONObject();
+                    json.put("bookId", bi[0].trim());
+                    json.put("bookName", bi[1].trim());
+                    json.put("price", bi[2].trim());
+                    json.put("discount", bi[3].trim());
+                    json.put("quantity", bi[4].trim());
+                    json.put("condition", bi[5].trim());
+                    json.put("timeOnShelf", bi[6].trim());
+                    json.put("bookImage", bi[7].trim());
+                    json.put("merchantId", bi[8].trim());
+                    jsonArray.put(json);
+                    j++;
+                } else {
+                    break;
                 }
-                json.put("customerId",customer);
-                //System.out.println(json);
-                //将JSON对象添加到JSON数组中
-                jsonArray.put(json);
             }
-            System.out.println(jsonArray);
+            System.out.println("out the for block");
             // 将JSON数组转换为字符串
             String jsonString = jsonArray.toString();
             System.out.println(jsonString);
@@ -97,7 +136,9 @@ public class MerchantChatToCustomerListServlet extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().write(jsonString);
 
-        } catch(JSONException e) {
+
+        } catch (JSONException e) {
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }
@@ -122,4 +163,7 @@ public class MerchantChatToCustomerListServlet extends HttpServlet {
         setAccessControlHeaders(response);
         response.setStatus(HttpServletResponse.SC_OK);
     }
+
+
+
 }

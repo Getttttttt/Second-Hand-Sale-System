@@ -36,7 +36,7 @@ export default [
         element: <Home />
     },
     {
-        path: '/customer',
+        path: '/customer/:customerId',
         element: <CustomerCenter />
     },
     {
@@ -80,7 +80,7 @@ export default [
         element: <SingleBookDispley />
     },
     {
-        path: '/merchant',
+        path: '/merchant/:merchantId',
         element: <MerchantCenter />
     },
     {

@@ -76,8 +76,8 @@ public class CustomerDAOProxy implements ICustomerDAO {
     }
 
     @Override
-    public List<Customer> updateCustomer(String customerId, String nickname, String password, String phoneNumber, String address, String picUrl) throws Exception {
-        List<Customer> all = null;
+    public String updateCustomer(String customerId, String nickname, String password, String phoneNumber, String address, String picUrl) throws Exception {
+        String all = null;
         try{
             all = this.dao.updateCustomer(customerId,nickname,password,phoneNumber,address,picUrl);
         }

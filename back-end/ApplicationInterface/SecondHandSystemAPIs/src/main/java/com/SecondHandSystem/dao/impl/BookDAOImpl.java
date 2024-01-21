@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 public class BookDAOImpl implements IBookDAO {
     private Connection conn;
@@ -52,18 +51,6 @@ public class BookDAOImpl implements IBookDAO {
     }
 
     @Override
-    public ArrayList<Book> searchSpecificBooks(String searchContent) throws Exception {
-        String sqlLabel="select * from 图书 where 商品名称 like '%"+searchContent+"%';";
-        rs= stat.executeQuery(sqlLabel);
-        ArrayList<Book> books = new ArrayList<>();
-        while(rs.next()){
-            String bookID = rs.getString("商品ID");
-            books.add(this.select(bookID));
-        }
-        return books;
-    }
-
-    @Override
     public Book select(String bookID) throws Exception {
         String sqlLabel="select * from 图书分类 where 商品ID = '"+bookID+"';";
         rs= stat.executeQuery(sqlLabel);
@@ -76,7 +63,7 @@ public class BookDAOImpl implements IBookDAO {
         rs= stat.executeQuery(sqlPictures);
         ArrayList<String> pictures=new ArrayList<>();
         while(rs.next()){
-            pictures.add(rs.getString("分类类型"));
+            pictures.add(rs.getString("商品图片展示URL"));
         }
         String[] strPictures= pictures.toArray(new String[pictures.size()]);
         String sql="select * from 图书 where 商品ID = '"+bookID+"';";
@@ -118,7 +105,7 @@ public class BookDAOImpl implements IBookDAO {
         String publicationTime = formatter.format(book.getPublicationTime());
         String shelfTime = formatter.format(book.getShelfTime());
         sql="update 图书 set "+
-                "商品名称 = '" +book.getBookID()
+                "商品名称 = '" +book.getBookName()
                 +"',商品价格=" +book.getBookPrice()
                 +",商品折扣=" +book.getDiscount()
                 +",库存数量=" +book.getBookNum()
@@ -129,7 +116,7 @@ public class BookDAOImpl implements IBookDAO {
                 +"',商品封面='" +book.getBookSurfacePic()
                 +"',新旧程度='" +book.getDegree()
                 +"',上架时间='" +shelfTime+"' "
-                +"where 商品ID="+book.getBookID();
+                +"where 商品ID='"+book.getBookID()+"';";
         i = stat.executeUpdate(sql);
         if(i>0){
             return true;
@@ -141,9 +128,9 @@ public class BookDAOImpl implements IBookDAO {
     public boolean delete(String bookID) throws Exception {
         int i=0;
         //执行sql
-        String sql="delete from 图书 where 商品ID = '"+bookID+"';";
-        sql+="delete from 图书分类 where 商品ID = '"+bookID+"';";
+        String sql="delete from 图书分类 where 商品ID = '"+bookID+"';";
         sql+="delete from 图书示例图片 where 商品ID = '"+bookID+"';";
+        sql+="delete from 图书 where 商品ID = '"+bookID+"';";
         i = stat.executeUpdate(sql);
         if(i>0){
             return true;

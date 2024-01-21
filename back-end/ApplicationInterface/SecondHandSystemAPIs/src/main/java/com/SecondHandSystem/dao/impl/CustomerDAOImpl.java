@@ -60,9 +60,9 @@ public class CustomerDAOImpl implements ICustomerDAO {
             customer.setCustomerId(rs.getString(1));
             customer.setNickname(rs.getString(2));
             customer.setPassword(rs.getString(3));
-            customer.setAddress(rs.getString(4));
-            customer.setPicUrl(rs.getString(5));
-            customer.setPhoneNumber(rs.getString(6));
+            customer.setPhoneNumber(rs.getString(4));
+            customer.setAddress(rs.getString(5));
+            customer.setPicUrl(rs.getString(6));
             customer.setBookBucket(searchBookBucket(rs.getString(1)));
             all.add(customer);
         }
@@ -94,7 +94,7 @@ public class CustomerDAOImpl implements ICustomerDAO {
     }
 
     @Override
-    public List<Customer> updateCustomer(String customerId, String nickname, String password, String phoneNumber, String address, String picUrl) throws Exception {
+    public String updateCustomer(String customerId, String nickname, String password, String phoneNumber, String address, String picUrl) throws Exception {
         System.out.println(11111111);
         List<Customer> all = new ArrayList<>(); //创建Customer对象列表用于保存从数据库中查询到的信息
         String sql = "UPDATE 用户 SET 昵称=?,登录密码=?,手机号=?,收货地址=?,头像=? WHERE 用户id='"+customerId+"'";  //定义要实现的SQL语句
@@ -104,8 +104,13 @@ public class CustomerDAOImpl implements ICustomerDAO {
         prestmt.setString(3,phoneNumber);
         prestmt.setString(4,address);
         prestmt.setString(5,picUrl);
-        this.prestmt.execute();  //执行sql语句，将结果赋给ResultSet对象rs
-        return searchCustomer(customerId,password);
+        boolean rs = this.prestmt.execute();  //执行sql语句，将结果赋给ResultSet对象rs
+        if(!rs){
+            return "Update Successful";
+        }
+        else {
+            return "Update Fail";
+        }
     }
 
     @Override

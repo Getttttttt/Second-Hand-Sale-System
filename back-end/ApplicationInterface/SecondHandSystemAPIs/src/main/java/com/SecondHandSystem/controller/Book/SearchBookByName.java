@@ -19,7 +19,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+/*
 @WebServlet("/books/searchByName")
 public class SearchBookByName extends HttpServlet {
     private void setAccessControlHeaders(HttpServletResponse response) {
@@ -131,3 +131,6 @@ public class SearchBookByName extends HttpServlet {
         response.setStatus(HttpServletResponse.SC_OK);
     }
 }
+
+
+ */

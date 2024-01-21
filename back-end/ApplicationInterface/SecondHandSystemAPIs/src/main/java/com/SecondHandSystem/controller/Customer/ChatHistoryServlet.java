@@ -24,7 +24,7 @@ import java.util.List;
 @WebServlet("/customer/chatHistory")
 public class ChatHistoryServlet extends HttpServlet {
     private void setAccessControlHeaders(HttpServletResponse response) {
-        response.setHeader("Access-Control-Allow-Origin", "http://localhost:9000"); // ÔÊÐíµÄÀ´Ô´£¬¸ù¾ÝÐèÒª¸ü¸Ä
+        response.setHeader("Access-Control-Allow-Origin", "http://localhost:9001"); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
         response.setHeader("Access-Control-Allow-Credentials", "true");
@@ -36,7 +36,7 @@ public class ChatHistoryServlet extends HttpServlet {
 
         setAccessControlHeaders(response);
 
-        // ´¦ÀíÇëÇóÊý¾Ý
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         StringBuilder requestBody = new StringBuilder();
         String line;
         try (BufferedReader reader = request.getReader()) {
@@ -45,7 +45,7 @@ public class ChatHistoryServlet extends HttpServlet {
             }
         }
 
-        // ´òÓ¡½ÓÊÕµ½µÄÊý¾Ý
+        // ï¿½ï¿½Ó¡ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         System.out.println("Received data: " + requestBody.toString());
 
         String jsonData = requestBody.toString();
@@ -58,7 +58,7 @@ public class ChatHistoryServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
 
-        //´«ÈëµÄcustomerIdºÍmerchantId
+        //ï¿½ï¿½ï¿½ï¿½ï¿½customerIdï¿½ï¿½merchantId
         String customerId = jsonObject.optString("customerId");
         String merchantId = jsonObject.optString("merchantId");
 
@@ -135,11 +135,11 @@ public class ChatHistoryServlet extends HttpServlet {
                 }
             }
             System.out.println("out the for block");
-            // ½«JSONÊý×é×ª»»Îª×Ö·û´®
+            // ï¿½ï¿½JSONï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½Îªï¿½Ö·ï¿½ï¿½ï¿½
             String jsonString = jsonArray.toString();
             System.out.println(jsonString);
 
-            // ÉèÖÃÏìÓ¦ÀàÐÍºÍ×´Ì¬
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½Íºï¿½×´Ì¬
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.setStatus(HttpServletResponse.SC_OK);
@@ -157,7 +157,7 @@ public class ChatHistoryServlet extends HttpServlet {
 
         setAccessControlHeaders(response);
 
-        // ÉèÖÃÏìÓ¦ÀàÐÍºÍ×´Ì¬
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½Íºï¿½×´Ì¬
         response.setContentType("text/plain");
         response.setCharacterEncoding("UTF-8");
         response.setStatus(HttpServletResponse.SC_OK);

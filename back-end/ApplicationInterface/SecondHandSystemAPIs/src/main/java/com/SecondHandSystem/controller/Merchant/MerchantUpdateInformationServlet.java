@@ -1,6 +1,7 @@
-package com.SecondHandSystem.controller.Customer;
+package com.SecondHandSystem.controller.Merchant;
 
-import com.SecondHandSystem.dao.ICommunicationDAO;
+import com.SecondHandSystem.dao.ICustomerDAO;
+import com.SecondHandSystem.dao.IMerchantDAO;
 import com.SecondHandSystem.factory.DAOFactory;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,19 +13,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Date;
 
-@WebServlet("/customer/sendMessage")
-public class SendMessageServlet extends HttpServlet {
+@WebServlet("/merchant/updateInformation")
+public class MerchantUpdateInformationServlet extends HttpServlet {
     private void setAccessControlHeaders(HttpServletResponse response) {
         response.setHeader("Access-Control-Allow-Origin", "http://localhost:9001"); // 允许的来源，根据需要更改
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
         response.setHeader("Access-Control-Allow-Credentials", "true");
     }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         setAccessControlHeaders(response);
 
         // 处理请求数据
@@ -49,33 +51,40 @@ public class SendMessageServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
 
-        //传入的message、customerId、merchantId、fromWhom
-        String customerId = jsonObject.optString("customerId");
+        // 传入的merchantId,nickname,password,level,number,time,image
         String merchantId = jsonObject.optString("merchantId");
-        String message = jsonObject.optString("message");
-        String fromWho = jsonObject.optString("fromWho");
-        Date time = new Date();
+        String nickname = jsonObject.optString("nickname");
+        String password = jsonObject.optString("password");
+        String level = jsonObject.optString("level");
+        int number = Integer.parseInt(jsonObject.optString("number"));
+        int time = Integer.parseInt(jsonObject.optString("time"));
+        String image = jsonObject.optString("image");
+        System.out.println(merchantId);
 
-        String result = null;
-        try {
-            System.out.println(customerId);
-            ICommunicationDAO communicationDAO = DAOFactory.getICommunicationDAOInstance();
-            result = communicationDAO.addCommunication(merchantId,customerId,time,message,fromWho);
-        } catch (Exception e){
+        String rs = null;
+
+        try{
+            IMerchantDAO merchantDAO = DAOFactory.getIMerchantDAOInstance();
+            rs = merchantDAO.updateMerchant(merchantId,nickname,password,level,number,time,image);
+            System.out.println(rs);
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        try {
+
+        try{
             JSONObject json = new JSONObject();
-            json.put("result",result);
+            json.put("result",rs);
+            // 将JSON对象转换为字符串
             String jsonString = json.toString();
+            System.out.println(jsonString);
+
             // 设置响应类型和状态
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().write(jsonString);
 
-        } catch (JSONException e){
-            e.printStackTrace();
+        } catch(JSONException e) {
             throw new RuntimeException(e);
         }
     }

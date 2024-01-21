@@ -21,7 +21,7 @@ import java.util.List;
 @WebServlet("/merchant/lastMessage")
 public class MerchantLastMessageServlet extends HttpServlet {
     private void setAccessControlHeaders(HttpServletResponse response) {
-        response.setHeader("Access-Control-Allow-Origin", "http://localhost:9000"); // 允许的来源，根据需要更改
+        response.setHeader("Access-Control-Allow-Origin", "http://localhost:9001"); // 允许的来源，根据需要更改
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
         response.setHeader("Access-Control-Allow-Credentials", "true");
@@ -72,6 +72,8 @@ public class MerchantLastMessageServlet extends HttpServlet {
             C = customerDAO.searchByIdCustomer(customerId);
             lastMessage = last[0];
             time = last[1];
+            System.out.println(lastMessage);
+            System.out.println(time);
             for(Customer c: C){
                 imageC = c.getPicUrl();
                 nicknameC = c.getNickname();
@@ -83,7 +85,7 @@ public class MerchantLastMessageServlet extends HttpServlet {
         try{
             JSONObject json = new JSONObject();
             JSONArray jsonArray = new JSONArray();
-            json.put("lastMessage",lastMessage);
+            json.put("lastMessage",lastMessage.trim());
             json.put("time",time.substring(0,19));
             json.put("imageC",imageC);
             json.put("nicknameC",nicknameC);

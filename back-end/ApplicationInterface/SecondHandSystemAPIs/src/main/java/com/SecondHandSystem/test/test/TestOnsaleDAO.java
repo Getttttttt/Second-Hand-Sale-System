@@ -12,9 +12,10 @@ public class TestOnsaleDAO {
 
         System.out.println("start test insert...");
         try{
-            String[][] bookOnsale = new String[300][5];
+            String rs = null;
             merchantDAOProxy = DAOFactory.getIMerchantDAOInstance();
-            bookOnsale = merchantDAOProxy.insertBookOnsale("21377223", "123", 20, new Date(), "95新");
+            rs = merchantDAOProxy.insertBookOnsale("21377223", "123", 20, new Date(), "95新");
+            String[][] bookOnsale = new String[300][5];
             for(String[] book:bookOnsale){
                 if(book[0]!=null){
                     System.out.println("book:"+book[0]);
@@ -35,6 +36,7 @@ public class TestOnsaleDAO {
             String[][] bookOnsale = new String[300][5];
             merchantDAOProxy = DAOFactory.getIMerchantDAOInstance();
             bookOnsale = merchantDAOProxy.searchBookOnsale("21377223");
+            bookOnsale = merchantDAOProxy.searchBookOnsale("21377223");
             for(String[] book:bookOnsale){
                 if(book[0]!=null){
                     System.out.println("book:"+book[0]);
@@ -53,8 +55,10 @@ public class TestOnsaleDAO {
         System.out.println("start test update...");
         try{
             String[][] bookOnsale = new String[300][5];
+            String update = null;
             merchantDAOProxy = DAOFactory.getIMerchantDAOInstance();
-            bookOnsale = merchantDAOProxy.updateBookOnsale("21377223","123",100,new Date(),"全新");
+            update = merchantDAOProxy.updateBookOnsale("21377223","123",100,new Date(),"全新");
+            bookOnsale = merchantDAOProxy.searchBookOnsale("21377223");
             for(String[] book:bookOnsale){
                 if(book[0]!=null){
                     System.out.println("book:"+book[0]);
@@ -70,15 +74,17 @@ public class TestOnsaleDAO {
             System.out.println("update error");
         }
 
+
+
         System.out.println("start test delete...");
         try{
-            String[][] bookOnsale = new String[300][5];
+            String bookOnsale = null;
             merchantDAOProxy = DAOFactory.getIMerchantDAOInstance();
             bookOnsale = merchantDAOProxy.deleteBookOnsale("21377223","123");
-            System.out.println("delete success");
+            System.out.println(bookOnsale);
         } catch (Exception ex) {
             ex.printStackTrace();
-            System.out.println("delete error");
+            System.out.println("Fail!");
         }
     }
 }

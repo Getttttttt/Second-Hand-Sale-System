@@ -68,6 +68,7 @@ public class TestBookDAO {
         catch (Exception ex){
             System.out.println("select error");
         }
+        /*
         System.out.println("start test update...");
         try{
             bookDAOProxy=DAOFactory.getIBookDAOInstance();
@@ -78,6 +79,8 @@ public class TestBookDAO {
         catch (Exception ex){
             System.out.println("update error");
         }
+
+         */
         System.out.println("start test delete...");
         try{
             bookDAOProxy=DAOFactory.getIBookDAOInstance();

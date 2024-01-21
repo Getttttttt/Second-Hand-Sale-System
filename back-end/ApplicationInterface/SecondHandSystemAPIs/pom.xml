@@ -38,6 +38,11 @@
       <artifactId>android-json</artifactId>
       <version>0.0.20131108.vaadin1</version>
     </dependency>
+      <dependency>
+          <groupId>org.apache.tomcat.embed</groupId>
+          <artifactId>tomcat-embed-core</artifactId>
+          <version>9.0.34</version>
+      </dependency>
   </dependencies>
   <build>
     <finalName>SecondHandSystemAPIs</finalName>
