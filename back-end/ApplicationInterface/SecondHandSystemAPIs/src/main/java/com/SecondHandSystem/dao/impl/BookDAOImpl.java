@@ -64,8 +64,8 @@ public class BookDAOImpl implements IBookDAO {
     }
 
     public ArrayList<Book> searchSpecificLabelBooks(String searchLabel) throws Exception{
-        String sqlName="select * from 图书分类 where 商品名称 like '%"+searchLabel+"%';";
-        rs= stat.executeQuery(sqlName);
+        String sqlLabel="select * from 图书分类 where 分类类型 = '"+searchLabel+"';";
+        rs= stat.executeQuery(sqlLabel);
         ArrayList<Book> books = new ArrayList<>();
         while(rs.next()){
             String bookID = rs.getString("商品ID");

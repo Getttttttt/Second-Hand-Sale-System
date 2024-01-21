@@ -50,19 +50,35 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-const fetchData = async (searchContent,detailBooks,setDetailBooks) => {
+export default function SearchOutcomeDisplay() {
+  const [detailBooks, setDetailBooks] = React.useState([]);
 
+  const [searchContent,setSearchContent] = React.useState("");
+  const [tabPosition, setTabPosition] = React.useState('left');
+  const changeTabPosition = (e) => {
+    setTabPosition(e.target.value);
+  };
+  
+  React.useEffect(() => {
+    fetchData(searchContent,detailBooks,setDetailBooks);
+  }, []);
+
+  const handleTabClick = async (key) => {
+    console.log('点击的标签:', tabNames[parseInt(key)-1]);
+  
+    const searchLabel = tabNames[parseInt(key)-1];
+    
     const jsonData = JSON.stringify({
-      searchContent: searchContent,
+      searchLabel: searchLabel,
     });
-    console.log(1);
+    console.log(jsonData);
     try {
       let myHeaders = new Headers({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json; charset=UTF-8'
       });
       console.log(3)
   
-      const response = await fetch(`http://localhost:8080/SecondHandSystemAPIs_war_exploded/books/searchByName`, {
+      const response = await fetch(`http://localhost:8080/SecondHandSystemAPIs_war_exploded/books/searchByLabel`, {
         method: 'POST',
         headers: myHeaders,
         body: jsonData,
@@ -82,35 +98,18 @@ const fetchData = async (searchContent,detailBooks,setDetailBooks) => {
         bookDiscount: item.bookDiscount,
         bookSurfacePic: item.bookSurfacePic.trim(),
       }));
-
+  
       detailBooks.forEach(book => {
         book.bookName = truncateString(book.bookName, 16);
       });
-
+  
       console.log("back to js")
       console.log(detailBooks);
       setDetailBooks(detailBooks); // 将获取的数据存储在detailData中
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
-    }
+    }  
   };
-
-const handleTabClick = (key) => {
-  console.log('点击的标签:', key);
-};
-
-export default function SearchOutcomeDisplay() {
-  const [detailBooks, setDetailBooks] = React.useState([]);
-
-  const [searchContent,setSearchContent] = React.useState("");
-  const [tabPosition, setTabPosition] = React.useState('left');
-  const changeTabPosition = (e) => {
-    setTabPosition(e.target.value);
-  };
-  
-  React.useEffect(() => {
-    fetchData(searchContent,detailBooks,setDetailBooks);
-  }, []);
   
   return (
   <Home>
@@ -257,6 +256,7 @@ const SingleBook = ({book}) => {
   </Card>)
 }
 
+
 function truncateString(str, maxLength) {
   // 检查字符串长度是否大于最大长度
   if (str.length > maxLength) {
@@ -267,3 +267,49 @@ function truncateString(str, maxLength) {
     return str;
   }
 }
+
+
+const fetchData = async (searchContent,detailBooks,setDetailBooks) => {
+
+  const jsonData = JSON.stringify({
+    searchContent: searchContent,
+  });
+  console.log(1);
+  try {
+    let myHeaders = new Headers({
+      'Content-Type': 'application/json'
+    });
+    console.log(3)
+
+    const response = await fetch(`http://localhost:8080/SecondHandSystemAPIs_war_exploded/books/searchByName`, {
+      method: 'POST',
+      headers: myHeaders,
+      body: jsonData,
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    //处理返回的数据
+
+    console.log(1);
+
+    const Books = await response.json();
+    console.log(Books);
+    const detailBooks = Books.map(item => ({
+      bookName : item.bookName.trim(),
+      bookPrice: item.bookPrice,
+      bookDiscount: item.bookDiscount,
+      bookSurfacePic: item.bookSurfacePic.trim(),
+    }));
+
+    detailBooks.forEach(book => {
+      book.bookName = truncateString(book.bookName, 16);
+    });
+
+    console.log("back to js")
+    console.log(detailBooks);
+    setDetailBooks(detailBooks); // 将获取的数据存储在detailData中
+  } catch (error) {
+    console.error('There was a problem with the fetch operation:', error);
+  }
+};

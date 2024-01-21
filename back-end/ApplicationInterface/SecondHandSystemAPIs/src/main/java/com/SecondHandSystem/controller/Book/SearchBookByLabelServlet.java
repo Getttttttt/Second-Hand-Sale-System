@@ -30,6 +30,7 @@ public class SearchBookByLabelServlet extends HttpServlet {
             throws ServletException, IOException {
 
         setAccessControlHeaders(response);
+        response.setCharacterEncoding("UTF-8");
 
         // 处理请求数据
         StringBuilder requestBody = new StringBuilder();
